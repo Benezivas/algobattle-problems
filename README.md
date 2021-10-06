@@ -7,4 +7,4 @@ Clone the [algobattle](https://github.com/Benezivas/algobattle) repository:
 git clone https://github.com/Benezivas/algobattle.git
 ```
 Follow the installation and usage instructions in the `README`.
-Use the problem folders as input paths for the `battle` script.
+Use the specific problem folders as input paths for the `battle` script.
