@@ -1,5 +1,4 @@
-""" Tests for the biclique problem.
-"""
+"""Tests for the DomSet problem."""
 import unittest
 import logging
 
@@ -9,6 +8,8 @@ logging.disable(logging.CRITICAL)
 
 
 class Parsertests(unittest.TestCase):
+    """Tests for the DomSet parser."""
+
     def setUp(self) -> None:
         self.parser = parser.DomsetParser()
 
@@ -87,6 +88,8 @@ class Parsertests(unittest.TestCase):
 
 
 class Verifiertests(unittest.TestCase):
+    """Tests for the DomSet verifier."""
+
     def setUp(self) -> None:
         self.verifier = verifier.DomsetVerifier()
 
@@ -135,7 +138,7 @@ class Verifiertests(unittest.TestCase):
         solution_sufficient = [('s', '1'), ('s', '4')]
         solution_too_much = [('s', '1'), ('s', '4'), ('s', '2')]
         self.assertEqual(self.verifier.calculate_approximation_ratio(instance, 10,
-                                                                     solution_sufficient, solution_too_much), 3/2)
+                                                                     solution_sufficient, solution_too_much), 3 / 2)
         self.assertEqual(self.verifier.calculate_approximation_ratio(instance, 10, solution_sufficient,
                                                                      solution_sufficient), 1.0)
 

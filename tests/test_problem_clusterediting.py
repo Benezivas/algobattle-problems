@@ -1,5 +1,4 @@
-""" Tests for the biclique problem.
-"""
+"""Tests for the clusterediting problem."""
 import unittest
 import logging
 
@@ -9,6 +8,8 @@ logging.disable(logging.CRITICAL)
 
 
 class Parsertests(unittest.TestCase):
+    """Tests for the clusterediting parser."""
+
     def setUp(self) -> None:
         self.parser = parser.ClustereditingParser()
 
@@ -86,6 +87,8 @@ class Parsertests(unittest.TestCase):
 
 
 class Verifiertests(unittest.TestCase):
+    """Tests for the clusterediting verifier."""
+
     def setUp(self) -> None:
         self.verifier = verifier.ClustereditingVerifier()
 

@@ -1,5 +1,4 @@
-""" Tests for the biclique problem.
-"""
+"""Tests for the hikers problem."""
 import unittest
 import logging
 
@@ -9,6 +8,8 @@ logging.disable(logging.CRITICAL)
 
 
 class Parsertests(unittest.TestCase):
+    """Tests for the hikers parser."""
+
     def setUp(self) -> None:
         self.parser = parser.HikersParser()
 
@@ -90,12 +91,14 @@ class Parsertests(unittest.TestCase):
 
     def test_decode(self):
         self.assertEqual(self.parser.decode(
-                        """h 1 1 3\nh 2 10 12\nh 3 1 1\nh 4 2 5\nh 5 3 3\ns 3 1""".encode()),
-                        [('h', '1', '1', '3'), ('h', '2', '10', '12'), ('h', '3', '1', '1'),
+                         """h 1 1 3\nh 2 10 12\nh 3 1 1\nh 4 2 5\nh 5 3 3\ns 3 1""".encode()),
+                         [('h', '1', '1', '3'), ('h', '2', '10', '12'), ('h', '3', '1', '1'),
                          ('h', '4', '2', '5'), ('h', '5', '3', '3'), ('s', '3', '1')])
 
 
 class Verifiertests(unittest.TestCase):
+    """Tests for the hikers verifier."""
+
     def setUp(self) -> None:
         self.verifier = verifier.HikersVerifier()
 
@@ -132,7 +135,7 @@ class Verifiertests(unittest.TestCase):
         solution_sufficient = [('s', '3', '1'), ('s', '1', '2'), ('s', '4', '2'), ('s', '5', '2'), ('s', '6', '3')]
         solution_too_little = [('s', '3', '1'), ('s', '1', '2'), ('s', '4', '2'), ('s', '5', '2')]
         self.assertEqual(self.verifier.calculate_approximation_ratio(instance,
-                                                                     10, solution_sufficient, solution_too_little), 5/4)
+                                                                     10, solution_sufficient, solution_too_little), 5 / 4)
         self.assertEqual(self.verifier.calculate_approximation_ratio(instance,
                                                                      10, solution_sufficient, solution_sufficient), 1.0)
 

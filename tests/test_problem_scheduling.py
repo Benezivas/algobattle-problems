@@ -1,5 +1,4 @@
-""" Tests for the biclique problem.
-"""
+"""Tests for the scheduling problem."""
 import unittest
 import logging
 
@@ -9,6 +8,8 @@ logging.disable(logging.CRITICAL)
 
 
 class Parsertests(unittest.TestCase):
+    """Tests for the scheduling parser."""
+
     def setUp(self) -> None:
         self.parser = parser.SchedulingParser()
 
@@ -87,17 +88,17 @@ class Parsertests(unittest.TestCase):
         self.assertEqual(self.parser.parse_solution([], instance_size=2), [])
 
     def test_encode(self):
-        self.assertEqual(self.parser.encode(
-                    [('j', '1', '30'), ('j', '2', '120'), ('a', '4', '3'), ('a', '5', '2')]),
-                    """j 1 30\nj 2 120\na 4 3\na 5 2""".encode())
+        self.assertEqual(self.parser.encode([('j', '1', '30'), ('j', '2', '120'), ('a', '4', '3'), ('a', '5', '2')]),
+                         """j 1 30\nj 2 120\na 4 3\na 5 2""".encode())
 
     def test_decode(self):
-        self.assertEqual(self.parser.decode(
-                    """j 1 30\nj 2 120\na 4 3\na 5 2\n""".encode()),
-                    [('j', '1', '30'), ('j', '2', '120'), ('a', '4', '3'), ('a', '5', '2')])
+        self.assertEqual(self.parser.decode("""j 1 30\nj 2 120\na 4 3\na 5 2\n""".encode()),
+                         [('j', '1', '30'), ('j', '2', '120'), ('a', '4', '3'), ('a', '5', '2')])
 
 
 class Verifiertests(unittest.TestCase):
+    """Tests for the scheduling verifier."""
+
     def setUp(self) -> None:
         self.verifier = verifier.SchedulingVerifier()
 

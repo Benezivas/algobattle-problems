@@ -1,5 +1,4 @@
-""" Tests for the biclique problem.
-"""
+"""Tests for the biclique problem."""
 import unittest
 import logging
 
@@ -9,6 +8,8 @@ logging.disable(logging.CRITICAL)
 
 
 class Parsertests(unittest.TestCase):
+    """Tests for the Biclique parser."""
+
     def setUp(self) -> None:
         self.parser = parser.BicliqueParser()
 
@@ -102,6 +103,8 @@ class Parsertests(unittest.TestCase):
 
 
 class Verifiertests(unittest.TestCase):
+    """Tests for the Biclique verifier."""
+
     def setUp(self) -> None:
         self.verifier = verifier.BicliqueVerifier()
 
@@ -132,10 +135,10 @@ class Verifiertests(unittest.TestCase):
 
     def test_calculate_approximation_ratio(self):
         instance = [('e', '1', '2'), ('e', '1', '3')]
-        solution_optimal = [('s', 'set1', '1'), ('s', 'set2', '2'), ('s', 'set2', '3')]
-        solution_suboptimal = [('s', 'set1', '1'), ('s', 'set2', '2')]
-        self.assertEqual(self.verifier.calculate_approximation_ratio(instance, 2, solution_optimal, solution_suboptimal), 3/2)
-        self.assertEqual(self.verifier.calculate_approximation_ratio(instance, 2, solution_optimal, solution_optimal), 1.0)
+        sol_optimal = [('s', 'set1', '1'), ('s', 'set2', '2'), ('s', 'set2', '3')]
+        sol_suboptimal = [('s', 'set1', '1'), ('s', 'set2', '2')]
+        self.assertEqual(self.verifier.calculate_approximation_ratio(instance, 2, sol_optimal, sol_suboptimal), 3 / 2)
+        self.assertEqual(self.verifier.calculate_approximation_ratio(instance, 2, sol_optimal, sol_optimal), 1.0)
 
 
 if __name__ == '__main__':

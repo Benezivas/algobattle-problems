@@ -1,5 +1,4 @@
-""" Tests for the biclique problem.
-"""
+"""Tests for the OSCM3 problem."""
 import unittest
 import logging
 
@@ -9,6 +8,8 @@ logging.disable(logging.CRITICAL)
 
 
 class Parsertests(unittest.TestCase):
+    """Tests for the OSCM3 Parser."""
+
     def setUp(self) -> None:
         self.parser = parser.OSCM3Parser()
 
@@ -98,6 +99,8 @@ class Parsertests(unittest.TestCase):
 
 
 class Verifiertests(unittest.TestCase):
+    """Tests for the OSCM3 verifier."""
+
     def setUp(self) -> None:
         self.verifier = verifier.OSCM3Verifier()
 
@@ -121,7 +124,7 @@ class Verifiertests(unittest.TestCase):
         solution_sufficient = ('s', '2', '1', '0')
         solution_too_little = ('s', '0', '1', '2')
         self.assertEqual(self.verifier.calculate_approximation_ratio(instance,
-                                                                     3, solution_sufficient, solution_too_little), 9/2)
+                                                                     3, solution_sufficient, solution_too_little), 9 / 2)
         self.assertEqual(self.verifier.calculate_approximation_ratio(instance,
                                                                      3, solution_sufficient, solution_sufficient), 1.0)
 

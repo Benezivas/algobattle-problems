@@ -1,5 +1,4 @@
-""" Tests for the biclique problem.
-"""
+"""Tests for the Pairsum problem."""
 import unittest
 import logging
 
@@ -9,6 +8,8 @@ logging.disable(logging.CRITICAL)
 
 
 class Parsertests(unittest.TestCase):
+    """Tests for the Pairsum Parser."""
+
     def setUp(self) -> None:
         self.parser = parser.PairsumParser()
 
@@ -61,6 +62,8 @@ class Parsertests(unittest.TestCase):
 
 
 class Verifiertests(unittest.TestCase):
+    """Tests for the Pairsum Verifier."""
+
     def setUp(self) -> None:
         self.verifier = verifier.PairsumVerifier()
 

@@ -1,5 +1,4 @@
-""" Tests for the biclique problem.
-"""
+"""Tests for the c4subgraphiso problem."""
 import unittest
 import logging
 
@@ -9,6 +8,8 @@ logging.disable(logging.CRITICAL)
 
 
 class Parsertests(unittest.TestCase):
+    """Tests for the c4subgraphiso parser."""
+
     def setUp(self) -> None:
         self.parser = parser.C4subgraphisoParser()
 
@@ -88,6 +89,8 @@ class Parsertests(unittest.TestCase):
 
 
 class Verifiertests(unittest.TestCase):
+    """Tests for the c4subgraphiso verifier."""
+
     def setUp(self) -> None:
         self.verifier = verifier.C4subgraphisoVerifier()
 
