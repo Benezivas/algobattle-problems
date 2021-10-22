@@ -39,7 +39,11 @@ class PairsumParser(Parser):
         for i in range(len(raw_instance)):
             raw_instance[i] = int(raw_instance[i])
 
-        return raw_instance[:min(len(raw_instance), instance_size)]
+        parsed_instance = raw_instance[:min(len(raw_instance), instance_size)]
+        if len(parsed_instance) < 4:
+            return []
+
+        return parsed_instance
 
     def parse_solution(self, raw_solution, instance_size):
         removable_entries = []
