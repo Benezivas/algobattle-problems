@@ -1,10 +1,10 @@
-fin = open("input")
-fout = open("output", "w")
-n = int(fin.readline())
-
-for i in range(n):
-    fout.write("n {}\n".format(i))
-fout.write("s ")
-for i in range(n):
-    fout.write("{} ".format(i))
-fout.close()
+"""Simple dummy generator for the OSCM3 problem, outputting a trivial instance."""
+n = 0
+with open("input", "r") as input:
+    n = int(input.readline())
+with open("output", "w") as output:
+    for i in range(n):
+        output.write("n {}\n".format(i))
+    output.write("s ")
+    for i in range(n):
+        output.write("{} ".format(i))

@@ -1,6 +1,3 @@
-fin = open("input")
-line = fin.readline()
-
-fout = open("output", "w")
-fout.write("s 1 2 3")
-fout.close()
+"""Simple dummy solver for the PathPacking problem, outputting a static solution."""
+with open("output", "w") as output:
+    output.write("s 1 2 3")

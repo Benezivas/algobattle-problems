@@ -1,3 +1,4 @@
+"""The PathPacking problem class."""
 import logging
 
 from algobattle.problem import Problem

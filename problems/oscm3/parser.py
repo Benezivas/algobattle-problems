@@ -22,6 +22,21 @@ class OSCM3Parser(Parser):
         return raw_instance, raw_solution
 
     def is_instance_line_clean(self, line, instance_size):
+        """Checks whether a given line of the instance is of the required form.
+
+        Parameters
+        ----------
+        line : tuple
+            The line to be checked. Expected to be of the form ('n', 'i', 'j', 'k', 'l')
+            where the last three entries are optional. Consult the README for more information.
+        instance_size : int
+            The size of the instance.
+
+        Returns
+        -------
+        bool
+            True if the line is well-formatted, False otherwise.
+        """
         clean = True
         included_nodes = set()
         for entry in line[2:]:

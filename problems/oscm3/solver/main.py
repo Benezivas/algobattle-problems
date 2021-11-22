@@ -1,11 +1,11 @@
-with open("input") as fin:
-    lines = []
-    for line in fin:
+"""Simple dummy solver for the OSCM3 problem, outputting a trivial solution."""
+lines = []
+with open("input", "r") as input:
+    for line in input:
         lines.append(line)
 n = len(lines)
 
-fout = open("output", "w")
-fout.write("s ")
-for i in range(n):
-    fout.write("{} ".format(i))
-fout.close()
+with open("output", "w") as output:
+    output.write("s ")
+    for i in range(n):
+        output.write("{} ".format(i))
