@@ -21,60 +21,58 @@ class Parsertests(unittest.TestCase):
         # Empty inputs should be handled
         self.assertEqual(self.parser.split_into_instance_and_solution([]), ([], []))
 
-    def test_parse_instance(self):
-        # Lines with too many entries should be removed
+    def test_parse_instance_too_many_entries(self):
         raw_instance = [('e', '1', '2', '1'), ('e', '3', '2')]
         self.assertEqual(self.parser.parse_instance(raw_instance, instance_size=3), [('e', '3', '2')])
 
-        # Lines with too few entries should be removed
+    def test_parse_instance_too_few_entries(self):
         raw_instance = [('e', '1'), ('e')]
         self.assertEqual(self.parser.parse_instance(raw_instance, instance_size=2), [])
 
-        # Lines that use labels higher than instance_size should be removed
+    def test_parse_instance_too_large_labels(self):
         raw_instance = [('e', '3', '2')]
         self.assertEqual(self.parser.parse_instance(raw_instance, instance_size=2), [])
 
-        # Duplicates should be removed
+    def test_parse_instance_duplicates(self):
         raw_instance = [('e', '3', '2'), ('e', '3', '2')]
         self.assertEqual(self.parser.parse_instance(raw_instance, instance_size=3), [('e', '3', '2')])
 
-        # Lines with letters should be removed
+    def test_parse_instance_letter_labels(self):
         raw_instance = [('e', '3', 'a'), ('e', 'b', '2')]
         self.assertEqual(self.parser.parse_instance(raw_instance, instance_size=3), [])
 
-        # 0 label lines should be removed
+    def test_parse_instance_zero_label(self):
         raw_instance = [('e', '1', '0'), ('e', '0', '1')]
         self.assertEqual(self.parser.parse_instance(raw_instance, instance_size=3), [])
 
-        # Selfloop lines should be removed
+    def test_parse_instance_selfloop(self):
         raw_instance = [('e', '1', '1')]
         self.assertEqual(self.parser.parse_instance(raw_instance, instance_size=3), [])
 
-        # Empty inputs should be handled
+    def test_parse_instance_empty(self):
         self.assertEqual(self.parser.parse_instance([], instance_size=3), [])
 
-    def test_parse_solution(self):
-        # Lines with too many entries should be removed
+    def test_parse_solution_too_many_entries(self):
         raw_solution = [('s', '3', '2')]
         self.assertEqual(self.parser.parse_solution(raw_solution, instance_size=10), [])
 
-        # Lines with too few entries should be removed
+    def test_parse_solution_too_few_entries(self):
         raw_solution = [('s')]
         self.assertEqual(self.parser.parse_solution(raw_solution, instance_size=10), [])
 
-        # Lines that use labels higher than instance_size should be removed
+    def test_parse_solution_too_large_labels(self):
         raw_solution = [('s', '10')]
         self.assertEqual(self.parser.parse_solution(raw_solution, instance_size=9), [])
 
-        # Lines with letters should be removed
+    def test_parse_solution_letter_labels(self):
         raw_solution = [('s', 'foo')]
         self.assertEqual(self.parser.parse_solution(raw_solution, instance_size=10), [])
 
-        # 0 label lines should be removed
+    def test_parse_solution_zero_labels(self):
         raw_solution = [('s', '0')]
         self.assertEqual(self.parser.parse_solution(raw_solution, instance_size=10), [])
 
-        # Empty inputs should be handled
+    def test_parse_solution_empty(self):
         self.assertEqual(self.parser.parse_solution([], instance_size=2), [])
 
     def test_encode(self):
@@ -95,36 +93,35 @@ class Verifiertests(unittest.TestCase):
 
     def test_verify_semantics_of_instance(self):
         self.assertTrue(self.verifier.verify_semantics_of_instance([('e', '1', '2')], instance_size=10))
+
+    def test_verify_semantics_of_instance_empty(self):
         self.assertFalse(self.verifier.verify_semantics_of_instance([], instance_size=10))
 
-    def test_verify_semantics_of_solution(self):
+    def test_verify_semantics_of_solution_empty(self):
         self.assertFalse(self.verifier.verify_semantics_of_solution([], 10, solution_type=False))
+
+    def test_verify_semantics_of_solution(self):
         self.assertTrue(self.verifier.verify_semantics_of_solution([('s', '1')], 10, solution_type=False))
 
-    def test_verify_solution_against_instance(self):
-        # Valid solutions should be accepted
+    def test_verify_solution_against_instance_valid_single(self):
         instance = [('e', '1', '2'), ('e', '3', '2')]
         solution = [('s', '2')]
         self.assertTrue(self.verifier.verify_solution_against_instance(instance,
                                                                        solution, instance_size=10, solution_type=False))
 
+    def test_verify_solution_against_instance_double(self):
         instance = [('e', '1', '2'), ('e', '3', '2'), ('e', '3', '4')]
         solution = [('s', '2'), ('s', '4')]
         self.assertTrue(self.verifier.verify_solution_against_instance(instance,
                                                                        solution, instance_size=10, solution_type=False))
 
-        # Invalid solutions should not be accepted
+    def test_verify_solution_against_instance_invalid(self):
         instance = [('e', '1', '2'), ('e', '3', '2')]
         solution = [('s', '1')]
         self.assertFalse(self.verifier.verify_solution_against_instance(instance,
                                                                         solution, instance_size=10, solution_type=False))
 
-        instance = [('e', '1', '2'), ('e', '3', '2')]
-        solution = [('s', '3')]
-        self.assertFalse(self.verifier.verify_solution_against_instance(instance,
-                                                                        solution, instance_size=10, solution_type=False))
-
-        # Correct Solutions of equal size should be accepted
+    def test_verify_solution_against_instance_equal_size(self):
         instance = [('e', '1', '2'), ('e', '3', '2'), ('e', '3', '4'), ('e', '4', '1')]
         solution1 = [('s', '1'), ('s', '3')]
         solution2 = [('s', '2'), ('s', '4')]
