@@ -1,8 +1,9 @@
-fin = open("input")
-fout = open("output", "w")
-n = int(fin.readline())
+"""Simple dummy generator for the Pairsum problem, outputting a trivial instance."""
+n = 0
+with open("input", "r") as input:
+    n = int(input.readline())
 
-fout.write(" ".join("1" for i in range(n)))
-fout.write("\n")
-fout.write("0 1 2 3")
-fout.close()
+with open("output", "w") as output:
+    output.write(" ".join("1" for i in range(n)))
+    output.write("\n")
+    output.write("0 1 2 3")

@@ -1,3 +1,4 @@
+"""The C4subgraphiso problem class."""
 import logging
 
 from algobattle.problem import Problem

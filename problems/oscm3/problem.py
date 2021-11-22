@@ -1,3 +1,4 @@
+"""The OSCM3 problem class."""
 import logging
 
 from algobattle.problem import Problem

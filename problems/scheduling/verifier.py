@@ -50,6 +50,20 @@ class SchedulingVerifier(Verifier):
         return float(solver_makespan) / float(generator_makespan)
 
     def calculate_makespan(self, jobs, assignments):
+        """Calculate the makespan of a given assignment of jobs to machines.
+
+        Parameters
+        ----------
+        jobs : list
+            List of jobs, formatted as tuples. E.g. Job 2 with a runtime of 5 is formatted as ('j', '2', '5').
+        assignments : int
+            List of assignments, formatted as tuples. E.g. assigning job 1 to machine 4 is formatted as ('a', '1', '4')
+
+        Returns
+        -------
+        int
+            Returns what is syntactically valid of the instance.
+        """
         makespans = [0 for i in range(5)]
 
         for assignment in assignments:

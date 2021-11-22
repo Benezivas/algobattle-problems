@@ -1,3 +1,4 @@
+"""The Hikers problem class."""
 import logging
 
 from algobattle.problem import Problem

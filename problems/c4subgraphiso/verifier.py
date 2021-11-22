@@ -24,6 +24,20 @@ class C4subgraphisoVerifier(Verifier):
         return True
 
     def square_in_instance(self, square, instance):
+        """Check if a given square is part of the given instance.
+
+        Parameters
+        ----------
+        square : tuple
+            A tuple of the form (i,j,k,l) which are sequentially connected to form a square.
+        instance : list
+            A list of tuples of edges, each edge {i, j} is given as ('e', 'i', 'j').
+
+        Returns
+        -------
+        bool
+            True if the square is part of the instance, False otherwise.
+        """
         if (not (('e', square[0], square[1]) in instance or ('e', square[1], square[0]) in instance)
                 or not (('e', square[1], square[2]) in instance or ('e', square[2], square[1]) in instance)
                 or not (('e', square[2], square[3]) in instance or ('e', square[3], square[2]) in instance)
