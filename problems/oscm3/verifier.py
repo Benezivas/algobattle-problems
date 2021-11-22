@@ -22,6 +22,17 @@ class OSCM3Verifier(Verifier):
             self.edges = [[] for i in range(size)]
 
         def insert_node(self, name, slot, neighbors):
+            """Insert a node into a slot of the graph.
+
+            Parameters
+            ----------
+            name : str
+                Internal name of the node.
+            slot : int
+                The slot number into which the node is to be inserted into.
+            neighbors : list
+                The list of adjacent nodes to the given node.
+            """
             neighbors = sorted(neighbors)
             self.upper_nodes[slot] = str(name)
             i = 1
@@ -31,6 +42,13 @@ class OSCM3Verifier(Verifier):
                 self.edges[slot].append(neighbor)
 
         def calculate_number_crossings(self):
+            """Calculate and return the number of crossings currently in the graph.
+
+            Returns
+            -------
+            int
+                The number of crossings in the graph.
+            """
             crossings = 0
             for i in range(self.size):
                 if self.upper_nodes[i]:
@@ -43,6 +61,13 @@ class OSCM3Verifier(Verifier):
             return crossings
 
         def reorder_upper_nodes(self, permutation):
+            """Reorder the nodes currently placed in the slots according to a given permutation.
+
+            Parameters
+            ----------
+            permutation : tuple
+                A permutation as a tuple of ints, assumed to be encoded as strings, e.g. ('2', '3', '1').
+            """
             old_nodes = copy.deepcopy(self.upper_nodes)
             old_edges = copy.deepcopy(self.edges)
 
@@ -52,7 +77,7 @@ class OSCM3Verifier(Verifier):
 
     def verify_solution_against_instance(self, instance, solution, instance_size, solution_type):
         # For this problem, no further verification is needed: If the Syntax is
-        # correct, a solution string is automatically a valid solution
+        # correct, a solution string is automatically a valid solution.
 
         return True
 

@@ -1,3 +1,4 @@
+"""Simple dummy generator for the Pairsum problem, outputting a trivial instance."""
 n = 0
 with open("input", "r") as input:
     n = int(input.readline())

@@ -1,3 +1,4 @@
+"""Simple dummy solver for the OSCM3 problem, outputting a trivial solution."""
 lines = []
 with open("input", "r") as input:
     for line in input:

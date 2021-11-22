@@ -1,3 +1,4 @@
+"""Simple dummy generator for the OSCM3 problem, outputting a trivial instance."""
 n = 0
 with open("input", "r") as input:
     n = int(input.readline())
