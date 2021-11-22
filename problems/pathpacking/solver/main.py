@@ -1,6 +1,2 @@
-fin = open("input")
-line = fin.readline()
-
-fout = open("output", "w")
-fout.write("s 1 2 3")
-fout.close()
+with open("output", "w") as output:
+    output.write("s 1 2 3")

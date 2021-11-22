@@ -1,10 +1,6 @@
-fin = open("input")
-fout = open("output", "w")
-n = int(fin.readline())
-
-fout.write("s 1 2 3 4\n")
-fout.write("e 4 1\n")
-fout.write("e 1 2\n")
-fout.write("e 2 3\n")
-fout.write("e 3 4\n")
-fout.close()
+with open("output", "w") as output:
+    output.write("s 1 2 3 4\n")
+    output.write("e 4 1\n")
+    output.write("e 1 2\n")
+    output.write("e 2 3\n")
+    output.write("e 3 4\n")
