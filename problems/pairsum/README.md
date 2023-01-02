@@ -16,25 +16,92 @@ The Solver receives this list `L` and is supposed to output four indices in orde
 The generator should create a hard to solve instance, while the solver should be able to solve any kind of instance that is given in a quick way.
 
 # I/O
-The generator receives the number `n` via `stdin`. It outputs the instance `L` by writing the numbers of the list space-seperated to stdout. It then writes a newline(`\n`) to stdout, followed by the solution.
-The solution is also written out as space-seperated numbers.
+The schema defining the solution and instance looks like this:
+```json
+{
+    "title": "Pairsum",
+    "description": "The pairsum problem class.",
+    "type": "object",
+    "properties": {
+        "numbers": {
+            "title": "Numbers",
+            "minimum": 0,
+            "maximum": 9223372036854775807,
+            "minItems": 4,
+            "type": "array",
+            "items": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9223372036854775807
+            }
+        },
+        "solution": {
+            "title": "Solution",
+            "hidden": "generator",
+            "allOf": [
+                {
+                    "$ref": "#/definitions/Solution"
+                }
+            ]
+        }
+    },
+    "required": [
+        "numbers",
+        "solution"
+    ],
+    "definitions": {
+        "Solution": {
+            "title": "Solution",
+            "description": "A solution to a Pairsum problem",
+            "type": "object",
+            "properties": {
+                "indices": {
+                    "title": "Indices",
+                    "minimum": 0,
+                    "minItems": 4,
+                    "maxItems": 4,
+                    "type": "array",
+                    "items": {
+                        "type": "integer",
+                        "minimum": 0
+                    }
+                }
+            },
+            "required": [
+                "indices"
+            ]
+        }
+    }
+}
+```
 
+The generator receives the number `n` at `/input/size` and outputs the instance `L` at `/output/instance/instance.json`.
 A sample input and output for `n = 6` may look like this:  
 Input:
 ```
 6
 ```
 Output:
+```json
+{
+    "numbers": [0, 3, 1, 2, 5, 10],
+    "solution": {
+        "indices": [0, 1, 2, 3]
+    }
+}
 ```
-12 30 36 0 6 24\n 1 4 0 5
-```
-The solver receives the instance via `stdin` as a space-seperated list of nonnegative integers. It then writes out its solution to `stdout` as a list of space-seperated numbers.
-Applied the the example above, the input and output may look like this:  
+
+The solver receives the generated instance at `/input/instance/instance.json` and outputs the solution at `/output/solution/solution.json`.
+Applied to the the example above, the input and output may look like this:  
 Input: 
-```
-12 30 36 0 6 24
+```json
+{
+    "numbers": [0, 3, 1, 2, 5, 10]
+}
 ```
 Output:  
-```
-3 2 0 5
+```json
+{
+    "indices": [4, 0, 1, 3]
+}
 ```
