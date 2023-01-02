@@ -37,7 +37,7 @@ The schema defining the solution and instance looks like this:
         },
         "solution": {
             "title": "Solution",
-            "hidden": "generator",
+            "hidden": true,
             "allOf": [
                 {
                     "$ref": "#/definitions/Solution"
@@ -75,7 +75,7 @@ The schema defining the solution and instance looks like this:
 }
 ```
 
-The generator receives the number `n` at `/input/size` and outputs the instance `L` at `/output/instance/instance.json`.
+The generator receives the number `n` at `/input/size` and outputs the instance `L` to `/output/instance/instance.json`.
 A sample input and output for `n = 6` may look like this:  
 Input:
 ```
@@ -91,7 +91,7 @@ Output:
 }
 ```
 
-The solver receives the generated instance at `/input/instance/instance.json` and outputs the solution at `/output/solution/solution.json`.
+The solver receives the generated instance at `/input/instance/instance.json` and outputs the solution to `/output/solution/solution.json`.
 Applied to the the example above, the input and output may look like this:  
 Input: 
 ```json
