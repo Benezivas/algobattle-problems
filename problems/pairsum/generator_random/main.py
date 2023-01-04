@@ -15,7 +15,9 @@ randlist[sol[3]] = randlist[sol[0]] + randlist[sol[1]] - randlist[sol[2]]
 with open("/output/instance/instance.json", "w+") as output:
     json.dump({
         "numbers": randlist,
-        "solution": {
-            "indices": sol,
-        },
+    }, output)
+
+with open("/output/solution/solution.json", "w+") as output:
+    json.dump({
+        "indices": sol,
     }, output)
