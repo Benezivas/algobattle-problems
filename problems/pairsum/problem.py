@@ -3,24 +3,28 @@ import logging
 from typing import ClassVar
 from pydantic import Field
 
-from algobattle.problem import Optimization, OptimiztionSolution
+from algobattle.problem import ProblemModel, SolutionModel
 
 logger = logging.getLogger('algobattle.problems.pairsum')
 
 
-class Pairsum(Optimization):
-    """The pairsum problem."""
+class Pairsum(ProblemModel):
+    """The Biclique problem class."""
 
     name: ClassVar[str] = "Pairsum"
     min_size: ClassVar[int] = 4
+    with_solution: ClassVar[bool] = True
 
     numbers: list[int] = Field(min_items=min_size, ge=0, le=2**63-1)
 
     def check_semantics(self, size: int) -> bool:
         return len(self.numbers) <= size and super().check_semantics(size)
 
-    class Solution(OptimiztionSolution):
+    class Solution(SolutionModel):
         """A solution to a Pairsum problem"""
+
+        direction: ClassVar = "maximize"
+
         indices: list[int] = Field(min_items=4, max_items=4, ge=0)
 
         def check_semantics(self, size: int, instance: "Pairsum") -> bool:
