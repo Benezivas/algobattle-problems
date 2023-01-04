@@ -1,9 +1,18 @@
 """Simple dummy generator for the BiClique problem, outputting a static instance."""
-with open("output", "w") as output:
-    output.write("e 1 2\n")
-    output.write("e 1 3\n")
-    output.write("e 1 4\n")
-    output.write("s set1 1\n")
-    output.write("s set2 2\n")
-    output.write("s set2 3\n")
-    output.write("s set2 4\n")
+import json
+
+with open("output/instance/instance.json", "w+") as output:
+    json.dump({
+        "num_vertices": 4,
+        "edges": [
+            [0, 1],
+            [0, 2],
+            [0, 3],
+        ],
+    }, output)
+
+with open("output/solution/solution.json", "w+") as output:
+    json.dump({
+        "s_1": [0],
+        "s_2": [1, 2, 3]
+    }, output)
