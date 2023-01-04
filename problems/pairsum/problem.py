@@ -13,7 +13,6 @@ class Pairsum(ProblemModel):
 
     name: ClassVar[str] = "Pairsum"
     min_size: ClassVar[int] = 4
-    with_solution: ClassVar[bool] = True
 
     numbers: list[int] = Field(min_items=min_size, ge=0, le=2**63-1)
 
