@@ -3,18 +3,18 @@ import logging
 from typing import ClassVar
 from pydantic import Field
 
-from algobattle.problem import UndirectedGraph, Optimization, OptimiztionSolution
+from algobattle.problem import UndirectedGraph, SolutionModel
 
 logger = logging.getLogger('algobattle.problems.biclique')
 
 
-class Biclique(UndirectedGraph, Optimization):
+class Biclique(UndirectedGraph):
     """The Biclique problem class."""
 
     name: ClassVar[str] = "Bipartite Clique"
     min_size: ClassVar[int] = 5
 
-    class Solution(OptimiztionSolution):
+    class Solution(SolutionModel):
         """A solution to a bipartite clique problem"""
 
         s_1: set[int] = Field(ge=0)
