@@ -17,6 +17,8 @@ class Biclique(UndirectedGraph):
     class Solution(SolutionModel):
         """A solution to a bipartite clique problem"""
 
+        direction: ClassVar = "maximize"
+
         s_1: set[int] = Field(ge=0)
         s_2: set[int] = Field(ge=0)
 
