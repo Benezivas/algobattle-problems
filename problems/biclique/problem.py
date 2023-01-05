@@ -27,7 +27,7 @@ class Biclique(UndirectedGraph):
             return (
                 all(i < instance.num_vertices for i in self.s_1)
                 and all(i < instance.num_vertices for i in self.s_2)
-                and len(self.s_1.intersection(self.s_2)) != 0
+                and len(self.s_1.intersection(self.s_2)) == 0
                 and all((u, v) in edge_set or (v, u) in edge_set for u in self.s_1 for v in self.s_2)
             )
 
