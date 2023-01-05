@@ -26,10 +26,10 @@ class Pairsum(ProblemModel):
 
         indices: list[int] = Field(min_items=4, max_items=4, ge=0)
 
-        def check_semantics(self, size: int, instance: "Pairsum") -> bool:
+        def check_semantics(self, instance: "Pairsum", size: int) -> bool:
             return all(i < len(instance.numbers) for i in self.indices) and len(self.indices) == len(set(self.indices))
 
-        def score(self, size: int, instance: "Pairsum") -> float:
+        def score(self, instance: "Pairsum", size: int) -> float:
             first = instance.numbers[self.indices[0]] + instance.numbers[self.indices[1]]
             second = instance.numbers[self.indices[2]] + instance.numbers[self.indices[3]]
             return first == second

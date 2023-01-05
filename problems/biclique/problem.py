@@ -22,7 +22,7 @@ class Biclique(UndirectedGraph):
         s_1: set[int] = Field(ge=0)
         s_2: set[int] = Field(ge=0)
 
-        def check_semantics(self, size: int, instance: "Biclique") -> bool:
+        def check_semantics(self, instance: "Biclique", size: int) -> bool:
             edge_set = set(instance.edges)
             return (
                 all(i < instance.num_vertices for i in self.s_1)
