@@ -9,7 +9,7 @@ logger = logging.getLogger('algobattle.problems.pairsum')
 
 
 class Pairsum(ProblemModel):
-    """The Biclique problem class."""
+    """The Pairsum problem class."""
 
     name: ClassVar[str] = "Pairsum"
     min_size: ClassVar[int] = 4
