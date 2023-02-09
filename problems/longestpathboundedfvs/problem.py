@@ -39,7 +39,7 @@ class Longestpathboundedfvs(UndirectedGraph):
         """A solution to a Longest Path with Bounded Feedback Vertex Set problem."""
 
         direction: ClassVar = "maximize"
-        path: set[tuple[int, ...]] = Field(ge=0)
+        path: tuple[int, ...] = Field(ge=0)
 
         def check_semantics(self, instance: "Longestpathboundedfvs", size: int) -> bool:
             return self._nodes_are_walk(instance) and self._no_revisited_nodes()

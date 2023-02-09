@@ -14,7 +14,5 @@ with open("output/instance/instance.json", "w+") as output:
 
 with open("output/solution/solution.json", "w+") as output:
     json.dump({
-        "path": [
-            [0, 1, 2],
-        ],
+        "path": [0, 1, 2],
     }, output)
