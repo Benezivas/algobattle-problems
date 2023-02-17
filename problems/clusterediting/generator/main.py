@@ -1,3 +1,22 @@
 """Simple dummy generator for the ClusterEditing problem, outputting a static instance."""
-with open("output", "w") as output:
-    output.write("e 1 2\ne 3 2\ne 1 4\ns del 1 4\ns add 1 3")
+import json
+
+with open("output/instance/instance.json", "w+") as output:
+    json.dump({
+        "num_vertices": 4,
+        "edges": [
+            [0, 1],
+            [1, 2],
+            [0, 3],
+        ],
+    }, output)
+
+with open("output/solution/solution.json", "w+") as output:
+    json.dump({
+        "add": [
+            [0, 2],
+        ],
+        "delete": [
+            [0, 3],
+        ]
+    }, output)
