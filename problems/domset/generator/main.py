@@ -1,3 +1,15 @@
 """Simple dummy generator for the DomSet problem, outputting a static instance."""
-with open("output", "w") as output:
-    output.write("s 1\ns 4\ne 1 2\ne 2 3\ne 3 4\ne 4 5\ne 5 6\ne 6 1\ne 2 6\ne 3 5")
+import json
+
+with open("output/instance/instance.json", "w+") as output:
+    json.dump({
+        "num_vertices": 2,
+        "edges": [
+            [0, 1],
+        ],
+    }, output)
+
+with open("output/solution/solution.json", "w+") as output:
+    json.dump({
+        "domset": [0],
+    }, output)
