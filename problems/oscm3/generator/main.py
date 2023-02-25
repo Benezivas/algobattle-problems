@@ -1,10 +1,23 @@
-"""Simple dummy generator for the OSCM3 problem, outputting a trivial instance."""
-n = 0
-with open("input", "r") as input:
-    n = int(input.readline())
-with open("output", "w") as output:
-    for i in range(n):
-        output.write("n {}\n".format(i))
-    output.write("s ")
-    for i in range(n):
-        output.write("{} ".format(i))
+"""Simple dummy generator for the BiClique problem, outputting trivial instances."""
+import json
+
+with open("input/info.json", "r") as infofile:
+    info = json.load(infofile)
+    size = int(info["size"])
+
+with open("output/instance/instance.json", "w+") as output:
+    adjacent_edges = []
+    for i in range(size):
+        adjacent_edges.append(list())  # No edge at each node
+    json.dump({
+        "num_vertices": size,
+        "adjacent_edges": adjacent_edges,
+    }, output)
+
+with open("output/solution/solution.json", "w+") as output:
+    permutation = []
+    for i in range(size):
+        permutation.append(i)  # Identity as permutation
+    json.dump({
+        "permutation": permutation,
+    }, output)

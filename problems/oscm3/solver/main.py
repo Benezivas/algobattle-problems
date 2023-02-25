@@ -1,11 +1,14 @@
-"""Simple dummy solver for the OSCM3 problem, outputting a trivial solution."""
-lines = []
-with open("input", "r") as input:
-    for line in input:
-        lines.append(line)
-n = len(lines)
+"""Simple dummy solver for the OSCM3 problem, outputting trivial solutions."""
+import json
 
-with open("output", "w") as output:
-    output.write("s ")
-    for i in range(n):
-        output.write("{} ".format(i))
+with open("input/info.json", "r") as infofile:
+    info = json.load(infofile)
+    size = int(info["size"])
+
+with open("output/solution/solution.json", "w") as output:
+    permutation = []
+    for i in range(size):
+        permutation.append(i)
+    json.dump({
+        "permutation": permutation,
+    }, output)
