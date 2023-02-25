@@ -1,3 +1,9 @@
 """Simple dummy solver for the PathPacking problem, outputting a static solution."""
-with open("output", "w") as output:
-    output.write("s 1 2 3")
+import json
+
+with open("output/solution/solution.json", "w") as output:
+    json.dump({
+        "paths": [
+            [2, 1, 0],
+        ],
+    }, output)
