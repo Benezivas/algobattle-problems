@@ -1,4 +1,4 @@
-"""Simple dummy generator for the C4SubGraphIso problem, outputting a static instance."""
+"""Simple dummy generator for the C4subgraphiso problem, outputting a static instance."""
 import json
 
 with open("output/instance/instance.json", "w+") as output:
