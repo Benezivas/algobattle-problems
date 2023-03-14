@@ -22,13 +22,15 @@ class Biclique(UndirectedGraph):
         s_1: set[int] = Field(ge=0)
         s_2: set[int] = Field(ge=0)
 
-        def check_semantics(self, instance: "Biclique", size: int) -> bool:
-            edge_set = set(instance.edges)
+        def is_valid(self, instance: "Biclique", size: int) -> bool:
+            edge_set = set(instance.edges) | set(edge[::-1] for edge in instance.edges)
             return (
                 all(i < instance.num_vertices for i in self.s_1)
                 and all(i < instance.num_vertices for i in self.s_2)
                 and len(self.s_1.intersection(self.s_2)) == 0
-                and all((u, v) in edge_set or (v, u) in edge_set for u in self.s_1 for v in self.s_2)
+                and all((u, v) in edge_set for u in self.s_1 for v in self.s_2)
+                and all((u, v) not in edge_set or u == v for u in self.s_1 for v in self.s_1)
+                and all((u, v) not in edge_set or u == v for u in self.s_2 for v in self.s_2)
             )
 
         def score(self, size: int, instance: "Biclique") -> float:
