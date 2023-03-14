@@ -2,143 +2,31 @@
 import unittest
 import logging
 
-from problems.biclique import parser, verifier
+from problems.biclique import Problem
 
 logging.disable(logging.CRITICAL)
 
 
-class Parsertests(unittest.TestCase):
-    """Tests for the Biclique parser."""
+class SolutionTests(unittest.TestCase):
+    """Tests for the Biclique problem solution class."""
+    
+    def test_vertices_exist(self):
+        """Tests that only valid vertex indices are allowed."""
+        graph = Problem(num_vertices=10, edges=[(i, j) for i in range(10) for j in range(i)])
+        sol = Problem.Solution(s_1=set(), s_2={20})
+        self.assertFalse(sol.is_valid(graph, 10))
 
-    def setUp(self) -> None:
-        self.parser = parser.BicliqueParser()
+    def test_edges_exist(self):
+        """Tests that solutions that arent complete bicliques are not allowed."""
+        graph = Problem(num_vertices=10, edges=[])
+        sol = Problem.Solution(s_1={1}, s_2={2})
+        self.assertFalse(sol.is_valid(graph, 10))
 
-    def test_split_into_instance_and_solution(self):
-        raw_input = [('e', '1', '2', '1'), ('e', '3', '2'),
-                     ('s', 'set1', '1'), ('s', 'set1', '3'), ('s', 'set1', '2'), ('foo', 'bar')]
-        self.assertEqual(self.parser.split_into_instance_and_solution(raw_input),
-                         ([('e', '1', '2', '1'), ('e', '3', '2')],
-                          [('s', 'set1', '1'), ('s', 'set1', '3'), ('s', 'set1', '2')]))
-
-    def test_split_into_instance_and_solution_empty(self):
-        self.assertEqual(self.parser.split_into_instance_and_solution([]), ([], []))
-
-    def test_parser_instance_too_many_entries(self):
-        raw_instance = [('e', '1', '2', '1'), ('e', '3', '2')]
-        self.assertEqual(self.parser.parse_instance(raw_instance, instance_size=3), [('e', '3', '2')])
-
-    def test_parser_instance_too_few_entries(self):
-        raw_instance = [('e', '1'), ('e')]
-        self.assertEqual(self.parser.parse_instance(raw_instance, instance_size=2), [])
-
-    def test_parser_instance_bad_labels(self):
-        raw_instance = [('e', '3', '2')]
-        self.assertEqual(self.parser.parse_instance(raw_instance, instance_size=2), [])
-
-    def test_parser_instance_duplicate_removal(self):
-        raw_instance = [('e', '3', '2'), ('e', '3', '2')]
-        self.assertEqual(self.parser.parse_instance(raw_instance, instance_size=3), [('e', '3', '2')])
-
-    def test_parser_instance_letter_line_removal(self):
-        raw_instance = [('e', '3', 'a'), ('e', 'b', '2')]
-        self.assertEqual(self.parser.parse_instance(raw_instance, instance_size=3), [])
-
-    def test_parser_instance_zero_label_line_removal(self):
-        raw_instance = [('e', '1', '0'), ('e', '0', '1')]
-        self.assertEqual(self.parser.parse_instance(raw_instance, instance_size=3), [])
-
-    def test_parser_instance_selfloop_line_removal(self):
-        raw_instance = [('e', '1', '1')]
-        self.assertEqual(self.parser.parse_instance(raw_instance, instance_size=3), [])
-
-    def test_parser_instance_empty_input(self):
-        self.assertEqual(self.parser.parse_instance([], instance_size=3), [])
-
-    def test_parser_solution_too_many_entries(self):
-        raw_solution = [('s', 'set1', '0', '1'), ('s', 'set1', '1')]
-        self.assertEqual(self.parser.parse_solution(raw_solution, instance_size=2), [('s', 'set1', '1')])
-
-    def test_parser_solution_too_few_entries(self):
-        raw_solution = [('s', 'set1')]
-        self.assertEqual(self.parser.parse_solution(raw_solution, instance_size=2), [])
-
-    def test_parser_solution_bad_labels(self):
-        raw_solution = [('s', 'set1', '3')]
-        self.assertEqual(self.parser.parse_solution(raw_solution, instance_size=2), [])
-
-    def test_parser_solution_letter_line_removal(self):
-        raw_solution = [('s', 'set1', 'a')]
-        self.assertEqual(self.parser.parse_solution(raw_solution, instance_size=2), [])
-
-    def test_parser_solution_zero_label_line_removal(self):
-        raw_solution = [('s', 'set1', '0')]
-        self.assertEqual(self.parser.parse_solution(raw_solution, instance_size=2), [])
-
-    def test_parser_solution_empty_input(self):
-        self.assertEqual(self.parser.parse_solution([], instance_size=2), [])
-
-    def test_encode(self):
-        self.assertEqual(self.parser.encode([('e', '1', '2'), ('e', '3', '2'),
-                                             ('s', 'set1', '1'), ('s', 'set1', '3'), ('s', 'set2', '2')]),
-                         """e 1 2\ne 3 2\ns set1 1\ns set1 3\ns set2 2""".encode())
-
-    def test_decode(self):
-        self.assertEqual(self.parser.decode(
-                         """e 1 2\ne 3 2\ns set1 1\ns set1 3\ns set2 2""".encode()),
-                         [('e', '1', '2'), ('e', '3', '2'), ('s', 'set1', '1'), ('s', 'set1', '3'), ('s', 'set2', '2')])
-
-
-class Verifiertests(unittest.TestCase):
-    """Tests for the Biclique verifier."""
-
-    def setUp(self) -> None:
-        self.verifier = verifier.BicliqueVerifier()
-
-    def test_verify_semantics_of_instance(self):
-        self.assertTrue(self.verifier.verify_semantics_of_instance([('e', '1', '2')], instance_size=2))
-
-    def test_verify_semantics_of_instance_empty_instance(self):
-        self.assertFalse(self.verifier.verify_semantics_of_instance([], instance_size=2))
-
-    def test_verify_semantics_of_solution_empty_solution(self):
-        self.assertFalse(self.verifier.verify_semantics_of_solution([], 2, solution_type=False))
-
-    def test_verify_semantics_of_solution_singular_sets(self):
-        self.assertFalse(self.verifier.verify_semantics_of_solution([('s', 'set1', '1')],
-                                                                    2, solution_type=False))
-        self.assertFalse(self.verifier.verify_semantics_of_solution([('s', 'set2', '1')],
-                                                                    2, solution_type=False))
-
-    def test_verify_semantics_of_solution_overlapping_nodes(self):
-        self.assertFalse(self.verifier.verify_semantics_of_solution([('s', 'set1', '1'), ('s', 'set2', '1')],
-                                                                    2, solution_type=False))
-
-    def test_verify_semantics_of_solution_correct_instance(self):
-        self.assertTrue(self.verifier.verify_semantics_of_solution([('s', 'set1', '1'), ('s', 'set2', '2')],
-                                                                   2, solution_type=False))
-
-    def test_verify_solution_against_instance(self):
-        instance = [('e', '1', '3'), ('e', '1', '4'), ('e', '2', '3'), ('e', '2', '4'), ('e', '2', '5')]
-        solution = [('s', 'set1', '1'), ('s', 'set1', '2'), ('s', 'set2', '3'), ('s', 'set2', '4')]
-        self.assertTrue(self.verifier.verify_solution_against_instance(instance,
-                                                                       solution, instance_size=5, solution_type=False))
-
-    def test_verify_solution_against_instance_not_a_clique(self):
-        instance = [('e', '1', '3'), ('e', '1', '4'), ('e', '2', '3'), ('e', '2', '4'), ('e', '2', '5')]
-        solution = [('s', 'set1', '1'), ('s', 'set1', '2'), ('s', 'set2', '3'), ('s', 'set2', '4'), ('s', 'set1', '5')]
-        self.assertFalse(self.verifier.verify_solution_against_instance(instance,
-                                                                        solution, instance_size=5, solution_type=False))
-
-    def test_calculate_approximation_ratio_suboptimal(self):
-        instance = [('e', '1', '2'), ('e', '1', '3')]
-        sol_optimal = [('s', 'set1', '1'), ('s', 'set2', '2'), ('s', 'set2', '3')]
-        sol_suboptimal = [('s', 'set1', '1'), ('s', 'set2', '2')]
-        self.assertEqual(self.verifier.calculate_approximation_ratio(instance, 2, sol_optimal, sol_suboptimal), 3 / 2)
-
-    def test_calculate_approximation_ratio_optimal(self):
-        instance = [('e', '1', '2'), ('e', '1', '3')]
-        sol_optimal = [('s', 'set1', '1'), ('s', 'set2', '2'), ('s', 'set2', '3')]
-        self.assertEqual(self.verifier.calculate_approximation_ratio(instance, 2, sol_optimal, sol_optimal), 1.0)
+    def test_edges_missing(self):
+        """Asserts that solutions that aren't bipartite are not allowed."""
+        graph = Problem(num_vertices=10, edges=[(i, j) for i in range(10) for j in range(i)])
+        sol = Problem.Solution(s_1={1, 2}, s_2={3, 4})
+        self.assertFalse(sol.is_valid(graph, 10))
 
 
 if __name__ == '__main__':
