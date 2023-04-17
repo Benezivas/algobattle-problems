@@ -18,21 +18,21 @@ as the certificate solution of the generator.
 An instance is a standard undirected graph. For example:
 ```json
 {
-    "num_vertices": 11,
+    "num_vertices": 10,
     "edges": [
+        [0, 1],
         [1, 2],
         [2, 3],
-        [3, 4],
-        [3, 5],
+        [2, 4],
+        [4, 5],
         [5, 6],
         [6, 7],
         [7, 8],
         [8, 9],
-        [9, 10],
-        [10, 1],
-        [2, 9],
-        [5, 9],
-        [5, 8],
+        [9, 0],
+        [1, 8],
+        [4, 8],
+        [4, 7],
     ],
 }
 ```
@@ -44,8 +44,8 @@ A valid solution for the above example would be:
 ```json
 {
     "squares": [
-        [5, 6, 7, 8],
-        [9, 2, 1, 10],
+        [4, 5, 6, 7],
+        [0, 1, 8, 9],
     ]
 }
 ```
