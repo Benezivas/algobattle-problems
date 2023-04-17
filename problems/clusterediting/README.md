@@ -17,51 +17,39 @@ output edge sets `E'` and `E''` as described above. The solver wins the round
 for a given `n` if its solution is at most as big as the certificate solution
 of the generator.
 
-# I/O
-We use a format similar to the DIMACS-format for this task:
-* **Edges**: These lines are of the form `e i j`
-    for an edge `(i,j) in E(G)`. As we are working on an undirected graph, 
-    the symmetrical edge `(j,i)` does not need to be supplied.
-* **Solution lines**: For each edge `(i,j) in E'` a line of the form `s add i j` 
-    is to be supplied. For each edge `(i,j) \in E''` a line of the form 
-    `s del i j` is to be supplied.
-
-Isolated nodes can not be part of an instance, as they already form a clique on
-their own and can thus always be discarded.
-
-Any malformed lines  or lines not following the format above are discarded.
-Each of the lines described above are to be written into their own line.
-The generator reads the instance size from `stdin` and writes its instance 
-and certificate to `stdout`. The order of the lines does not matter. For an
-instance size of `n`, vertices may only be given indices in `{1,...,n}`.
-
-The following output is a valid stream to stdout for the generator, given 
-`n >= 7` (line breaks inserted for better readability):
+# Instance
+An instance is a standard undirected graph. For example:
+```json
+{
+    "num_vertices": 7,
+    "edges": [
+        [0, 1],
+        [1, 2],
+        [1, 3],
+        [2, 3],
+        [0, 3],
+        [3, 4],
+        [1, 6],
+        [4, 6],
+        [5, 6],
+        [4, 5],
+    ]
+}
 ```
-    c This is a comment line, just as the one below.\n
-    Any line not following the given format is discarded.\n
-    c The graph needs two deletions and one addition to become clustered.\n
-    s add 1 3\n
-    s del 4 5\n
-    s del 2 7\n
-    e 1 2\n
-    e 2 3\n
-    e 2 4\n
-    e 3 4\n
-    e 1 4\n
-    e 4 5\n
-    e 2 7\n
-    e 5 7\n
-    e 6 7\n
-    e 5 6
-```
-The solver receives all edge lines, seperated by line breaks, just like above, 
-via `stdin`. It is then supposed to output edge sets `E'` and `E''` as described
-above to `stdout`. The solution may deviate from that of the generator.
 
-For the instance above, a valid output of the solver may look like this:
-```
-    s add 1 3\n
-    s del 4 5\n
-    s del 2 7
+# Solution
+A solution contains two sets of edges, `add` and `delete`. The first are edges in `E'`, the second in `E''`.
+It is scored by the total number of edges in both sets, with smaller sets being better.
+
+For the instance above, a valid solution may look like this:
+```json
+{
+    "add": [
+        [0, 2],
+    ],
+    "delete": [
+        [3, 4],
+        [1, 6],
+    ],
+}
 ```
