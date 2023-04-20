@@ -5,7 +5,7 @@ with open("input/info.json", "r") as infofile:
     info = json.load(infofile)
     size = int(info["size"])
 
-with open("output/solution/solution.json", "w") as output:
+with open("output/solution.json", "w") as output:
     permutation = []
     for i in range(size):
         permutation.append(i)

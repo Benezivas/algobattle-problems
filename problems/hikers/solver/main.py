@@ -1,7 +1,7 @@
 """Simple dummy solver for the Hikers problem, outputting a static solution."""
 import json
 
-with open("output/solution/solution.json", "w+") as output:
+with open("output/solution.json", "w+") as output:
     json.dump({
         "assignments": [
             [2, 1],

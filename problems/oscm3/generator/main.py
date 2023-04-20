@@ -5,7 +5,7 @@ with open("input/info.json", "r") as infofile:
     info = json.load(infofile)
     size = int(info["size"])
 
-with open("output/instance/instance.json", "w+") as output:
+with open("output/instance.json", "w+") as output:
     adjacent_edges = []
     for i in range(size):
         adjacent_edges.append(list())  # No edge at each node
@@ -14,7 +14,7 @@ with open("output/instance/instance.json", "w+") as output:
         "adjacent_edges": adjacent_edges,
     }, output)
 
-with open("output/solution/solution.json", "w+") as output:
+with open("output/solution.json", "w+") as output:
     permutation = []
     for i in range(size):
         permutation.append(i)  # Identity as permutation

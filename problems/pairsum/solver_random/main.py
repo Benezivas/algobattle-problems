@@ -33,7 +33,7 @@ while True:
                 w = D[s][1]
                 e = B[x]
                 r = B[y]
-                with open("/output/solution/solution.json", "w+") as f:
+                with open("/output/solution.json", "w+") as f:
                     json.dump({
                         "indices": [q, w, e, r]
                     }, f)
