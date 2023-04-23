@@ -1,1 +1,3 @@
-from .problem import Domset as Problem
+from .problem import Domset
+
+__all__ = ["Domset"]
