@@ -9,5 +9,7 @@ dependencies = [
 ]
 
 [project.entry-points."algobattle.problem"]
-"Biclique" = "algobattle_problems.biclique:Biclique"
-
+Biclique = "algobattle_problems.biclique.problem:Biclique"
+C4subgraphiso = "algobattle_problems.c4subgraphiso.problem:C4subgraphiso"
+Clusterediting = "algobattle_problems.clusterediting.problem:Clusterediting"
+Hikers = "algobattle_problems.hikers.problem:Hikers"
