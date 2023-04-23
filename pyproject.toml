@@ -8,6 +8,6 @@ dependencies = [
     "algobattle",
 ]
 
-[entry-points."algobattle.problem"]
-"Biclique" = "biclique:Biclique"
+[project.entry-points."algobattle.problem"]
+"Biclique" = "algobattle_problems.biclique:Biclique"
 
