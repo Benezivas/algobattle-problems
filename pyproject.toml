@@ -1,0 +1,13 @@
+[project]
+name = "algobattle-problems"
+version = "1.0.0"
+requires-python = ">=3.11"
+license = {text = "MIT"}
+authors = [{name = "Imogen Hergeth"}, {name = "Jan Dreier"}, {name = "Henri Lotze"}]
+dependencies = [
+    "algobattle",
+]
+
+[entry-points."algobattle.problem"]
+"Biclique" = "biclique:Biclique"
+
