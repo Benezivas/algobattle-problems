@@ -1,7 +1,7 @@
 """Tests for the clusterediting problem."""
 import unittest
 
-from ..problems.clusterediting.problem import Clusterediting, ValidationError
+from algobattle_problems.clusterediting.problem import Clusterediting, ValidationError
 
 
 Solution = Clusterediting.Solution

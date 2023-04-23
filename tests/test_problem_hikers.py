@@ -2,7 +2,7 @@
 import unittest
 import logging
 
-from problems.hikers import parser, verifier
+from algobattle_problems.hikers import parser, verifier
 
 logging.disable(logging.CRITICAL)
 

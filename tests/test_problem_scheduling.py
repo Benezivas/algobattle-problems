@@ -2,7 +2,7 @@
 import unittest
 import logging
 
-from problems.scheduling import parser, verifier
+from algobattle_problems.scheduling import parser, verifier
 
 logging.disable(logging.CRITICAL)
 

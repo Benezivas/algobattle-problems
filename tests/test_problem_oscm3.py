@@ -2,7 +2,7 @@
 import unittest
 import logging
 
-from problems.oscm3 import parser, verifier
+from algobattle_problems.oscm3 import parser, verifier
 
 logging.disable(logging.CRITICAL)
 

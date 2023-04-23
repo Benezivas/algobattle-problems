@@ -3,7 +3,7 @@ import unittest
 
 from pydantic import ValidationError as PydanticValidationError
 
-from ..problems.c4subgraphiso.problem import C4subgraphiso, ValidationError
+from algobattle_problems.c4subgraphiso.problem import C4subgraphiso, ValidationError
 
 
 class SolutionTests(unittest.TestCase):

@@ -2,7 +2,7 @@
 import unittest
 import logging
 
-from problems.pairsum import parser, verifier
+from algobattle_problems.pairsum import parser, verifier
 
 logging.disable(logging.CRITICAL)
 

@@ -1,7 +1,7 @@
 """Tests for the biclique problem."""
 import unittest
 
-from problems.biclique.problem import Biclique, ValidationError
+from algobattle_problems.biclique.problem import Biclique, ValidationError
 
 
 class SolutionTests(unittest.TestCase):
