@@ -13,3 +13,6 @@ Biclique = "algobattle_problems.biclique.problem:Biclique"
 C4subgraphiso = "algobattle_problems.c4subgraphiso.problem:C4subgraphiso"
 Clusterediting = "algobattle_problems.clusterediting.problem:Clusterediting"
 Hikers = "algobattle_problems.hikers.problem:Hikers"
+
+[tool.setuptools.package-data]
+algobattle_problems = ["*/generator/**/*", "*/solver/**/*"]
