@@ -3,7 +3,7 @@ import logging
 from typing import ClassVar
 from pydantic import Field
 
-from algobattle.problem import ProblemModel, SolutionModel
+from algobattle.problem import ProblemModel, SolutionModel, ValidationError
 
 logger = logging.getLogger('algobattle.problems.pairsum')
 
@@ -16,8 +16,10 @@ class Pairsum(ProblemModel):
 
     numbers: list[int] = Field(min_items=min_size, ge=0, le=2**63-1)
 
-    def check_semantics(self, size: int) -> bool:
-        return len(self.numbers) <= size and super().check_semantics(size)
+    def validate_instance(self, size: int) -> None:
+        super().validate_instance(size)
+        if len(self.numbers) > size:
+            raise ValidationError("Instance contains too many numbers.")
 
     class Solution(SolutionModel):
         """A solution to a Pairsum problem"""
@@ -26,8 +28,12 @@ class Pairsum(ProblemModel):
 
         indices: list[int] = Field(min_items=4, max_items=4, ge=0)
 
-        def check_semantics(self, instance: "Pairsum", size: int) -> bool:
-            return all(i < len(instance.numbers) for i in self.indices) and len(self.indices) == len(set(self.indices))
+        def validate_solution(self, instance: "Pairsum", size: int) -> None:
+            super().validate_solution(instance, size)
+            if any(i >= len(instance.numbers) for i in self.indices):
+                raise ValidationError("Solution index is out of range.")
+            if len(self.indices) != len(set(self.indices)):
+                raise ValidationError("Solution contains duplicate indices.")
 
         def score(self, instance: "Pairsum", size: int) -> float:
             first = instance.numbers[self.indices[0]] + instance.numbers[self.indices[1]]
