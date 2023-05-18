@@ -1,13 +1,10 @@
 """The Longestpathboundedfvs problem class."""
-import logging
-
+from math import sqrt
 from typing import ClassVar
 from pydantic import Field
 import networkx as nx
 
-from algobattle.problem import UndirectedGraph, SolutionModel
-
-logger = logging.getLogger('algobattle.problems.longestpathboundedfvs')
+from algobattle.problem import UndirectedGraph, SolutionModel, Scored, ValidationError
 
 
 class Longestpathboundedfvs(UndirectedGraph):
@@ -15,34 +12,39 @@ class Longestpathboundedfvs(UndirectedGraph):
 
     name: ClassVar[str] = "Longest Path with Bounded Feedback Vertex Set"
     min_size: ClassVar[int] = 3
-    fvs: tuple[int, ...] = Field(ge=0, hidden="solver")
+    fvs: set[int] = Field(ge=0, hidden="solver")
 
-    def check_semantics(self, size: int) -> bool:
-        return (super().check_semantics(size)
-                and len(self.fvs) <= size ** 0.5
-                and self.valid_fvs_on_input()
-                )
+    def validate_instance(self, size: int) -> None:
+        super().validate_instance(size)
+        if len(self.fvs) > sqrt(size):
+            raise ValidationError(
+                "The given feedback vertex set does not fit the size bound.",
+                detail=f"Given fvs has size {len(self.fvs)}, bound is {sqrt(size)}."
+            )
+        if not self.valid_fvs_on_input():
+            raise ValidationError("The given feedback vertex set is not valid.")
 
     def valid_fvs_on_input(self) -> bool:
         g = nx.Graph()
         for edge in self.edges:
-            g.add_edge(edge[0], edge[1])
+            g.add_edge(*edge)
         for node in self.fvs:
             if g.has_node(node):
                 g.remove_node(node)
-        if not nx.is_empty(g):
-            if not nx.algorithms.tree.recognition.is_forest(g):
-                return False
-        return True
+        return nx.is_empty(g) or nx.algorithms.tree.recognition.is_forest(g)
 
-    class Solution(SolutionModel):
+    class Solution(SolutionModel, Scored):
         """A solution to a Longest Path with Bounded Feedback Vertex Set problem."""
 
-        direction: ClassVar = "maximize"
-        path: tuple[int, ...] = Field(ge=0)
+        path: list[int] = Field(ge=0)
 
-        def check_semantics(self, instance: "Longestpathboundedfvs", size: int) -> bool:
-            return self._nodes_are_walk(instance) and self._no_revisited_nodes()
+        direction: ClassVar = "maximize"
+
+        def validate_solution(self, instance: "Longestpathboundedfvs", size: int) -> None:
+            if not self._nodes_are_walk(instance):
+                raise ValidationError("The given path is not a walk in the instance graph.")
+            if not self._no_revisited_nodes():
+                raise ValidationError("The given path contains repeated nodes.")
 
         def _nodes_are_walk(self, instance) -> bool:
             edge_set = set(instance.edges)
@@ -57,5 +59,5 @@ class Longestpathboundedfvs(UndirectedGraph):
         def _no_revisited_nodes(self) -> bool:
             return len(self.path) == len(set(self.path))
 
-        def score(self, size: int, instance: "Longestpathboundedfvs") -> float:
+        def score(self, instance: "Longestpathboundedfvs", size: int) -> float:
             return len(self.path)

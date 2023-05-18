@@ -6,6 +6,7 @@ license = {text = "MIT"}
 authors = [{name = "Imogen Hergeth"}, {name = "Jan Dreier"}, {name = "Henri Lotze"}]
 dependencies = [
     "algobattle",
+    "networkx",
 ]
 
 [project.entry-points."algobattle.problem"]
@@ -14,6 +15,7 @@ C4subgraphiso = "algobattle_problems.c4subgraphiso.problem:C4subgraphiso"
 Clusterediting = "algobattle_problems.clusterediting.problem:Clusterediting"
 Domset = "algobattle_problems.domset.problem:Domset"
 Hikers = "algobattle_problems.hikers.problem:Hikers"
+Longestpathboundedfvs = "algobattle_problems.longestpathboundedfvs.problem:Longestpathboundedfvs"
 Pairsum = "algobattle_problems.pairsum.problem:Pairsum"
 
 [tool.setuptools.package-data]
