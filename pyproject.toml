@@ -20,3 +20,9 @@ Pairsum = "algobattle_problems.pairsum.problem:Pairsum"
 
 [tool.setuptools.package-data]
 algobattle_problems = ["*/generator/**/*", "*/solver/**/*"]
+
+[tool.pyright]
+diagnosticMode = "workspace"
+
+[tool.black]
+line-length = 120

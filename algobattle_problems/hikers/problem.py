@@ -1,11 +1,8 @@
 """The Hikers problem class."""
-import logging
 from typing import ClassVar
 from pydantic import Field
 
-from algobattle.problem import ProblemModel, SolutionModel
-
-logger = logging.getLogger('algobattle.problems.hikers')
+from algobattle.problem import ProblemModel, SolutionModel, ValidationError
 
 
 class Hikers(ProblemModel):
@@ -16,39 +13,31 @@ class Hikers(ProblemModel):
 
     hikers: list[tuple[int, int]] = Field(ge=0)
 
-    def is_valid(self, size: int) -> bool:
-        return (
-            all(min_size <= max_size for (min_size, max_size) in self.hikers)
-            and len(self.hikers) <= size
-            and len(self.hikers) == len(set(self.hikers))
-        )
+    def validate_instance(self, size: int) -> None:
+        if any(min_size > max_size for min_size, max_size in self.hikers):
+            raise ValidationError("One hiker's minimum group size is larger than their maximum group size.")
+        if len(self.hikers) > size:
+            raise ValidationError("Instance is too big.")
 
     class Solution(SolutionModel):
         """A solution to a Hikers problem."""
 
         direction: ClassVar = "maximize"
-        assignments: list[tuple[int, int]] = Field(ge=0)
 
-        def is_valid(self, instance: "Hikers", size: int) -> bool:
-            group_sizes = dict()
-            if (
-                not all(hiker_index < size for (hiker_index, _) in self.assignments)
-                or not len(self.assignments) == len(set(self.assignments))
-            ):
-                return False
+        assignments: dict[int, int] = Field(ge=0)
 
-            for (_, group) in self.assignments:
-                group_sizes[group] = group_sizes.get(group, 0)
-                group_sizes[group] += 1
+        def validate_solution(self, instance: "Hikers", size: int) -> None:
+            if any(hiker > len(instance.hikers) for hiker in self.assignments):
+                raise ValidationError("Solution contains hiker that is not in the instance.")
 
-            for (hiker, group) in self.assignments:
-                (min_size, max_size) = instance.hikers[hiker]
-                if not (min_size <= group_sizes[group]
-                        and max_size >= group_sizes[group]):
-                    logger.error(f"Hiker {hiker} is not happy with their assignment!")
-                    return False
+            group_sizes = {}
+            for group in self.assignments.items():
+                group_sizes[group] = group_sizes.get(group, 0) + 1
 
-            return True
+            for hiker, group in self.assignments.items():
+                min_size, max_size = instance.hikers[hiker]
+                if not (min_size <= group_sizes[group] <= max_size):
+                    raise ValidationError("A Hiker is not happy with their assignment!")
 
         def score(self, size: int, instance: "Hikers") -> float:
             return len(self.assignments)
