@@ -29,18 +29,13 @@ class Pathpacking(UndirectedGraph):
 
         def all_paths_disjoint(self, paths: set[tuple[int, int, int]]):
             """Check if all paths of the instance are node-disjoint."""
-            used_nodes = set()
-            for sol_path in paths:
-                for sol_node in sol_path:
-                    if sol_node in used_nodes:
-                        return False
-                    used_nodes.add(sol_node)
-            return True
+            used_nodes = {u for path in paths for u in path}
+            return len(paths) * 3 == len(used_nodes)
 
         def path_in_instance(self, path: tuple[int, int, int], instance: "Pathpacking") -> bool:
             """Check if a given path is part of the given instance."""
             edge_set = set(instance.edges)
-            edge_set.update((v, u) for u, v in edge_set)
+            edge_set |= {(v, u) for u, v in edge_set}
             u, v, w = path
             return (u, v) in edge_set and (v, w) in edge_set
 

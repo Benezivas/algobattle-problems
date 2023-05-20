@@ -27,11 +27,11 @@ class Tests(unittest.TestCase):
     
     def test_solution_not_disjoint(self):
         with self.assertRaises(ValidationError):
-            Pathpacking.Solution(paths={(0, 1, 2), (2, 3, 4)})
+            Pathpacking.Solution(paths={(0, 1, 2), (2, 3, 4)}).validate_solution(self.instance)
 
     def test_score(self):
-        self.assertEqual(Pathpacking.Solution(paths={(0, 1, 2)}), 1)
-        self.assertEqual(Pathpacking.Solution(paths={(0, 1, 2), (3, 4, 5)}), 2)
+        self.assertEqual(Pathpacking.Solution(paths={(0, 1, 2)}).score(self.instance), 1)
+        self.assertEqual(Pathpacking.Solution(paths={(0, 1, 2), (3, 4, 5)}).score(self.instance), 2)
 
 
 if __name__ == '__main__':
