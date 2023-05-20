@@ -8,7 +8,7 @@ class OSCM3Tests(unittest.TestCase):
     """Tests for the OSCM3 verifier."""
 
     @classmethod
-    def setUpCls(cls) -> None:
+    def setUpClass(cls) -> None:
         cls.instance = OSCM3(neighbors={
             0: {1, 2},
             1: {0, 1, 2},
