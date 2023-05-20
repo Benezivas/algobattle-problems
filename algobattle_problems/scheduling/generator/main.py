@@ -8,11 +8,5 @@ with open("output/instance.json", "w+") as output:
 
 with open("output/solution.json", "w+") as output:
     json.dump({
-        "assignments": [
-            [0, 3],
-            [1, 0],
-            [2, 4],
-            [3, 2],
-            [4, 1],
-        ],
+        "assignments": [4, 1, 5, 3, 2],
     }, output)

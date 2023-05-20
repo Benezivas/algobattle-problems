@@ -1,11 +1,9 @@
 """The Scheduling problem class."""
-import logging
 from typing import ClassVar
+
 from pydantic import Field
 
-from algobattle.problem import ProblemModel, SolutionModel
-
-logger = logging.getLogger('algobattle.problems.scheduling')
+from algobattle.problem import ProblemModel, SolutionModel, ValidationError, Scored
 
 
 class Scheduling(ProblemModel):
@@ -14,33 +12,25 @@ class Scheduling(ProblemModel):
     name: ClassVar[str] = "Job Shop Scheduling"
     min_size: ClassVar[int] = 5
 
-    job_lengths: tuple[int, ...] = Field(ge=0, le=(2 ** 64) / 5)
+    job_lengths: list[int] = Field(ge=0, le=(2 ** 64 - 1) / 5)
 
-    def is_valid(self, size: int) -> bool:
-        return (
-            len(self.job_lengths) <= size
-        )
+    @property
+    def size(self) -> int:
+        return len(self.job_lengths)
 
-    class Solution(SolutionModel):
+    class Solution(SolutionModel, Scored):
         """A solution to a Job Shop Scheduling problem"""
 
         direction: ClassVar = "minimize"
 
-        assignments: list[tuple[int, int]] = Field(ge=0)
+        assignments: list[int] = Field(ge=1, le=5)
 
-        def is_valid(self, instance: "Scheduling", size: int) -> bool:
-            assigned_jobs = [job for job, _ in self.assignments]
-            return (
-                all(machine < 5 and job < len(instance.job_lengths) for job, machine in self.assignments)
-                and len(assigned_jobs) == len(set(assigned_jobs))
-                and len(self.assignments) == len(instance.job_lengths)
-            )
+        def validate_solution(self, instance: "Scheduling") -> None:
+            if len(self.assignments) != len(instance.job_lengths):
+                raise ValidationError("The number of assigned jobs doesn't match the number of jobs.")
 
-        def score(self, instance: "Scheduling", size: int) -> float:
-            finish_time = [0 for i in range(5)]
-
-            for assignment in self.assignments:
-                job, machine = assignment
-                finish_time[machine] += (machine + 1) * instance.job_lengths[job]
-
+        def score(self, instance: "Scheduling") -> float:
+            finish_time = [0] * 5
+            for duration, machine in zip(instance.job_lengths, self.assignments):
+                finish_time[machine] += duration * machine
             return max(finish_time)
