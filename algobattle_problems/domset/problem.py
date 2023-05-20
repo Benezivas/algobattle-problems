@@ -18,7 +18,7 @@ class Domset(UndirectedGraph):
 
         direction: ClassVar = "minimize"
 
-        def validate_solution(self, instance: "Domset", size: int) -> None:
+        def validate_solution(self, instance: "Domset") -> None:
             if any(u >= instance.num_vertices for u in self.domset):
                 raise ValidationError(
                     "A number in the domset is too large to be a vertex"
@@ -36,5 +36,5 @@ class Domset(UndirectedGraph):
                     detail=f"{instance.num_vertices - len(dominated)} vertices are not dominated",
                 )
 
-        def score(self, instance: "Domset", size: int) -> float:
+        def score(self, instance: "Domset") -> float:
             return len(self.domset)

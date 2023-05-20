@@ -13,10 +13,10 @@ class Hikers(ProblemModel):
 
     hikers: list[tuple[int, int]] = Field(ge=0)
 
-    def validate_instance(self, size: int) -> None:
+    def validate_instance(self, max_size: int) -> None:
         if any(min_size > max_size for min_size, max_size in self.hikers):
             raise ValidationError("One hiker's minimum group size is larger than their maximum group size.")
-        if len(self.hikers) > size:
+        if len(self.hikers) > max_size:
             raise ValidationError("Instance is too big.")
 
     class Solution(SolutionModel):
@@ -26,7 +26,7 @@ class Hikers(ProblemModel):
 
         assignments: dict[int, int] = Field(ge=0)
 
-        def validate_solution(self, instance: "Hikers", size: int) -> None:
+        def validate_solution(self, instance: "Hikers") -> None:
             if any(hiker > len(instance.hikers) for hiker in self.assignments):
                 raise ValidationError("Solution contains hiker that is not in the instance.")
 

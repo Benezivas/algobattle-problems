@@ -14,12 +14,12 @@ class Longestpathboundedfvs(UndirectedGraph):
     min_size: ClassVar[int] = 3
     fvs: set[int] = Field(ge=0, hidden="solver")
 
-    def validate_instance(self, size: int) -> None:
-        super().validate_instance(size)
-        if len(self.fvs) > sqrt(size):
+    def validate_instance(self, max_size: int) -> None:
+        super().validate_instance(max_size)
+        if len(self.fvs) > sqrt(max_size):
             raise ValidationError(
                 "The given feedback vertex set does not fit the size bound.",
-                detail=f"Given fvs has size {len(self.fvs)}, bound is {sqrt(size)}."
+                detail=f"Given fvs has size {len(self.fvs)}, bound is {sqrt(max_size)}."
             )
         if not self.valid_fvs_on_input():
             raise ValidationError("The given feedback vertex set is not valid.")
@@ -40,7 +40,7 @@ class Longestpathboundedfvs(UndirectedGraph):
 
         direction: ClassVar = "maximize"
 
-        def validate_solution(self, instance: "Longestpathboundedfvs", size: int) -> None:
+        def validate_solution(self, instance: "Longestpathboundedfvs") -> None:
             if not self._nodes_are_walk(instance):
                 raise ValidationError("The given path is not a walk in the instance graph.")
             if not self._no_revisited_nodes():
@@ -59,5 +59,5 @@ class Longestpathboundedfvs(UndirectedGraph):
         def _no_revisited_nodes(self) -> bool:
             return len(self.path) == len(set(self.path))
 
-        def score(self, instance: "Longestpathboundedfvs", size: int) -> float:
+        def score(self, instance: "Longestpathboundedfvs") -> float:
             return len(self.path)

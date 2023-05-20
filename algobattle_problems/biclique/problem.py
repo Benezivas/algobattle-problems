@@ -19,9 +19,9 @@ class Biclique(UndirectedGraph):
         s_1: set[int] = Field(ge=0, le=2**63 - 1)
         s_2: set[int] = Field(ge=0, le=2**63 - 1)
 
-        def validate_solution(self, instance: "Biclique", size: int) -> None:
+        def validate_solution(self, instance: "Biclique") -> None:
             edge_set = set(instance.edges) | set(edge[::-1] for edge in instance.edges)
-            super().validate_solution(instance, size)
+            super().validate_solution(instance)
             if any(i >= instance.num_vertices for i in self.s_1 | self.s_2):
                 raise ValidationError("Solution contains vertices that aren't in the instance.")
             if len(self.s_1.intersection(self.s_2)) != 0:

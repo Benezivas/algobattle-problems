@@ -19,7 +19,7 @@ class Clusterediting(UndirectedGraph):
         add: set[tuple[int, int]] = Field(ge=0, le=2 ** 63 - 1)
         delete: set[tuple[int, int]] = Field(ge=0, le=2 ** 63 - 1)
 
-        def validate_solution(self, instance: "Clusterediting", size: int) -> None:
+        def validate_solution(self, instance: "Clusterediting") -> None:
             edge_set = set(instance.edges)
 
             # Apply modifications to graph
