@@ -9,7 +9,7 @@ class OSCM3Tests(unittest.TestCase):
 
     @classmethod
     def setUpCls(cls) -> None:
-        cls.instance = OSCM3(size=3, neighbors={
+        cls.instance = OSCM3(neighbors={
             0: {1, 2},
             1: {0, 1, 2},
             2: {0, 1},
@@ -17,8 +17,8 @@ class OSCM3Tests(unittest.TestCase):
 
     def test_too_many_neighbors(self):
         with self.assertRaises(ValidationError):
-            instance = OSCM3(size=4, neighbors={0: {0, 1, 2, 3}})
-            instance.validate_instance(4)
+            instance = OSCM3(neighbors={0: {0, 1, 2, 3}, 3: set()})
+            instance.validate_instance()
     
     def test_solution_not_permutation(self):
         with self.assertRaises(ValidationError):

@@ -16,10 +16,9 @@ class Pairsum(ProblemModel):
 
     numbers: list[int] = Field(min_items=min_size, ge=0, le=2**63-1)
 
-    def validate_instance(self, size: int) -> None:
-        super().validate_instance(size)
-        if len(self.numbers) > size:
-            raise ValidationError("Instance contains too many numbers.")
+    @property
+    def size(self) -> int:
+        return len(self.numbers)
 
     class Solution(SolutionModel):
         """A solution to a Pairsum problem"""
@@ -28,8 +27,8 @@ class Pairsum(ProblemModel):
 
         indices: list[int] = Field(min_items=4, max_items=4, ge=0)
 
-        def validate_solution(self, instance: "Pairsum", size: int) -> None:
-            super().validate_solution(instance, size)
+        def validate_solution(self, instance: "Pairsum") -> None:
+            super().validate_solution(instance)
             if any(i >= len(instance.numbers) for i in self.indices):
                 raise ValidationError("Solution index is out of range.")
             if len(self.indices) != len(set(self.indices)):

@@ -13,11 +13,14 @@ class Hikers(ProblemModel):
 
     hikers: list[tuple[int, int]] = Field(ge=0)
 
-    def validate_instance(self, max_size: int) -> None:
+    @property
+    def size(self) -> int:
+        """The instance size is the number of hikers."""
+        return len(self.hikers)
+
+    def validate_instance(self) -> None:
         if any(min_size > max_size for min_size, max_size in self.hikers):
             raise ValidationError("One hiker's minimum group size is larger than their maximum group size.")
-        if len(self.hikers) > max_size:
-            raise ValidationError("Instance is too big.")
 
     class Solution(SolutionModel):
         """A solution to a Hikers problem."""

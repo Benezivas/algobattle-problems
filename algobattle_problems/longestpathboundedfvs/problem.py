@@ -14,12 +14,12 @@ class Longestpathboundedfvs(UndirectedGraph):
     min_size: ClassVar[int] = 3
     fvs: set[int] = Field(ge=0, hidden="solver")
 
-    def validate_instance(self, max_size: int) -> None:
-        super().validate_instance(max_size)
-        if len(self.fvs) > sqrt(max_size):
+    def validate_instance(self) -> None:
+        super().validate_instance()
+        if len(self.fvs) > sqrt(self.size):
             raise ValidationError(
                 "The given feedback vertex set does not fit the size bound.",
-                detail=f"Given fvs has size {len(self.fvs)}, bound is {sqrt(max_size)}."
+                detail=f"Given fvs has size {len(self.fvs)}, bound is {sqrt(self.size)}."
             )
         if not self.valid_fvs_on_input():
             raise ValidationError("The given feedback vertex set is not valid.")

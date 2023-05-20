@@ -11,20 +11,22 @@ class OSCM3(ProblemModel):
     name: ClassVar[str] = "One-Sided Crossing Minimization-3"
     min_size: ClassVar[int] = 1
 
-    size: int = Field(ge=0)
     neighbors: dict[int, set[int]] = Field(ge=0)
 
-    def validate_instance(self, max_size: int) -> None:
-        super().validate_instance(max_size)
-        if self.size > max_size:
-            raise ValidationError("Instance contains too many vertices.")
-        if any(not 0 <= v < self.size for v in self.neighbors):
+    @property
+    def size(self) -> int:
+        return max(self.neighbors.keys())
+
+    def validate_instance(self) -> None:
+        super().validate_instance()
+        size = self.size
+        if any(not 0 <= v < size for v in self.neighbors):
             raise ValidationError("Instance contains element of V_1 out of the permitted range.")
-        if any(not 0 <= v < self.size for neighbors in self.neighbors.values() for v in neighbors):
+        if any(not 0 <= v < size for neighbors in self.neighbors.values() for v in neighbors):
             raise ValidationError("Instance contains element of V_2 out of the permitted range.")
         if any(len(neighbors) > 3 for neighbors in self.neighbors.values()):
             raise ValidationError("A vertex of V_1 has more than 3 neighbors.")
-        for u in range(self.size):
+        for u in range(size):
             self.neighbors.setdefault(u, set())
 
     class Solution(SolutionModel, Scored):
