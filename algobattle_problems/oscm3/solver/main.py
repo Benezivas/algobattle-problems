@@ -3,12 +3,9 @@ import json
 
 with open("input/info.json", "r") as infofile:
     info = json.load(infofile)
-    size = int(info["size"])
+    size = int(info["max_size"])
 
 with open("output/solution.json", "w") as output:
-    permutation = []
-    for i in range(size):
-        permutation.append(i)
     json.dump({
-        "permutation": permutation,
+        "vertex_order": list(range(size)),
     }, output)
