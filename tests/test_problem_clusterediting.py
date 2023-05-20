@@ -32,12 +32,14 @@ class Tests(unittest.TestCase):
             solution.validate_solution(self.instance)
 
     def test_delete_extra_edge(self):
-        solution = Solution(add=set(), delete={(0, 2)})
-        solution.validate_solution(self.instance)
+        instance = Clusterediting(num_vertices=4, edges=[(0, 1), (1, 2), (2, 0), (0, 3)])
+        solution = Solution(add=set(), delete={(0, 3)})
+        solution.validate_solution(instance)
 
     def test_delete_and_add_edge(self):
-        solution = Solution(add={(0, 3)}, delete={(0, 2)})
-        solution.validate_solution(self.instance)
+        instance = Clusterediting(num_vertices=4, edges=[(1, 2), (2, 0), (0, 3)])
+        solution = Solution(add={(0, 1)}, delete={(0, 3)})
+        solution.validate_solution(instance)
 
     def test_add_edge_reverse(self):
         solution = Solution(add={(2, 0)}, delete=set())
@@ -45,8 +47,9 @@ class Tests(unittest.TestCase):
             solution.validate_solution(self.instance)
 
     def test_delete_edge_reverse(self):
-        solution = Solution(add=set(), delete={(2, 0)})
-        solution.validate_solution(self.instance)
+        instance = Clusterediting(num_vertices=3, edges=[(0, 1), (1, 2)])
+        solution = Solution(add=set(), delete={(1, 0)})
+        solution.validate_solution(instance)
 
     def test_score(self):
         solution = Solution(add={(0, 1), (5, 8)}, delete={(4, 8), (7, 1), (0, 2), (2, 5)})
