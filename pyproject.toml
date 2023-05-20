@@ -15,7 +15,8 @@ C4subgraphiso = "algobattle_problems.c4subgraphiso.problem:C4subgraphiso"
 Clusterediting = "algobattle_problems.clusterediting.problem:Clusterediting"
 Domset = "algobattle_problems.domset.problem:Domset"
 Hikers = "algobattle_problems.hikers.problem:Hikers"
-Longestpathboundedfvs = "algobattle_problems.longestpathboundedfvs.problem:Longestpathboundedfvs"
+LPBFVS = "algobattle_problems.longestpathboundedfvs.problem:Longestpathboundedfvs"
+OSCM3 = "algobattle_problems.longestpathboundedfvs.problem:OSCM3"
 Pairsum = "algobattle_problems.pairsum.problem:Pairsum"
 
 [tool.setuptools.package-data]
