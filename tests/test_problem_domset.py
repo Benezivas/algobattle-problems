@@ -37,7 +37,7 @@ class Verifiertests(unittest.TestCase):
         self.assertEqual(bad_solution.score(self.instance), 5)
         self.assertEqual(good_solution.score(self.instance), 3)
         self.assertEqual(
-            self.instance.calculate_score(bad_solution, good_solution), 0.6
+            self.instance.score(bad_solution, good_solution), 0.6
         )
 
 
