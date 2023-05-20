@@ -13,14 +13,14 @@ The `size` of an instance limits the length of the list of numbers.
 The generator should create a hard to solve instance and a certificate solution to prove that such a pair of pairs
 indeed exists. The generator should be able to efficiently find the solution for any input list.
 
-## Instance
+## Instances
 An instance just contains the list of numbers. For example:
 ```json
 {
     "numbers": [1, 2, 3, 4, 5]
 }
 ```
-## Solution
+## Solutions
 A solution contains a list with the four indices `a, b, c, d` in this order. For example:
 ```json
 {

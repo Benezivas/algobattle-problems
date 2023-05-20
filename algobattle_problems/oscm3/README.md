@@ -10,7 +10,7 @@ virtual line, parallel to one another. Each node of `V_1` has degree at most 3.
 The generator needs to output both an instance and a certificate solution. The solver's solution is scored based on how
 small the number of edges that cross in it are.
 
-## Instance
+## Instances
 
 Since the graph is bipartite it is enough to only specify edges from `V_1` to `V_2`. Vertices in both sets are numbered
 1 through `size - 1`, meaning that an instance actually contains twice as many vertices as `size` is. We use a
@@ -28,7 +28,7 @@ dictionary to define adjacency lists. Each key is an element of `V_1` and its it
 
 Note that each list can only contain up to three elements and that keys are strings while list elements are integers.
 
-## Solution
+## Solutions
 
 The solution just contains the permutation of `V_1` that minimizes the number of crossings, encoded as a single list.
 

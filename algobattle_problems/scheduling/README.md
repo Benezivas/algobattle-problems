@@ -12,7 +12,7 @@ The index of a machine indicates its speed, specifically how much the machine sl
 The generator outputs both an instance and a certificate solution. Solvers are scored based on how fast their
 solution's makespan is compared to the generator's.
 
-## Instance
+## Instances
 
 An instance contains the list of job lengths. For example:
 
@@ -22,7 +22,7 @@ An instance contains the list of job lengths. For example:
 }
 ```
 
-## Solution
+## Solutions
 
 A solution contains a list of the machine numbers each job is assigned to. For example:
 

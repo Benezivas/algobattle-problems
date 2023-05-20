@@ -10,7 +10,7 @@ already NP-complete, i.e. packing paths with two edges (`P_3`).
 The generator needs to output both an instance and a certificate solution. Solvers are scored based on how many paths
 they found compared to the generator.
 
-## Instance
+## Instances
 
 An instance is a standard undirected graph. For example:
 
@@ -33,7 +33,7 @@ An instance is a standard undirected graph. For example:
 }
 ```
 
-## Solution
+## Solutions
 
 A solution contains a set of 3-paths in the instance. A valid solution to the above instance is:
 

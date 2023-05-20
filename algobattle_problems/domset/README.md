@@ -11,7 +11,7 @@ small as possible.
 The generator needs to output a graph with at most `size` many vertices, and a certificate solution. The solver's
 score is the ratio of the generator's vertex cover to the one it found.
 
-## Instance
+## Instances
 
 An instance is a standard undirected graph. For example:
 
@@ -31,7 +31,7 @@ An instance is a standard undirected graph. For example:
 }
 ```
 
-## Solution
+## Solutions
 
 A solution just contains the dominating set of vertices. Its score is the number of vertices in it. A valid solution
 for the instance above is

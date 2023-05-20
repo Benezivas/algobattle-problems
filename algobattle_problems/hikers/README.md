@@ -15,7 +15,7 @@ hiker of `S` is in a group of their preferred size.
 The generator needs to output a list of hiker preferences, and a certificate solution. The solver's solution score is
 the ratio of hikers satisfied with its solution to the number of hikers happy with the generator's solution.
 
-## Instance
+## Instances
 
 Instances just contain a list of the hiker's group preferences. For example:
 
@@ -33,7 +33,7 @@ Instances just contain a list of the hiker's group preferences. For example:
 
 Here, the first hiker prefers groups containing between 1 and 3 people, the third hiker wants to only walk alone, etc.
 
-## Solution
+## Solutions
 
 The Solution consists of just the mapping of hikers to groups. Every group is identified via a natural number. A
 possible solution to the instance above is:
