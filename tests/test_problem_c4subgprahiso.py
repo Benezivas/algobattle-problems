@@ -42,27 +42,27 @@ class SolutionTests(unittest.TestCase):
     def test_vertex_too_big(self):
         solution = C4subgraphiso.Solution(squares={(0, 1, 2, 10)})
         with self.assertRaises(ValidationError):
-            solution.validate_solution(self.instance, 10)
+            solution.validate_solution(self.instance)
 
     def test_edge_missing(self):
         solution = C4subgraphiso.Solution(squares={(2, 3, 4, 5)})
         with self.assertRaises(ValidationError):
-            solution.validate_solution(self.instance, 10)
+            solution.validate_solution(self.instance)
 
     def test_additional_edge(self):
         solution = C4subgraphiso.Solution(squares={(1, 2, 4, 8)})
         with self.assertRaises(ValidationError):
-            solution.validate_solution(self.instance, 10)
+            solution.validate_solution(self.instance)
 
     def test_score(self):
         solution = C4subgraphiso.Solution(squares={(0, 1, 8, 9), (4, 5, 6, 7)})
-        solution.validate_solution(self.instance, 10)
+        solution.validate_solution(self.instance)
         self.assertEqual(solution.score(10, self.instance), 2)
 
     def test_squares_disjoin(self):
         solution = C4subgraphiso.Solution(squares={(0, 1, 2, 3), (0, 1, 8, 9)})
         with self.assertRaises(ValidationError):
-            solution.validate_solution(self.instance, 10)
+            solution.validate_solution(self.instance)
 
 if __name__ == '__main__':
     unittest.main()

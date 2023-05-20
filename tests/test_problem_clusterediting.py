@@ -29,34 +29,34 @@ class SolutionTests(unittest.TestCase):
     def test_delete_nonexisting_edge(self):
         solution = Solution(add=set(), delete={(0, 1)})
         with self.assertRaises(ValidationError):
-            solution.validate_solution(self.instance, 10)
+            solution.validate_solution(self.instance)
 
     def test_delete_extra_edge(self):
         solution = Solution(add=set(), delete={(0, 2)})
-        solution.validate_solution(self.instance, 10)
+        solution.validate_solution(self.instance)
 
     def test_delete_and_add_edge(self):
         solution = Solution(add={(0, 3)}, delete={(0, 2)})
-        solution.validate_solution(self.instance, 10)
+        solution.validate_solution(self.instance)
 
     def test_add_edge_reverse(self):
         solution = Solution(add={(2, 0)}, delete=set())
         with self.assertRaises(ValidationError):
-            solution.validate_solution(self.instance, 10)
+            solution.validate_solution(self.instance)
 
     def test_delete_edge_reverse(self):
         solution = Solution(add=set(), delete={(2, 0)})
-        solution.validate_solution(self.instance, 10)
+        solution.validate_solution(self.instance)
 
     def test_score(self):
         solution = Solution(add={(0, 1), (5, 8)}, delete={(4, 8), (7, 1), (0, 2), (2, 5)})
-        solution.validate_solution(self.instance, 10)
+        solution.validate_solution(self.instance)
         self.assertEqual(solution.score(10, self.instance), 6)
 
     def test_solution_doesnt_triangulate(self):
         solution = Solution(add={(0, 1), (5, 8)}, delete={(7, 1), (0, 2), (2, 5)})
         with self.assertRaises(ValidationError):
-            solution.validate_solution(self.instance, 10)
+            solution.validate_solution(self.instance)
 
 if __name__ == '__main__':
     unittest.main()

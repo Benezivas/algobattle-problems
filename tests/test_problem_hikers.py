@@ -19,7 +19,7 @@ class Verifiertests(unittest.TestCase):
 
     def test_solution_empty(self):
         solution = Hikers.Solution(assignments={})
-        solution.validate_solution(self.instance, 5)
+        solution.validate_solution(self.instance)
 
     def test_solution_correct(self):
         solution = Hikers.Solution(assignments={
@@ -28,17 +28,17 @@ class Verifiertests(unittest.TestCase):
             3: 2,
             4: 2,
         })
-        solution.validate_solution(self.instance, 5)
+        solution.validate_solution(self.instance)
 
     def test_solution_wrong_hiker(self):
         solution = Hikers.Solution(assignments={10: 1})
         with self.assertRaises(ValidationError):
-            solution.validate_solution(self.instance, 5)
+            solution.validate_solution(self.instance)
 
     def test_solution_hiker_unhappy(self):
         solution = Hikers.Solution(assignments={1: 1})
         with self.assertRaises(ValidationError):
-            solution.validate_solution(self.instance, 5)
+            solution.validate_solution(self.instance)
 
 if __name__ == '__main__':
     unittest.main()
