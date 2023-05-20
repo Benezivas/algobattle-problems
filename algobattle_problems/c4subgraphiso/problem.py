@@ -1,8 +1,8 @@
 """The C4subgraphiso problem class."""
 from typing import ClassVar
-from pydantic import Field
 
 from algobattle.problem import UndirectedGraph, SolutionModel, ValidationError
+from algobattle.util import u64
 
 
 class C4subgraphiso(UndirectedGraph):
@@ -16,7 +16,7 @@ class C4subgraphiso(UndirectedGraph):
 
         direction: ClassVar = "maximize"
 
-        squares: set[tuple[int, int, int, int]] = Field(ge=0)
+        squares: set[tuple[u64, u64, u64, u64]]
 
         def validate_solution(self, instance: "C4subgraphiso") -> None:
             super().validate_solution(instance)

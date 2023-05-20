@@ -8,6 +8,7 @@ from networkx.algorithms.tree.recognition import is_forest
 from networkx.classes.function import is_empty
 
 from algobattle.problem import UndirectedGraph, SolutionModel, ValidationError
+from algobattle.util import u64
 
 
 class Longestpathboundedfvs(UndirectedGraph):
@@ -15,7 +16,7 @@ class Longestpathboundedfvs(UndirectedGraph):
 
     name: ClassVar[str] = "Longest Path with Bounded Feedback Vertex Set"
     min_size: ClassVar[int] = 3
-    fvs: set[int] = Field(ge=0, hidden="solver")
+    fvs: set[u64] = Field(hidden="solver")
 
     def validate_instance(self) -> None:
         super().validate_instance()
@@ -39,7 +40,7 @@ class Longestpathboundedfvs(UndirectedGraph):
     class Solution(SolutionModel):
         """A solution to a Longest Path with Bounded Feedback Vertex Set problem."""
 
-        path: list[int] = Field(ge=0)
+        path: list[u64]
 
         direction: ClassVar = "maximize"
 

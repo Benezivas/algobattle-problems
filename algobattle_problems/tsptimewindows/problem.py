@@ -7,6 +7,7 @@ from pydantic import Field
 
 from algobattle.problem import ProblemModel, SolutionModel, ValidationError
 from algobattle.util import BaseModel, Role
+from algobattle.util import u64
 
 
 class Location(BaseModel):
@@ -39,7 +40,7 @@ class Tsptimewindows(ProblemModel):
     class Solution(SolutionModel):
         """A solution to a Traveling Salesman with Time Windows problem."""
 
-        tour: list[int] = Field(ge=0, le=2 ** 63 - 1)
+        tour: list[u64]
 
         def location_tour(self, instance: "Tsptimewindows") -> Iterator[Location]:
             """Iterates over all locations in the tour in order, looping back around to the first."""

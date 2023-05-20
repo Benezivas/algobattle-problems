@@ -4,6 +4,7 @@ from typing import ClassVar
 from pydantic import Field
 
 from algobattle.problem import ProblemModel, SolutionModel, ValidationError
+from algobattle.util import u64
 
 logger = logging.getLogger('algobattle.problems.pairsum')
 
@@ -23,7 +24,7 @@ class Pairsum(ProblemModel):
     class Solution(SolutionModel):
         """A solution to a Pairsum problem"""
 
-        indices: tuple[int, int, int, int] = Field(ge=0)
+        indices: tuple[u64, u64, u64, u64]
 
         def validate_solution(self, instance: "Pairsum") -> None:
             super().validate_solution(instance)

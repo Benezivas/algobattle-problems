@@ -2,9 +2,9 @@
 from collections import defaultdict
 from itertools import combinations
 from typing import ClassVar
-from pydantic import Field
 
 from algobattle.problem import UndirectedGraph, SolutionModel, ValidationError
+from algobattle.util import u64
 
 
 class Clusterediting(UndirectedGraph):
@@ -18,8 +18,8 @@ class Clusterediting(UndirectedGraph):
 
         direction: ClassVar = "minimize"
 
-        add: set[tuple[int, int]] = Field(ge=0, le=2 ** 63 - 1)
-        delete: set[tuple[int, int]] = Field(ge=0, le=2 ** 63 - 1)
+        add: set[tuple[u64, u64]]
+        delete: set[tuple[u64, u64]]
 
         def validate_solution(self, instance: "Clusterediting") -> None:
             edge_set = set(instance.edges)

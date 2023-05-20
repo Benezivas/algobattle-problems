@@ -1,8 +1,8 @@
 """The PathPacking problem class."""
 from typing import ClassVar
-from pydantic import Field
 
 from algobattle.problem import UndirectedGraph, SolutionModel, ValidationError
+from algobattle.util import u64
 
 
 class Pathpacking(UndirectedGraph):
@@ -16,7 +16,7 @@ class Pathpacking(UndirectedGraph):
 
         direction: ClassVar = "maximize"
 
-        paths: set[tuple[int, int, int]] = Field(ge=0)
+        paths: set[tuple[u64, u64, u64]]
 
         def validate_solution(self, instance: "Pathpacking") -> None:
             if not self.all_paths_disjoint(self.paths):

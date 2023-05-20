@@ -1,8 +1,8 @@
 """The Clusterediting problem class."""
 from typing import ClassVar
-from pydantic import Field
 
 from algobattle.problem import UndirectedGraph, SolutionModel, ValidationError
+from algobattle.util import u64
 
 
 class Domset(UndirectedGraph):
@@ -14,7 +14,7 @@ class Domset(UndirectedGraph):
     class Solution(SolutionModel):
         """A solution to a Dominating Set problem"""
 
-        domset: set[int] = Field(ge=0)
+        domset: set[u64]
 
         direction: ClassVar = "minimize"
 

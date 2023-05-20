@@ -1,8 +1,8 @@
 """The Hikers problem class."""
 from typing import ClassVar
-from pydantic import Field
 
 from algobattle.problem import ProblemModel, SolutionModel, ValidationError
+from algobattle.util import u64
 
 
 class Hikers(ProblemModel):
@@ -11,7 +11,7 @@ class Hikers(ProblemModel):
     name: ClassVar[str] = "Hikers"
     min_size: ClassVar[int] = 5
 
-    hikers: list[tuple[int, int]] = Field(ge=0)
+    hikers: list[tuple[u64, u64]]
 
     @property
     def size(self) -> int:
@@ -27,7 +27,7 @@ class Hikers(ProblemModel):
 
         direction: ClassVar = "maximize"
 
-        assignments: dict[int, int] = Field(ge=0)
+        assignments: dict[u64, u64]
 
         def validate_solution(self, instance: "Hikers") -> None:
             if any(hiker >= len(instance.hikers) for hiker in self.assignments):

@@ -1,8 +1,8 @@
 """The Biclique problem class."""
 from typing import ClassVar
-from pydantic import Field
 
 from algobattle.problem import UndirectedGraph, SolutionModel, ValidationError
+from algobattle.util import u64
 
 
 class Biclique(UndirectedGraph):
@@ -16,8 +16,8 @@ class Biclique(UndirectedGraph):
 
         direction: ClassVar = "maximize"
 
-        s_1: set[int] = Field(ge=0, le=2**63 - 1)
-        s_2: set[int] = Field(ge=0, le=2**63 - 1)
+        s_1: set[u64]
+        s_2: set[u64]
 
         def validate_solution(self, instance: "Biclique") -> None:
             edge_set = set(instance.edges) | set(edge[::-1] for edge in instance.edges)

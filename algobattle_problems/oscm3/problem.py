@@ -1,8 +1,8 @@
 """The OSCM3 problem class."""
 from typing import ClassVar
-from pydantic import Field
 
 from algobattle.problem import ProblemModel, SolutionModel, ValidationError
+from algobattle.util import u64
 
 
 class OSCM3(ProblemModel):
@@ -11,7 +11,7 @@ class OSCM3(ProblemModel):
     name: ClassVar[str] = "One-Sided Crossing Minimization-3"
     min_size: ClassVar[int] = 1
 
-    neighbors: dict[int, set[int]] = Field(ge=0)
+    neighbors: dict[u64, set[u64]]
 
     @property
     def size(self) -> int:
@@ -34,7 +34,7 @@ class OSCM3(ProblemModel):
 
         direction: ClassVar = "minimize"
 
-        vertex_order: list[int] = Field(ge=0)
+        vertex_order: list[u64]
 
         def validate_solution(self, instance: "OSCM3") -> None:
             if any(not 0 <= i < instance.size for i in self.vertex_order):
