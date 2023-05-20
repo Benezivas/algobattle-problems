@@ -2,7 +2,7 @@
 from typing import ClassVar
 from pydantic import Field
 
-from algobattle.problem import UndirectedGraph, SolutionModel, Scored, ValidationError
+from algobattle.problem import UndirectedGraph, SolutionModel, ValidationError
 
 
 class Domset(UndirectedGraph):

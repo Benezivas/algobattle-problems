@@ -7,7 +7,7 @@ from networkx import Graph
 from networkx.algorithms.tree.recognition import is_forest
 from networkx.classes.function import is_empty
 
-from algobattle.problem import UndirectedGraph, SolutionModel, Scored, ValidationError
+from algobattle.problem import UndirectedGraph, SolutionModel, ValidationError
 
 
 class Longestpathboundedfvs(UndirectedGraph):

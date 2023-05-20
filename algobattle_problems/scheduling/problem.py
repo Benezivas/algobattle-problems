@@ -3,7 +3,7 @@ from typing import ClassVar
 
 from pydantic import Field
 
-from algobattle.problem import ProblemModel, SolutionModel, ValidationError, Scored
+from algobattle.problem import ProblemModel, SolutionModel, ValidationError
 
 
 class Scheduling(ProblemModel):
