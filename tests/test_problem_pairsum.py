@@ -12,9 +12,9 @@ class Tests(unittest.TestCase):
         cls.instance = Pairsum(numbers=[1, 2, 3, 4])
 
     def test_size(self):
-        self.assertEqual(self.instance, 4)
-        self.assertEqual(Pairsum(numbers=[]), 0)
-        self.assertEqual(Pairsum(numbers=[1]), 0)
+        self.assertEqual(self.instance.size, 4)
+        self.assertEqual(Pairsum(numbers=[1, 2, 3, 4, 5, 6]).size, 6)
+        self.assertEqual(Pairsum(numbers=list(range(17))).size, 17)
 
     def test_solution_wrong_indices(self):
         with self.assertRaises(ValidationError):
