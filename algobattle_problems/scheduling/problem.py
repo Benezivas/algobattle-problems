@@ -32,5 +32,5 @@ class Scheduling(ProblemModel):
         def score(self, instance: "Scheduling") -> float:
             finish_time = [0] * 5
             for duration, machine in zip(instance.job_lengths, self.assignments):
-                finish_time[machine] += duration * machine
+                finish_time[machine - 1] += duration * machine
             return max(finish_time)
