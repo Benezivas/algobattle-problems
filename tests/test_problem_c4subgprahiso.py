@@ -6,7 +6,7 @@ from pydantic import ValidationError as PydanticValidationError
 from algobattle_problems.c4subgraphiso.problem import C4subgraphiso, ValidationError
 
 
-class SolutionTests(unittest.TestCase):
+class Tests(unittest.TestCase):
     """Tests for the c4subgraphiso verifier."""
 
     @classmethod

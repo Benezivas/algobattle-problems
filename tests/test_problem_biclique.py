@@ -4,7 +4,7 @@ import unittest
 from algobattle_problems.biclique.problem import Biclique, ValidationError
 
 
-class SolutionTests(unittest.TestCase):
+class Tests(unittest.TestCase):
     """Tests for the Biclique problem solution class."""
     
     def test_vertices_exist(self):

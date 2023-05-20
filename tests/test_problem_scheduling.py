@@ -6,7 +6,7 @@ from pydantic import ValidationError as PydanticValidationError
 from algobattle_problems.scheduling.problem import Scheduling, ValidationError
 
 
-class SchedulingTests(unittest.TestCase):
+class Tests(unittest.TestCase):
     """Tests for the scheduling problem."""
 
     @classmethod

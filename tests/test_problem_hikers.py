@@ -4,7 +4,7 @@ import unittest
 from algobattle_problems.hikers.problem import Hikers, ValidationError
 
 
-class Verifiertests(unittest.TestCase):
+class Tests(unittest.TestCase):
     """Tests for the hikers problem."""
 
     @classmethod

@@ -4,7 +4,7 @@ import unittest
 from algobattle_problems.pairsum.problem import Pairsum, ValidationError
 
 
-class Verifiertests(unittest.TestCase):
+class Tests(unittest.TestCase):
     """Tests for the Pairsum Verifier."""
 
     @classmethod

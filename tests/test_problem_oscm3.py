@@ -4,7 +4,7 @@ import unittest
 from algobattle_problems.oscm3.problem import OSCM3, ValidationError
 
 
-class OSCM3Tests(unittest.TestCase):
+class Tests(unittest.TestCase):
     """Tests for the OSCM3 verifier."""
 
     @classmethod

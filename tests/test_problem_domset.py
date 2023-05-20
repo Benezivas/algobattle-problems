@@ -7,7 +7,7 @@ from algobattle_problems.domset.problem import Domset, ValidationError
 logging.disable(logging.CRITICAL)
 
 
-class Verifiertests(unittest.TestCase):
+class Tests(unittest.TestCase):
     """Tests for the DomSet problem."""
 
     @classmethod

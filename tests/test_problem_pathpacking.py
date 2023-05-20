@@ -4,7 +4,7 @@ import unittest
 from algobattle_problems.pathpacking.problem import Pathpacking, ValidationError
 
 
-class PathpackingTests(unittest.TestCase):
+class Tests(unittest.TestCase):
     """Tests for the Pathpacking problem."""
 
     @classmethod

@@ -7,7 +7,7 @@ from algobattle_problems.clusterediting.problem import Clusterediting, Validatio
 Solution = Clusterediting.Solution
 
 
-class SolutionTests(unittest.TestCase):
+class Tests(unittest.TestCase):
     """Tests for the clusterediting solutions."""
 
     @classmethod
