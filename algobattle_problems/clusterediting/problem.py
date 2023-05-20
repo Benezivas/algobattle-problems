@@ -1,4 +1,6 @@
 """The Clusterediting problem class."""
+from collections import defaultdict
+from itertools import combinations
 from typing import ClassVar
 from pydantic import Field
 
@@ -34,23 +36,15 @@ class Clusterediting(UndirectedGraph):
                 else:
                     raise ValidationError("Solution contains edge not found in instance.")
 
-            for edge1 in edge_set:
-                for edge2 in edge_set:
-                    if edge1 != edge2:
-                        check_edge = None
-                        if edge1[0] == edge2[0]:
-                            check_edge = (edge1[1], edge2[1])
-                        elif edge1[0] == edge2[1]:
-                            check_edge = (edge1[1], edge2[0])
-                        elif edge1[1] == edge2[0]:
-                            check_edge = (edge1[0], edge2[1])
-                        elif edge1[1] == edge2[1]:
-                            check_edge = (edge1[0], edge2[0])
+            neighbors: defaultdict[int, set[int]] = defaultdict(set)
+            for u, v in edge_set:
+                neighbors[u].add(v)
+                neighbors[v].add(u)
 
-                        if (check_edge
-                            and check_edge not in edge_set
-                            and (check_edge[1], check_edge[0]) not in edge_set):
-                            raise ValidationError("The solution does not triangulate the graph!")
+            for u in range(instance.num_vertices):
+                for v, w in combinations(neighbors[u], 2):
+                    if not (v, w) in edge_set and not (w, v) in edge_set:
+                        raise ValidationError("The solution does not transform the graph into a cluster.")
 
         def score(self, instance: "Clusterediting") -> float:
             return len(self.add) + len(self.delete)
