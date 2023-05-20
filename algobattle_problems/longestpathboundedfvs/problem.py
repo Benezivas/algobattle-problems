@@ -2,7 +2,10 @@
 from math import sqrt
 from typing import ClassVar
 from pydantic import Field
-import networkx as nx
+
+from networkx import Graph
+from networkx.algorithms.tree.recognition import is_forest
+from networkx.classes.function import is_empty
 
 from algobattle.problem import UndirectedGraph, SolutionModel, Scored, ValidationError
 
@@ -25,13 +28,13 @@ class Longestpathboundedfvs(UndirectedGraph):
             raise ValidationError("The given feedback vertex set is not valid.")
 
     def valid_fvs_on_input(self) -> bool:
-        g = nx.Graph()
+        g = Graph()
         for edge in self.edges:
             g.add_edge(*edge)
         for node in self.fvs:
             if g.has_node(node):
                 g.remove_node(node)
-        return nx.is_empty(g) or nx.algorithms.tree.recognition.is_forest(g)
+        return is_empty(g) or is_forest(g)
 
     class Solution(SolutionModel, Scored):
         """A solution to a Longest Path with Bounded Feedback Vertex Set problem."""
@@ -48,7 +51,7 @@ class Longestpathboundedfvs(UndirectedGraph):
 
         def _nodes_are_walk(self, instance) -> bool:
             edge_set = set(instance.edges)
-            g = nx.Graph()
+            g = Graph()
             for edge in edge_set:
                 g.add_edge(edge[0], edge[1])
             for i in range(len(self.path) - 1):
