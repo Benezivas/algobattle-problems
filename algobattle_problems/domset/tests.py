@@ -1,10 +1,7 @@
 """Tests for the DomSet problem."""
 import unittest
-import logging
 
 from algobattle_problems.domset.problem import Domset, ValidationError
-
-logging.disable(logging.CRITICAL)
 
 
 class Tests(unittest.TestCase):

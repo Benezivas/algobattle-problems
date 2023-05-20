@@ -1,12 +1,9 @@
 """Main module of the Pairsum problem."""
-import logging
 from typing import ClassVar
 from pydantic import Field
 
 from algobattle.problem import ProblemModel, SolutionModel, ValidationError
 from algobattle.util import u64
-
-logger = logging.getLogger('algobattle.problems.pairsum')
 
 
 class Pairsum(ProblemModel):
