@@ -18,6 +18,7 @@ Hikers = "algobattle_problems.hikers.problem:Hikers"
 LPBFVS = "algobattle_problems.longestpathboundedfvs.problem:Longestpathboundedfvs"
 OSCM3 = "algobattle_problems.longestpathboundedfvs.problem:OSCM3"
 Pairsum = "algobattle_problems.pairsum.problem:Pairsum"
+Pathpacking = "algobattle_problems.pathpacking.problem:Pathpacking"
 
 [tool.setuptools.package-data]
 algobattle_problems = ["*/generator/**/*", "*/solver/**/*"]
