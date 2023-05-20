@@ -2,7 +2,7 @@
 from typing import ClassVar
 from pydantic import Field
 
-from algobattle.problem import ProblemModel, SolutionModel, ValidationError
+from algobattle.problem import ProblemModel, SolutionModel, ValidationError, Scored
 
 
 class Hikers(ProblemModel):
@@ -22,7 +22,7 @@ class Hikers(ProblemModel):
         if any(min_size > max_size for min_size, max_size in self.hikers):
             raise ValidationError("One hiker's minimum group size is larger than their maximum group size.")
 
-    class Solution(SolutionModel):
+    class Solution(SolutionModel, Scored):
         """A solution to a Hikers problem."""
 
         direction: ClassVar = "maximize"
@@ -42,5 +42,5 @@ class Hikers(ProblemModel):
                 if not (min_size <= group_sizes[group] <= max_size):
                     raise ValidationError("A Hiker is not happy with their assignment!")
 
-        def score(self, size: int, instance: "Hikers") -> float:
+        def score(self, instance: "Hikers") -> float:
             return len(self.assignments)

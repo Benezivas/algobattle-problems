@@ -2,7 +2,7 @@
 from typing import ClassVar
 from pydantic import Field
 
-from algobattle.problem import UndirectedGraph, SolutionModel, ValidationError
+from algobattle.problem import UndirectedGraph, SolutionModel, ValidationError, Scored
 
 
 class C4subgraphiso(UndirectedGraph):
@@ -11,7 +11,7 @@ class C4subgraphiso(UndirectedGraph):
     name: ClassVar[str] = "Square Subgraph Isomorphism"
     min_size: ClassVar[int] = 4
 
-    class Solution(SolutionModel):
+    class Solution(SolutionModel, Scored):
         """A solution to a Square Subgraph Isomorphism problem."""
 
         direction: ClassVar = "maximize"
@@ -58,5 +58,5 @@ class C4subgraphiso(UndirectedGraph):
                         or not ((square[3], square[0]) in edge_set or (square[0], square[3]) in edge_set)):
                     raise ValidationError("A square is not part of the instance.")
 
-        def score(self, size: int, instance: "C4subgraphiso") -> float:
+        def score(self, instance: "C4subgraphiso") -> float:
             return len(self.squares)

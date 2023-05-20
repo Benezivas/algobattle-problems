@@ -2,7 +2,7 @@
 from typing import ClassVar
 from pydantic import Field
 
-from algobattle.problem import UndirectedGraph, SolutionModel, ValidationError
+from algobattle.problem import UndirectedGraph, SolutionModel, ValidationError, Scored
 
 
 class Biclique(UndirectedGraph):
@@ -11,7 +11,7 @@ class Biclique(UndirectedGraph):
     name: ClassVar[str] = "Bipartite Clique"
     min_size: ClassVar[int] = 5
 
-    class Solution(SolutionModel):
+    class Solution(SolutionModel, Scored):
         """A solution to a bipartite clique problem"""
 
         direction: ClassVar = "maximize"
@@ -32,5 +32,5 @@ class Biclique(UndirectedGraph):
                 or any((u, v) in edge_set for u in self.s_2 for v in self.s_2)):
                 raise ValidationError("The solution is not a bipartite graph.")
 
-        def score(self, size: int, instance: "Biclique") -> float:
+        def score(self, instance: "Biclique") -> float:
             return len(self.s_1) + len(self.s_2)

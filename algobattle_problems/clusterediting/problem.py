@@ -2,7 +2,7 @@
 from typing import ClassVar
 from pydantic import Field
 
-from algobattle.problem import UndirectedGraph, SolutionModel, ValidationError
+from algobattle.problem import UndirectedGraph, SolutionModel, ValidationError, Scored
 
 
 class Clusterediting(UndirectedGraph):
@@ -11,7 +11,7 @@ class Clusterediting(UndirectedGraph):
     name: ClassVar[str] = "Cluster Editing"
     min_size: ClassVar[int] = 4
 
-    class Solution(SolutionModel):
+    class Solution(SolutionModel, Scored):
         """A solution to a Cluster Editing problem"""
 
         direction: ClassVar = "minimize"
@@ -52,5 +52,5 @@ class Clusterediting(UndirectedGraph):
                             and (check_edge[1], check_edge[0]) not in edge_set):
                             raise ValidationError("The solution does not triangulate the graph!")
 
-        def score(self, size: int, instance: "Clusterediting") -> float:
+        def score(self, instance: "Clusterediting") -> float:
             return len(self.add) + len(self.delete)

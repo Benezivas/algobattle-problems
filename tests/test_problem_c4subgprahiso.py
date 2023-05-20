@@ -57,7 +57,7 @@ class SolutionTests(unittest.TestCase):
     def test_score(self):
         solution = C4subgraphiso.Solution(squares={(0, 1, 8, 9), (4, 5, 6, 7)})
         solution.validate_solution(self.instance)
-        self.assertEqual(solution.score(10, self.instance), 2)
+        self.assertEqual(solution.score(self.instance), 2)
 
     def test_squares_disjoin(self):
         solution = C4subgraphiso.Solution(squares={(0, 1, 2, 3), (0, 1, 8, 9)})
