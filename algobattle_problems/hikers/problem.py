@@ -22,7 +22,7 @@ class Hikers(ProblemModel):
         if any(min_size > max_size for min_size, max_size in self.hikers):
             raise ValidationError("One hiker's minimum group size is larger than their maximum group size.")
 
-    class Solution(SolutionModel, Scored):
+    class Solution(SolutionModel):
         """A solution to a Hikers problem."""
 
         direction: ClassVar = "maximize"

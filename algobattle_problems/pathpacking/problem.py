@@ -11,7 +11,7 @@ class Pathpacking(UndirectedGraph):
     name: ClassVar[str] = "P_3 Path Packing"
     min_size: ClassVar[int] = 3
 
-    class Solution(SolutionModel, Scored):
+    class Solution(SolutionModel):
         """A solution to a Path Packing problem."""
 
         direction: ClassVar = "maximize"

@@ -11,7 +11,7 @@ class C4subgraphiso(UndirectedGraph):
     name: ClassVar[str] = "Square Subgraph Isomorphism"
     min_size: ClassVar[int] = 4
 
-    class Solution(SolutionModel, Scored):
+    class Solution(SolutionModel):
         """A solution to a Square Subgraph Isomorphism problem."""
 
         direction: ClassVar = "maximize"

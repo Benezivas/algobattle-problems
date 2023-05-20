@@ -11,7 +11,7 @@ class Domset(UndirectedGraph):
     name: ClassVar[str] = "Dominating Set"
     min_size: ClassVar[int] = 2
 
-    class Solution(SolutionModel, Scored):
+    class Solution(SolutionModel):
         """A solution to a Dominating Set problem"""
 
         domset: set[int] = Field(ge=0)

@@ -18,7 +18,7 @@ class Scheduling(ProblemModel):
     def size(self) -> int:
         return len(self.job_lengths)
 
-    class Solution(SolutionModel, Scored):
+    class Solution(SolutionModel):
         """A solution to a Job Shop Scheduling problem"""
 
         direction: ClassVar = "minimize"

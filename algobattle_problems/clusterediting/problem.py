@@ -11,7 +11,7 @@ class Clusterediting(UndirectedGraph):
     name: ClassVar[str] = "Cluster Editing"
     min_size: ClassVar[int] = 4
 
-    class Solution(SolutionModel, Scored):
+    class Solution(SolutionModel):
         """A solution to a Cluster Editing problem"""
 
         direction: ClassVar = "minimize"

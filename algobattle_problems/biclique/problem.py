@@ -11,7 +11,7 @@ class Biclique(UndirectedGraph):
     name: ClassVar[str] = "Bipartite Clique"
     min_size: ClassVar[int] = 5
 
-    class Solution(SolutionModel, Scored):
+    class Solution(SolutionModel):
         """A solution to a bipartite clique problem"""
 
         direction: ClassVar = "maximize"

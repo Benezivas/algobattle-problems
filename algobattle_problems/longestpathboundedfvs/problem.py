@@ -36,7 +36,7 @@ class Longestpathboundedfvs(UndirectedGraph):
                 g.remove_node(node)
         return is_empty(g) or is_forest(g)
 
-    class Solution(SolutionModel, Scored):
+    class Solution(SolutionModel):
         """A solution to a Longest Path with Bounded Feedback Vertex Set problem."""
 
         path: list[int] = Field(ge=0)
