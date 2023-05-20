@@ -23,9 +23,7 @@ class Pairsum(ProblemModel):
     class Solution(SolutionModel):
         """A solution to a Pairsum problem"""
 
-        direction: ClassVar = "maximize"
-
-        indices: list[int] = Field(min_items=4, max_items=4, ge=0)
+        indices: tuple[int, int, int, int] = Field(ge=0)
 
         def validate_solution(self, instance: "Pairsum") -> None:
             super().validate_solution(instance)
@@ -33,8 +31,7 @@ class Pairsum(ProblemModel):
                 raise ValidationError("Solution index is out of range.")
             if len(self.indices) != len(set(self.indices)):
                 raise ValidationError("Solution contains duplicate indices.")
-
-        def score(self, instance: "Pairsum", size: int) -> float:
             first = instance.numbers[self.indices[0]] + instance.numbers[self.indices[1]]
             second = instance.numbers[self.indices[2]] + instance.numbers[self.indices[3]]
-            return first == second
+            if first != second:
+                raise ValidationError("Solution elements don't have the same sum.")

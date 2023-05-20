@@ -1,4 +1,5 @@
 # The Pairsum Problem
+
 The Pairsum problem is a simple task which proved to be a good primer task for students to get used to the environment.
 
 The task is the following:
@@ -16,14 +17,14 @@ indeed exists. The generator should be able to efficiently find the solution for
 An instance just contains the list of numbers. For example:
 ```json
 {
-    "numbers": [1, 2, 3, 4, 5],
+    "numbers": [1, 2, 3, 4, 5]
 }
 ```
 ## Solution
 A solution contains a list with the four indices `a, b, c, d` in this order. For example:
 ```json
 {
-    "indices": [1, 4, 2, 3],
+    "indices": [1, 4, 2, 3]
 }
 ```
 This is a valid solution since `L[1] + L[4] = 2 + 5 = 3 + 4 = L[2] + L[3]`.
