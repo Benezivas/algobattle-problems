@@ -15,7 +15,7 @@ class OSCM3(ProblemModel):
 
     @property
     def size(self) -> int:
-        return max(self.neighbors.keys())
+        return max(self.neighbors.keys()) + 1
 
     def validate_instance(self) -> None:
         super().validate_instance()
