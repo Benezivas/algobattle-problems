@@ -8,7 +8,7 @@ class Tests(unittest.TestCase):
     """Tests for the hikers problem."""
 
     @classmethod
-    def setUpClas(cls) -> None:
+    def setUpClass(cls) -> None:
         cls.instance = Hikers(hikers=[
             (1, 3),
             (10, 12),

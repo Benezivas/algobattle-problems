@@ -30,11 +30,11 @@ class Hikers(ProblemModel):
         assignments: dict[int, int] = Field(ge=0)
 
         def validate_solution(self, instance: "Hikers") -> None:
-            if any(hiker > len(instance.hikers) for hiker in self.assignments):
+            if any(hiker >= len(instance.hikers) for hiker in self.assignments):
                 raise ValidationError("Solution contains hiker that is not in the instance.")
 
-            group_sizes = {}
-            for group in self.assignments.items():
+            group_sizes: dict[int, int] = {}
+            for group in self.assignments.values():
                 group_sizes[group] = group_sizes.get(group, 0) + 1
 
             for hiker, group in self.assignments.items():
