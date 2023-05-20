@@ -20,6 +20,7 @@ OSCM3 = "algobattle_problems.longestpathboundedfvs.problem:OSCM3"
 Pairsum = "algobattle_problems.pairsum.problem:Pairsum"
 Pathpacking = "algobattle_problems.pathpacking.problem:Pathpacking"
 Scheduling = "algobattle_problems.scheduling.problem:Scheduling"
+Tsptimewindows = "algobattle_problems.tsptimewindows.problem:Tsptimewindows"
 
 [tool.setuptools.package-data]
 algobattle_problems = ["*/generator/**/*", "*/solver/**/*"]
