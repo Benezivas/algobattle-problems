@@ -11,6 +11,8 @@ from algobattle.util import u64
 
 
 class Location(BaseModel):
+    """A location the salesman needs to visit."""
+
     x: float = Field(ge=0, le=100)
     y: float = Field(ge=0, le=100)
     min_time: float = Field(ge=0, le=10_000)
@@ -34,7 +36,7 @@ class Tsptimewindows(ProblemModel):
 
     def validate_instance(self) -> None:
         super().validate_instance()
-        if any(l.min_time > l.max_time for l in self.locations):
+        if any(location.min_time > location.max_time for location in self.locations):
             raise ValidationError("An instance location has an invalid time window.")
 
     class Solution(SolutionModel):

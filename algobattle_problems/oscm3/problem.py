@@ -30,7 +30,7 @@ class OSCM3(ProblemModel):
             self.neighbors.setdefault(u, set())
 
     class Solution(SolutionModel):
-        """A solution to a One-Sided Crossing Minimization-3 problem"""
+        """A solution to a One-Sided Crossing Minimization-3 problem."""
 
         direction: ClassVar = "minimize"
 

@@ -19,7 +19,7 @@ class Pairsum(ProblemModel):
         return len(self.numbers)
 
     class Solution(SolutionModel):
-        """A solution to a Pairsum problem"""
+        """A solution to a Pairsum problem."""
 
         indices: tuple[u64, u64, u64, u64]
 

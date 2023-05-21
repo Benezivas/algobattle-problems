@@ -12,7 +12,7 @@ class Biclique(UndirectedGraph):
     min_size: ClassVar[int] = 5
 
     class Solution(SolutionModel):
-        """A solution to a bipartite clique problem"""
+        """A solution to a bipartite clique problem."""
 
         direction: ClassVar = "maximize"
 

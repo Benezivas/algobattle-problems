@@ -12,7 +12,7 @@ class Domset(UndirectedGraph):
     min_size: ClassVar[int] = 2
 
     class Solution(SolutionModel):
-        """A solution to a Dominating Set problem"""
+        """A solution to a Dominating Set problem."""
 
         domset: set[u64]
 

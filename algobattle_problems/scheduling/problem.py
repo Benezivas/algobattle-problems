@@ -19,7 +19,7 @@ class Scheduling(ProblemModel):
         return len(self.job_lengths)
 
     class Solution(SolutionModel):
-        """A solution to a Job Shop Scheduling problem"""
+        """A solution to a Job Shop Scheduling problem."""
 
         direction: ClassVar = "minimize"
 
