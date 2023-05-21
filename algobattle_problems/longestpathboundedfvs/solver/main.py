@@ -2,6 +2,9 @@
 import json
 
 with open("output/solution.json", "w") as output:
-    json.dump({
-        "path": [2, 1, 0],
-    }, output)
+    json.dump(
+        {
+            "path": [2, 1, 0],
+        },
+        output,
+    )

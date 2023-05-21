@@ -33,9 +33,7 @@ class Tests(unittest.TestCase):
         good_solution = Domset.Solution(domset={1, 3, 4})
         self.assertEqual(bad_solution.score(self.instance), 5)
         self.assertEqual(good_solution.score(self.instance), 3)
-        self.assertEqual(
-            self.instance.score(bad_solution, good_solution), 0.6
-        )
+        self.assertEqual(self.instance.score(bad_solution, good_solution), 0.6)
 
 
 if __name__ == "__main__":

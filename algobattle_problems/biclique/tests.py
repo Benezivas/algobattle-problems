@@ -6,7 +6,7 @@ from algobattle_problems.biclique.problem import Biclique, ValidationError
 
 class Tests(unittest.TestCase):
     """Tests for the Biclique problem solution class."""
-    
+
     def test_vertices_exist(self):
         """Tests that only valid vertex indices are allowed."""
         graph = Biclique(num_vertices=10, edges=[(i, j) for i in range(10) for j in range(i)])
@@ -29,5 +29,5 @@ class Tests(unittest.TestCase):
             sol.validate_solution(graph)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

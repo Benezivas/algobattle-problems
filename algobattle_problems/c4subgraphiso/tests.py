@@ -12,32 +12,37 @@ class Tests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         super().setUpClass()
-        cls.instance = C4subgraphiso(num_vertices=10, edges=[
-            (0, 1),
-            (1, 2),
-            (2, 3),
-            (2, 4),
-            (4, 5),
-            (5, 6),
-            (6, 7),
-            (7, 8),
-            (8, 9),
-            (9, 0),
-            (1, 8),
-            (4, 8),
-            (4, 7),
-            (2, 8),
-            (0, 3),
-        ])
+        cls.instance = C4subgraphiso(
+            num_vertices=10,
+            edges=[
+                (0, 1),
+                (1, 2),
+                (2, 3),
+                (2, 4),
+                (4, 5),
+                (5, 6),
+                (6, 7),
+                (7, 8),
+                (8, 9),
+                (9, 0),
+                (1, 8),
+                (4, 8),
+                (4, 7),
+                (2, 8),
+                (0, 3),
+            ],
+        )
 
     def test_no_duplicate_squares(self):
         with self.assertRaises(PydanticValidationError):
-            C4subgraphiso.parse_obj({
-                "squares": {
-                    (0, 1, 2, 3),
-                    (0, 1, 2, 3),
+            C4subgraphiso.parse_obj(
+                {
+                    "squares": {
+                        (0, 1, 2, 3),
+                        (0, 1, 2, 3),
+                    }
                 }
-            })
+            )
 
     def test_vertex_too_big(self):
         solution = C4subgraphiso.Solution(squares={(0, 1, 2, 10)})
@@ -64,5 +69,6 @@ class Tests(unittest.TestCase):
         with self.assertRaises(ValidationError):
             solution.validate_solution(self.instance)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()

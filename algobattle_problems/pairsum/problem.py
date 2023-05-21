@@ -12,7 +12,7 @@ class Pairsum(ProblemModel):
     name: ClassVar[str] = "Pairsum"
     min_size: ClassVar[int] = 4
 
-    numbers: list[int] = Field(min_items=min_size, ge=0, le=2**63-1)
+    numbers: list[int] = Field(min_items=min_size, ge=0, le=2**63 - 1)
 
     @property
     def size(self) -> int:

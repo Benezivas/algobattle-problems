@@ -23,7 +23,7 @@ class Longestpathboundedfvs(UndirectedGraph):
         if len(self.fvs) > sqrt(self.size):
             raise ValidationError(
                 "The given feedback vertex set does not fit the size bound.",
-                detail=f"Given fvs has size {len(self.fvs)}, bound is {sqrt(self.size)}."
+                detail=f"Given fvs has size {len(self.fvs)}, bound is {sqrt(self.size)}.",
             )
         if not self.valid_fvs_on_input():
             raise ValidationError("The given feedback vertex set is not valid.")
@@ -56,7 +56,7 @@ class Longestpathboundedfvs(UndirectedGraph):
             for edge in edge_set:
                 g.add_edge(edge[0], edge[1])
             for i in range(len(self.path) - 1):
-                if not g.has_edge(self.path[i], self.path[i+1]):
+                if not g.has_edge(self.path[i], self.path[i + 1]):
                     return False
             return True
 

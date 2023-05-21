@@ -6,6 +6,9 @@ with open("input/info.json", "r") as infofile:
     size = int(info["max_size"])
 
 with open("output/solution.json", "w") as output:
-    json.dump({
-        "vertex_order": list(range(size)),
-    }, output)
+    json.dump(
+        {
+            "vertex_order": list(range(size)),
+        },
+        output,
+    )

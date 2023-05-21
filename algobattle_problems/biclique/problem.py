@@ -28,8 +28,9 @@ class Biclique(UndirectedGraph):
                 raise ValidationError("Solution contains vertex sets that aren't disjoint.")
             if any((u, v) not in edge_set for u in self.s_1 for v in self.s_2):
                 raise ValidationError("The instance graph is missing an edge between the solution vertex sets.")
-            if (any((u, v) in edge_set for u in self.s_1 for v in self.s_1)
-                or any((u, v) in edge_set for u in self.s_2 for v in self.s_2)):
+            if any((u, v) in edge_set for u in self.s_1 for v in self.s_1) or any(
+                (u, v) in edge_set for u in self.s_2 for v in self.s_2
+            ):
                 raise ValidationError("The solution is not a bipartite graph.")
 
         def score(self, instance: "Biclique") -> float:

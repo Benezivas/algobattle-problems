@@ -2,8 +2,11 @@
 import json
 
 with open("output/solution.json", "w") as output:
-    json.dump({
-        "squares": [
-            [0, 1, 2, 3],
-        ],
-    }, output)
+    json.dump(
+        {
+            "squares": [
+                [0, 1, 2, 3],
+            ],
+        },
+        output,
+    )

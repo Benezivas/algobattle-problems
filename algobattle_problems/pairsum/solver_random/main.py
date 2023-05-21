@@ -17,8 +17,8 @@ n = len(ints)
 while True:
     shuffeled = [x for x in range(n)]
     random.shuffle(shuffeled)
-    A = shuffeled[:len(ints) // 2]
-    B = shuffeled[len(ints) // 2:]
+    A = shuffeled[: len(ints) // 2]
+    B = shuffeled[len(ints) // 2 :]
     D = {}
     for x in range(len(A)):
         for y in range(x + 1, len(A)):
@@ -34,7 +34,5 @@ while True:
                 e = B[x]
                 r = B[y]
                 with open("/output/solution.json", "w+") as f:
-                    json.dump({
-                        "indices": [q, w, e, r]
-                    }, f)
+                    json.dump({"indices": [q, w, e, r]}, f)
                     sys.exit()

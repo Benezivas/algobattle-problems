@@ -13,11 +13,17 @@ randlist[sol[2]] = random.randint(0, 2**59)
 randlist[sol[3]] = randlist[sol[0]] + randlist[sol[1]] - randlist[sol[2]]
 
 with open("/output/instance.json", "w+") as output:
-    json.dump({
-        "numbers": randlist,
-    }, output)
+    json.dump(
+        {
+            "numbers": randlist,
+        },
+        output,
+    )
 
 with open("/output/solution.json", "w+") as output:
-    json.dump({
-        "indices": sol,
-    }, output)
+    json.dump(
+        {
+            "indices": sol,
+        },
+        output,
+    )

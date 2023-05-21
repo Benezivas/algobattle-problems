@@ -2,6 +2,9 @@
 import json
 
 with open("output/solution.json", "w") as output:
-    json.dump({
-        "domset": [1],
-    }, output)
+    json.dump(
+        {
+            "domset": [1],
+        },
+        output,
+    )

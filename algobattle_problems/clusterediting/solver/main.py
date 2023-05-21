@@ -2,11 +2,14 @@
 import json
 
 with open("output/solution.json", "w") as output:
-    json.dump({
-        "add": [
-            [1, 3],
-        ],
-        "delete": [
-            [1, 2],
-        ],
-    }, output)
+    json.dump(
+        {
+            "add": [
+                [1, 3],
+            ],
+            "delete": [
+                [1, 2],
+            ],
+        },
+        output,
+    )

@@ -12,19 +12,22 @@ class Tests(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls) -> None:
-        cls.instance = Clusterediting(num_vertices=10, edges=[
-            (0, 2),
-            (0, 5),
-            (0, 8),
-            (1, 5),
-            (1, 7),
-            (1, 8),
-            (2, 3),
-            (2, 5),
-            (2, 6),
-            (3, 6),
-            (4, 8),
-        ])
+        cls.instance = Clusterediting(
+            num_vertices=10,
+            edges=[
+                (0, 2),
+                (0, 5),
+                (0, 8),
+                (1, 5),
+                (1, 7),
+                (1, 8),
+                (2, 3),
+                (2, 5),
+                (2, 6),
+                (3, 6),
+                (4, 8),
+            ],
+        )
 
     def test_delete_nonexisting_edge(self):
         solution = Solution(add=set(), delete={(0, 1)})
@@ -61,5 +64,6 @@ class Tests(unittest.TestCase):
         with self.assertRaises(ValidationError):
             solution.validate_solution(self.instance)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()

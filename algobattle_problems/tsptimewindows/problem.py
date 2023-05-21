@@ -54,19 +54,19 @@ class Tsptimewindows(ProblemModel):
                 raise ValidationError("The solution contains duplicate locations.")
             if any(i >= len(instance.locations) for i in self.tour):
                 raise ValidationError("The solution contains invalid location indices.")
-            
+
             # we don't know which team we are validating for, so we have to use the more lenient one some generator
             # solutions that are incorrect won't be caught here, they will just receive a score of 0
             self.score(instance, Role.solver)
 
         def score(self, instance: "Tsptimewindows", team: Role) -> float:
-            speed = 1.1 if team == Role.solver else 1       # the solving team is faster than the generating
-            time = instance.locations[self.tour[0]].min_time    # wait at the first location until it becomes available
+            speed = 1.1 if team == Role.solver else 1  # the solving team is faster than the generating
+            time = instance.locations[self.tour[0]].min_time  # wait at the first location until it becomes available
             for curr, next in pairwise(self.location_tour(instance)):
                 arrival_time = time + curr.distance(next) / speed
                 if arrival_time > next.max_time:
                     raise ValidationError("The tour visits a location too late.")
-                time = max(arrival_time, next.min_time)     # wait until the next location becomes available
+                time = max(arrival_time, next.min_time)  # wait until the next location becomes available
             return time
 
     def score(self, solver_solution: Solution, generator_solution: Solution | None) -> float:

@@ -12,7 +12,7 @@ class Scheduling(ProblemModel):
     name: ClassVar[str] = "Job Shop Scheduling"
     min_size: ClassVar[int] = 5
 
-    job_lengths: list[int] = Field(ge=0, le=(2 ** 64 - 1) / 5)
+    job_lengths: list[int] = Field(ge=0, le=(2**64 - 1) / 5)
 
     @property
     def size(self) -> int:

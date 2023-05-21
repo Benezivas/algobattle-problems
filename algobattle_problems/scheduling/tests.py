@@ -26,5 +26,5 @@ class Tests(unittest.TestCase):
         self.assertEqual(solution.score(self.instance), 120)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

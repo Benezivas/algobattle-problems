@@ -20,9 +20,7 @@ class Domset(UndirectedGraph):
 
         def validate_solution(self, instance: "Domset") -> None:
             if any(u >= instance.num_vertices for u in self.domset):
-                raise ValidationError(
-                    "A number in the domset is too large to be a vertex"
-                )
+                raise ValidationError("A number in the domset is too large to be a vertex")
 
             dominated = set(self.domset)
             for u, v in instance.edges:

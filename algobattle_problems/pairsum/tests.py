@@ -29,5 +29,5 @@ class Tests(unittest.TestCase):
             Pairsum.Solution(indices=(0, 1, 2, 3)).validate_solution(self.instance)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

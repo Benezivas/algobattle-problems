@@ -10,14 +10,18 @@ class Tests(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.instance = Tsptimewindows(locations=[
-            Location(x=0, y=0, min_time=0, max_time=3),
-            Location(x=1, y=0, min_time=1, max_time=2),
-        ])
-        cls.instance_short = Tsptimewindows(locations=[
-            Location(x=0, y=0, min_time=0, max_time=3),
-            Location(x=1.05, y=0, min_time=0, max_time=1),
-        ])
+        cls.instance = Tsptimewindows(
+            locations=[
+                Location(x=0, y=0, min_time=0, max_time=3),
+                Location(x=1, y=0, min_time=1, max_time=2),
+            ]
+        )
+        cls.instance_short = Tsptimewindows(
+            locations=[
+                Location(x=0, y=0, min_time=0, max_time=3),
+                Location(x=1.05, y=0, min_time=0, max_time=1),
+            ]
+        )
 
     def test_node_tour(self):
         tour = [0, 1]
@@ -40,7 +44,7 @@ class Tests(unittest.TestCase):
     def test_tour_wrong_index(self):
         with self.assertRaises(ValidationError):
             Tsptimewindows.Solution(tour=[10, 10]).validate_solution(self.instance)
-    
+
     def test_tour_too_slow(self):
         with self.assertRaises(ValidationError):
             Tsptimewindows.Solution(tour=[1, 0]).validate_solution(self.instance)
@@ -57,5 +61,5 @@ class Tests(unittest.TestCase):
         self.assertEqual(self.instance_short.score(solution, solution), 0)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()
