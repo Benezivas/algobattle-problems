@@ -33,4 +33,4 @@ jobs:
         python-version: "3.11"
     - name: Test using unittests
       run: |
-        python -m unittest -v -s ./algobattle_problems -p test*.py
+        python -m unittest discover -v -s ./algobattle_problems -p test*.py
