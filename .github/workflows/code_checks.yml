@@ -33,4 +33,8 @@ jobs:
         python-version: "3.11"
     - name: Test using unittests
       run: |
+        git clone -b "4.0.0-rc" https://github.com/Benezivas/algobattle.git
+        cd algobattle
+        pip install . --user
+        cd ..
         python -m unittest discover -v -s ./algobattle_problems -p test*.py
