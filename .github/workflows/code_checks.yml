@@ -1,0 +1,40 @@
+name: Code Checks
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: "3.11"
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install flake8 flake8-docstrings
+    - name: Lint with flake8
+      run: |
+        flake8 .
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: "3.11"
+    - name: Test using unittests
+      run: |
+        git clone -b "4.0.0-rc" https://github.com/Benezivas/algobattle.git
+        cd algobattle
+        pip install . --user
+        cd ..
+        python -m unittest discover -v -s ./algobattle_problems -p test*.py
