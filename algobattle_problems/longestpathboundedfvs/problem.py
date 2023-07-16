@@ -1,13 +1,12 @@
 """The Longestpathboundedfvs problem class."""
 from math import sqrt
-from typing import ClassVar
-from pydantic import Field
 
+from pydantic import Field
 from networkx import Graph
 from networkx.algorithms.tree.recognition import is_forest
 from networkx.classes.function import is_empty
 
-from algobattle.problem import Problem, UndirectedGraph, SolutionModel, ValidationError
+from algobattle.problem import Problem, UndirectedGraph, SolutionModel, ValidationError, Scored, maximize
 from algobattle.util import u64
 
 
@@ -36,12 +35,10 @@ class Instance(UndirectedGraph):
         return is_empty(g) or is_forest(g)
 
 
-class Solution(SolutionModel[Instance]):
+class Solution(SolutionModel[Instance], Scored[Instance]):
     """A solution to a Longest Path with Bounded Feedback Vertex Set problem."""
 
     path: list[u64]
-
-    direction: ClassVar = "maximize"
 
     def validate_solution(self, instance: Instance) -> None:
         if not self._nodes_are_walk(instance):
@@ -62,6 +59,7 @@ class Solution(SolutionModel[Instance]):
     def _no_revisited_nodes(self) -> bool:
         return len(self.path) == len(set(self.path))
 
+    @maximize
     def score(self, instance: Instance) -> float:
         return len(self.path)
 

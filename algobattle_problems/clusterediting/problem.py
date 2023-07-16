@@ -1,16 +1,13 @@
 """The Clusterediting problem class."""
 from collections import defaultdict
 from itertools import combinations
-from typing import ClassVar
 
-from algobattle.problem import Problem, UndirectedGraph, SolutionModel, ValidationError
+from algobattle.problem import Problem, UndirectedGraph, SolutionModel, ValidationError, minimize, Scored
 from algobattle.util import u64
 
 
-class Solution(SolutionModel[UndirectedGraph]):
+class Solution(SolutionModel[UndirectedGraph], Scored[UndirectedGraph]):
     """A solution to a Cluster Editing problem."""
-
-    direction: ClassVar = "minimize"
 
     add: set[tuple[u64, u64]]
     delete: set[tuple[u64, u64]]
@@ -40,6 +37,7 @@ class Solution(SolutionModel[UndirectedGraph]):
                 if not (v, w) in edge_set and not (w, v) in edge_set:
                     raise ValidationError("The solution does not transform the graph into a cluster.")
 
+    @minimize
     def score(self, instance: UndirectedGraph) -> float:
         return len(self.add) + len(self.delete)
 

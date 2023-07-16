@@ -1,9 +1,7 @@
 """The Scheduling problem class."""
-from typing import ClassVar
-
 from pydantic import Field
 
-from algobattle.problem import Problem, InstanceModel, SolutionModel, ValidationError
+from algobattle.problem import Problem, InstanceModel, SolutionModel, ValidationError, Scored, minimize
 
 
 class Instance(InstanceModel):
@@ -16,10 +14,8 @@ class Instance(InstanceModel):
         return len(self.job_lengths)
 
 
-class Solution(SolutionModel[Instance]):
+class Solution(SolutionModel[Instance], Scored[Instance]):
     """A solution to a Job Shop Scheduling problem."""
-
-    direction: ClassVar = "minimize"
 
     assignments: list[int] = Field(ge=1, le=5)
 
@@ -27,6 +23,7 @@ class Solution(SolutionModel[Instance]):
         if len(self.assignments) != len(instance.job_lengths):
             raise ValidationError("The number of assigned jobs doesn't match the number of jobs.")
 
+    @minimize
     def score(self, instance: Instance) -> float:
         finish_time = [0] * 5
         for duration, machine in zip(instance.job_lengths, self.assignments):

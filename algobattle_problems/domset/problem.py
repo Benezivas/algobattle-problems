@@ -1,16 +1,12 @@
 """The Clusterediting problem class."""
-from typing import ClassVar
-
-from algobattle.problem import Problem, UndirectedGraph, SolutionModel, ValidationError
+from algobattle.problem import Problem, UndirectedGraph, SolutionModel, ValidationError, minimize, Scored
 from algobattle.util import u64
 
 
-class Solution(SolutionModel[UndirectedGraph]):
+class Solution(SolutionModel[UndirectedGraph], Scored[UndirectedGraph]):
     """A solution to a Dominating Set problem."""
 
     domset: set[u64]
-
-    direction: ClassVar = "minimize"
 
     def validate_solution(self, instance: UndirectedGraph) -> None:
         if any(u >= instance.num_vertices for u in self.domset):
@@ -28,6 +24,7 @@ class Solution(SolutionModel[UndirectedGraph]):
                 detail=f"{instance.num_vertices - len(dominated)} vertices are not dominated",
             )
 
+    @minimize
     def score(self, instance: UndirectedGraph) -> float:
         return len(self.domset)
 

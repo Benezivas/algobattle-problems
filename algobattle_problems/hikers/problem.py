@@ -1,7 +1,5 @@
 """The Hikers problem class."""
-from typing import ClassVar
-
-from algobattle.problem import Problem, InstanceModel, SolutionModel, ValidationError
+from algobattle.problem import Problem, InstanceModel, SolutionModel, ValidationError, maximize, Scored
 from algobattle.util import u64
 
 
@@ -20,10 +18,8 @@ class HikersInstance(InstanceModel):
             raise ValidationError("One hiker's minimum group size is larger than their maximum group size.")
 
 
-class Solution(SolutionModel[HikersInstance]):
+class Solution(SolutionModel[HikersInstance], Scored[HikersInstance]):
     """A solution to a Hikers problem."""
-
-    direction: ClassVar = "maximize"
 
     assignments: dict[u64, u64]
 
@@ -40,6 +36,7 @@ class Solution(SolutionModel[HikersInstance]):
             if not (min_size <= group_sizes[group] <= max_size):
                 raise ValidationError("A Hiker is not happy with their assignment!")
 
+    @maximize
     def score(self, instance: HikersInstance) -> float:
         return len(self.assignments)
 
