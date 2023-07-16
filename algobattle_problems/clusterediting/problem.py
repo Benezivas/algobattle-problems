@@ -3,7 +3,7 @@ from collections import defaultdict
 from itertools import combinations
 
 from algobattle.problem import Problem, UndirectedGraph, SolutionModel, ValidationError, minimize, Scored
-from algobattle.util import u64
+from algobattle.util import u64, Role
 
 
 class Solution(SolutionModel[UndirectedGraph], Scored[UndirectedGraph]):
@@ -12,7 +12,7 @@ class Solution(SolutionModel[UndirectedGraph], Scored[UndirectedGraph]):
     add: set[tuple[u64, u64]]
     delete: set[tuple[u64, u64]]
 
-    def validate_solution(self, instance: UndirectedGraph) -> None:
+    def validate_solution(self, instance: UndirectedGraph, role: Role) -> None:
         edge_set = set(instance.edges)
 
         # Apply modifications to graph

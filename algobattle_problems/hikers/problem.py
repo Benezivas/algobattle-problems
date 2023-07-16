@@ -1,6 +1,6 @@
 """The Hikers problem class."""
 from algobattle.problem import Problem, InstanceModel, SolutionModel, ValidationError, maximize, Scored
-from algobattle.util import u64
+from algobattle.util import u64, Role
 
 
 class HikersInstance(InstanceModel):
@@ -23,7 +23,7 @@ class Solution(SolutionModel[HikersInstance], Scored[HikersInstance]):
 
     assignments: dict[u64, u64]
 
-    def validate_solution(self, instance: HikersInstance) -> None:
+    def validate_solution(self, instance: HikersInstance, role: Role) -> None:
         if any(hiker >= len(instance.hikers) for hiker in self.assignments):
             raise ValidationError("Solution contains hiker that is not in the instance.")
 

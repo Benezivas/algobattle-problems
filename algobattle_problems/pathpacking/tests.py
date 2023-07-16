@@ -1,7 +1,7 @@
 """Tests for the Pathpacking problem."""
 import unittest
 
-from algobattle_problems.pathpacking.problem import UndirectedGraph, Solution, ValidationError
+from algobattle_problems.pathpacking.problem import UndirectedGraph, Solution, ValidationError, Role
 
 
 class Tests(unittest.TestCase):
@@ -21,15 +21,15 @@ class Tests(unittest.TestCase):
         )
 
     def test_solution_empty(self):
-        Solution(paths=set()).validate_solution(self.instance)
+        Solution(paths=set()).validate_solution(self.instance, Role.generator)
 
     def test_solution_not_path(self):
         with self.assertRaises(ValidationError):
-            Solution(paths={(0, 2, 3)}).validate_solution(self.instance)
+            Solution(paths={(0, 2, 3)}).validate_solution(self.instance, Role.generator)
 
     def test_solution_not_disjoint(self):
         with self.assertRaises(ValidationError):
-            Solution(paths={(0, 1, 2), (2, 3, 4)}).validate_solution(self.instance)
+            Solution(paths={(0, 1, 2), (2, 3, 4)}).validate_solution(self.instance, Role.generator)
 
     def test_score(self):
         self.assertEqual(Solution(paths={(0, 1, 2)}).score(self.instance), 1)

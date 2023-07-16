@@ -1,6 +1,6 @@
 """The Clusterediting problem class."""
 from algobattle.problem import Problem, UndirectedGraph, SolutionModel, ValidationError, minimize, Scored
-from algobattle.util import u64
+from algobattle.util import u64, Role
 
 
 class Solution(SolutionModel[UndirectedGraph], Scored[UndirectedGraph]):
@@ -8,7 +8,7 @@ class Solution(SolutionModel[UndirectedGraph], Scored[UndirectedGraph]):
 
     domset: set[u64]
 
-    def validate_solution(self, instance: UndirectedGraph) -> None:
+    def validate_solution(self, instance: UndirectedGraph, role: Role) -> None:
         if any(u >= instance.num_vertices for u in self.domset):
             raise ValidationError("A number in the domset is too large to be a vertex")
 

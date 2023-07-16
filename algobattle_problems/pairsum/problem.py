@@ -2,7 +2,7 @@
 from pydantic import Field
 
 from algobattle.problem import Problem, InstanceModel, SolutionModel, ValidationError
-from algobattle.util import u64
+from algobattle.util import u64, Role
 
 
 class Instance(InstanceModel):
@@ -19,8 +19,8 @@ class Solution(SolutionModel[Instance]):
 
     indices: tuple[u64, u64, u64, u64]
 
-    def validate_solution(self, instance: Instance) -> None:
-        super().validate_solution(instance)
+    def validate_solution(self, instance: Instance, role: Role) -> None:
+        super().validate_solution(instance, role)
         if any(i >= len(instance.numbers) for i in self.indices):
             raise ValidationError("Solution index is out of range.")
         if len(self.indices) != len(set(self.indices)):

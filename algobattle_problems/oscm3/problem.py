@@ -1,6 +1,6 @@
 """The OSCM3 problem class."""
 from algobattle.problem import Problem, InstanceModel, SolutionModel, ValidationError, Scored, minimize
-from algobattle.util import u64
+from algobattle.util import u64, Role
 
 
 class Instance(InstanceModel):
@@ -30,7 +30,7 @@ class Solution(SolutionModel[Instance], Scored[Instance]):
 
     vertex_order: list[u64]
 
-    def validate_solution(self, instance: Instance) -> None:
+    def validate_solution(self, instance: Instance, role: Role) -> None:
         if any(not 0 <= i < instance.size for i in self.vertex_order):
             raise ValidationError("An element of the solution is not in the permitted range.")
         if len(self.vertex_order) != len(set(self.vertex_order)):

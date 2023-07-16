@@ -1,7 +1,7 @@
 """Tests for the DomSet problem."""
 import unittest
 
-from algobattle_problems.domset.problem import Domset, UndirectedGraph, Solution, ValidationError
+from algobattle_problems.domset.problem import Domset, UndirectedGraph, Solution, ValidationError, Role
 
 
 class Tests(unittest.TestCase):
@@ -21,19 +21,19 @@ class Tests(unittest.TestCase):
 
     def test_basic_validate(self):
         solution = Solution(domset={1, 3, 4})
-        solution.validate_solution(self.instance)
+        solution.validate_solution(self.instance, Role.generator)
 
     def test_validate_missing_vertex(self):
         solution = Solution(domset={1, 3})
         with self.assertRaises(ValidationError):
-            solution.validate_solution(self.instance)
+            solution.validate_solution(self.instance, Role.generator)
 
     def test_score(self):
         bad_solution = Solution(domset={0, 1, 2, 3, 4})
         good_solution = Solution(domset={1, 3, 4})
-        self.assertEqual(bad_solution.score(self.instance), 5)
-        self.assertEqual(good_solution.score(self.instance), 3)
-        self.assertEqual(Domset.score(self.instance, bad_solution, good_solution), 0.6)
+        self.assertAlmostEqual(bad_solution.score(self.instance), 1/5)
+        self.assertAlmostEqual(good_solution.score(self.instance), 1/3)
+        self.assertAlmostEqual(Domset.score(self.instance, bad_solution, good_solution), 0.6)
 
 
 if __name__ == "__main__":

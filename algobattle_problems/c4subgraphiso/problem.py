@@ -1,7 +1,7 @@
 """The C4subgraphiso problem class."""
 
 from algobattle.problem import Problem, UndirectedGraph, SolutionModel, ValidationError, maximize, Scored
-from algobattle.util import u64
+from algobattle.util import u64, Role
 
 
 
@@ -10,8 +10,8 @@ class Solution(SolutionModel[UndirectedGraph], Scored[UndirectedGraph]):
 
     squares: set[tuple[u64, u64, u64, u64]]
 
-    def validate_solution(self, instance: UndirectedGraph) -> None:
-        super().validate_solution(instance)
+    def validate_solution(self, instance: UndirectedGraph, role: Role) -> None:
+        super().validate_solution(instance, role)
         self._all_entries_bounded_in_size(instance)
         self._all_squares_in_instance(instance)
         self._all_squares_node_disjoint()

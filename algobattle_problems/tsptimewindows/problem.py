@@ -7,7 +7,7 @@ from pydantic import Field
 
 from algobattle.problem import Problem, InstanceModel, SolutionModel, ValidationError
 from algobattle.util import BaseModel, Role
-from algobattle.util import u64
+from algobattle.util import u64, Role
 
 
 class Location(BaseModel):
@@ -47,7 +47,7 @@ class Solution(SolutionModel[Instance]):
         yield from (instance.locations[i] for i in self.tour)
         yield instance.locations[self.tour[0]]
 
-    def validate_solution(self, instance: Instance) -> None:
+    def validate_solution(self, instance: Instance, role: Role) -> None:
         if len(self.tour) != len(instance.locations):
             raise ValidationError("The solution doesn't visit every location exactly once.")
         if len(self.tour) != len(set(self.tour)):
@@ -55,9 +55,7 @@ class Solution(SolutionModel[Instance]):
         if any(i >= len(instance.locations) for i in self.tour):
             raise ValidationError("The solution contains invalid location indices.")
 
-        # we don't know which team we are validating for, so we have to use the more lenient one some generator
-        # solutions that are incorrect won't be caught here, they will just receive a score of 0
-        self.score(instance, Role.solver)
+        self.score(instance, role)
 
     def score(self, instance: Instance, team: Role) -> float:
         speed = 1.1 if team == Role.solver else 1  # the solving team is faster than the generating

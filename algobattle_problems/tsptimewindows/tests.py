@@ -1,7 +1,7 @@
 """Tests for the scheduling problem."""
 import unittest
 
-from algobattle_problems.tsptimewindows.problem import Tsptimewindows, Instance, Solution, ValidationError, Location
+from algobattle_problems.tsptimewindows.problem import Tsptimewindows, Instance, Solution, ValidationError, Location, Role
 from algobattle.util import Role
 
 
@@ -35,26 +35,25 @@ class Tests(unittest.TestCase):
 
     def test_tour_too_short(self):
         with self.assertRaises(ValidationError):
-            Solution(tour=[]).validate_solution(self.instance)
+            Solution(tour=[]).validate_solution(self.instance, Role.generator)
 
     def test_duplicate_in_tour(self):
         with self.assertRaises(ValidationError):
-            Solution(tour=[0, 0]).validate_solution(self.instance)
+            Solution(tour=[0, 0]).validate_solution(self.instance, Role.generator)
 
     def test_tour_wrong_index(self):
         with self.assertRaises(ValidationError):
-            Solution(tour=[10, 10]).validate_solution(self.instance)
+            Solution(tour=[10, 10]).validate_solution(self.instance, Role.generator)
 
     def test_tour_too_slow(self):
         with self.assertRaises(ValidationError):
-            Solution(tour=[1, 0]).validate_solution(self.instance)
+            Solution(tour=[1, 0]).validate_solution(self.instance, Role.generator)
 
     def test_gen_tour_wrong(self):
         solution = Solution(tour=[0, 1])
-        solution.validate_solution(self.instance_short)
         solution.score(self.instance_short, Role.solver)
         with self.assertRaises(ValidationError):
-            solution.score(self.instance_short, Role.generator)
+            solution.validate_solution(self.instance_short, Role.generator)
 
     def test_score_gen_wrong(self):
         solution = Solution(tour=[0, 1])

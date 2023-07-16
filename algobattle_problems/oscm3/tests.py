@@ -1,7 +1,7 @@
 """Tests for the OSCM3 problem."""
 import unittest
 
-from algobattle_problems.oscm3.problem import Instance, Solution, ValidationError
+from algobattle_problems.oscm3.problem import Instance, Solution, ValidationError, Role
 
 
 class Tests(unittest.TestCase):
@@ -24,15 +24,15 @@ class Tests(unittest.TestCase):
 
     def test_solution_not_permutation(self):
         with self.assertRaises(ValidationError):
-            Solution(vertex_order=[0, 0, 0]).validate_solution(self.instance)
+            Solution(vertex_order=[0, 0, 0]).validate_solution(self.instance, Role.generator)
 
     def test_solution_too_small(self):
         with self.assertRaises(ValidationError):
-            Solution(vertex_order=[0, 1]).validate_solution(self.instance)
+            Solution(vertex_order=[0, 1]).validate_solution(self.instance, Role.generator)
 
     def test_solution_wrong_indices(self):
         with self.assertRaises(ValidationError):
-            Solution(vertex_order=[1, 2, 3]).validate_solution(self.instance)
+            Solution(vertex_order=[1, 2, 3]).validate_solution(self.instance, Role.generator)
 
 
 if __name__ == "__main__":

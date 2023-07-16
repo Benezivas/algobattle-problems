@@ -1,6 +1,6 @@
 """The Biclique problem class."""
 from algobattle.problem import Problem, UndirectedGraph, SolutionModel, ValidationError, Scored, maximize
-from algobattle.util import u64
+from algobattle.util import u64, Role
 
 
 class Solution(SolutionModel[UndirectedGraph], Scored[UndirectedGraph]):
@@ -9,9 +9,9 @@ class Solution(SolutionModel[UndirectedGraph], Scored[UndirectedGraph]):
     s_1: set[u64]
     s_2: set[u64]
 
-    def validate_solution(self, instance: UndirectedGraph) -> None:
+    def validate_solution(self, instance: UndirectedGraph, role: Role) -> None:
         edge_set = set(instance.edges) | set(edge[::-1] for edge in instance.edges)
-        super().validate_solution(instance)
+        super().validate_solution(instance, role)
         if any(i >= instance.num_vertices for i in self.s_1 | self.s_2):
             raise ValidationError("Solution contains vertices that aren't in the instance.")
         if len(self.s_1.intersection(self.s_2)) != 0:

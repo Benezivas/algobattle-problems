@@ -2,6 +2,7 @@
 from pydantic import Field
 
 from algobattle.problem import Problem, InstanceModel, SolutionModel, ValidationError, Scored, minimize
+from algobattle.util import Role
 
 
 class Instance(InstanceModel):
@@ -19,7 +20,7 @@ class Solution(SolutionModel[Instance], Scored[Instance]):
 
     assignments: list[int] = Field(ge=1, le=5)
 
-    def validate_solution(self, instance: Instance) -> None:
+    def validate_solution(self, instance: Instance, role: Role) -> None:
         if len(self.assignments) != len(instance.job_lengths):
             raise ValidationError("The number of assigned jobs doesn't match the number of jobs.")
 

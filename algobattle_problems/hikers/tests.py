@@ -1,7 +1,7 @@
 """Tests for the hikers problem."""
 import unittest
 
-from algobattle_problems.hikers.problem import HikersInstance, Solution, ValidationError
+from algobattle_problems.hikers.problem import HikersInstance, Solution, ValidationError, Role
 
 
 class Tests(unittest.TestCase):
@@ -21,7 +21,7 @@ class Tests(unittest.TestCase):
 
     def test_solution_empty(self):
         solution = Solution(assignments={})
-        solution.validate_solution(self.instance)
+        solution.validate_solution(self.instance, Role.generator)
 
     def test_solution_correct(self):
         solution = Solution(
@@ -32,17 +32,17 @@ class Tests(unittest.TestCase):
                 4: 2,
             }
         )
-        solution.validate_solution(self.instance)
+        solution.validate_solution(self.instance, Role.generator)
 
     def test_solution_wrong_hiker(self):
         solution = Solution(assignments={10: 1})
         with self.assertRaises(ValidationError):
-            solution.validate_solution(self.instance)
+            solution.validate_solution(self.instance, Role.generator)
 
     def test_solution_hiker_unhappy(self):
         solution = Solution(assignments={1: 1})
         with self.assertRaises(ValidationError):
-            solution.validate_solution(self.instance)
+            solution.validate_solution(self.instance, Role.generator)
 
 
 if __name__ == "__main__":

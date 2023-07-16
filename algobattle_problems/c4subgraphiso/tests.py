@@ -3,7 +3,7 @@ import unittest
 
 from pydantic import ValidationError as PydanticValidationError
 
-from algobattle_problems.c4subgraphiso.problem import UndirectedGraph, Solution, ValidationError
+from algobattle_problems.c4subgraphiso.problem import UndirectedGraph, Solution, ValidationError, Role
 
 
 class Tests(unittest.TestCase):
@@ -47,27 +47,27 @@ class Tests(unittest.TestCase):
     def test_vertex_too_big(self):
         solution = Solution(squares={(0, 1, 2, 10)})
         with self.assertRaises(ValidationError):
-            solution.validate_solution(self.instance)
+            solution.validate_solution(self.instance, Role.generator)
 
     def test_edge_missing(self):
         solution = Solution(squares={(2, 3, 4, 5)})
         with self.assertRaises(ValidationError):
-            solution.validate_solution(self.instance)
+            solution.validate_solution(self.instance, Role.generator)
 
     def test_additional_edge(self):
         solution = Solution(squares={(1, 2, 4, 8)})
         with self.assertRaises(ValidationError):
-            solution.validate_solution(self.instance)
+            solution.validate_solution(self.instance, Role.generator)
 
     def test_score(self):
         solution = Solution(squares={(0, 1, 8, 9), (4, 5, 6, 7)})
-        solution.validate_solution(self.instance)
+        solution.validate_solution(self.instance, Role.generator)
         self.assertEqual(solution.score(self.instance), 2)
 
     def test_squares_disjoin(self):
         solution = Solution(squares={(0, 1, 2, 3), (0, 1, 8, 9)})
         with self.assertRaises(ValidationError):
-            solution.validate_solution(self.instance)
+            solution.validate_solution(self.instance, Role.generator)
 
 
 if __name__ == "__main__":

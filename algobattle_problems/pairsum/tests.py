@@ -1,7 +1,7 @@
 """Tests for the Pairsum problem."""
 import unittest
 
-from algobattle_problems.pairsum.problem import Instance, Solution, ValidationError
+from algobattle_problems.pairsum.problem import Instance, Solution, ValidationError, Role
 
 
 class Tests(unittest.TestCase):
@@ -18,15 +18,15 @@ class Tests(unittest.TestCase):
 
     def test_solution_wrong_indices(self):
         with self.assertRaises(ValidationError):
-            Solution(indices=(100, 101, 102, 103)).validate_solution(self.instance)
+            Solution(indices=(100, 101, 102, 103)).validate_solution(self.instance, Role.generator)
 
     def test_solution_duplicate_index(self):
         with self.assertRaises(ValidationError):
-            Solution(indices=(0, 0, 1, 2)).validate_solution(self.instance)
+            Solution(indices=(0, 0, 1, 2)).validate_solution(self.instance, Role.generator)
 
     def test_solution_wrong_sum(self):
         with self.assertRaises(ValidationError):
-            Solution(indices=(0, 1, 2, 3)).validate_solution(self.instance)
+            Solution(indices=(0, 1, 2, 3)).validate_solution(self.instance, Role.generator)
 
 
 if __name__ == "__main__":

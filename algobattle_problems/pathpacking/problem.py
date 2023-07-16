@@ -1,7 +1,7 @@
 """The PathPacking problem class."""
 
 from algobattle.problem import Problem, UndirectedGraph, SolutionModel, ValidationError, Scored, maximize
-from algobattle.util import u64
+from algobattle.util import u64, Role
 
 
 class Solution(SolutionModel[UndirectedGraph], Scored[UndirectedGraph]):
@@ -9,7 +9,7 @@ class Solution(SolutionModel[UndirectedGraph], Scored[UndirectedGraph]):
 
     paths: set[tuple[u64, u64, u64]]
 
-    def validate_solution(self, instance: UndirectedGraph) -> None:
+    def validate_solution(self, instance: UndirectedGraph, role: Role) -> None:
         if not self.all_paths_disjoint(self.paths):
             raise ValidationError("Not all paths in the solution are node-disjoint.")
         for path in self.paths:

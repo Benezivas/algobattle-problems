@@ -7,7 +7,7 @@ from networkx.algorithms.tree.recognition import is_forest
 from networkx.classes.function import is_empty
 
 from algobattle.problem import Problem, UndirectedGraph, SolutionModel, ValidationError, Scored, maximize
-from algobattle.util import u64
+from algobattle.util import u64, Role
 
 
 class Instance(UndirectedGraph):
@@ -40,7 +40,7 @@ class Solution(SolutionModel[Instance], Scored[Instance]):
 
     path: list[u64]
 
-    def validate_solution(self, instance: Instance) -> None:
+    def validate_solution(self, instance: Instance, role: Role) -> None:
         if not self._nodes_are_walk(instance):
             raise ValidationError("The given path is not a walk in the instance graph.")
         if not self._no_revisited_nodes():
