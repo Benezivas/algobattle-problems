@@ -1,7 +1,7 @@
 """Tests for the Pairsum problem."""
 import unittest
 
-from algobattle_problems.pairsum.problem import Pairsum, ValidationError
+from algobattle_problems.pairsum.problem import Instance, Solution, ValidationError
 
 
 class Tests(unittest.TestCase):
@@ -9,24 +9,24 @@ class Tests(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls) -> None:
-        cls.instance = Pairsum(numbers=[1, 2, 3, 4])
+        cls.instance = Instance(numbers=[1, 2, 3, 4])
 
     def test_size(self):
         self.assertEqual(self.instance.size, 4)
-        self.assertEqual(Pairsum(numbers=[1, 2, 3, 4, 5, 6]).size, 6)
-        self.assertEqual(Pairsum(numbers=list(range(17))).size, 17)
+        self.assertEqual(Instance(numbers=[1, 2, 3, 4, 5, 6]).size, 6)
+        self.assertEqual(Instance(numbers=list(range(17))).size, 17)
 
     def test_solution_wrong_indices(self):
         with self.assertRaises(ValidationError):
-            Pairsum.Solution(indices=(100, 101, 102, 103)).validate_solution(self.instance)
+            Solution(indices=(100, 101, 102, 103)).validate_solution(self.instance)
 
     def test_solution_duplicate_index(self):
         with self.assertRaises(ValidationError):
-            Pairsum.Solution(indices=(0, 0, 1, 2)).validate_solution(self.instance)
+            Solution(indices=(0, 0, 1, 2)).validate_solution(self.instance)
 
     def test_solution_wrong_sum(self):
         with self.assertRaises(ValidationError):
-            Pairsum.Solution(indices=(0, 1, 2, 3)).validate_solution(self.instance)
+            Solution(indices=(0, 1, 2, 3)).validate_solution(self.instance)
 
 
 if __name__ == "__main__":

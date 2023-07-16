@@ -1,10 +1,7 @@
 """Tests for the clusterediting problem."""
 import unittest
 
-from algobattle_problems.clusterediting.problem import Clusterediting, ValidationError
-
-
-Solution = Clusterediting.Solution
+from algobattle_problems.clusterediting.problem import UndirectedGraph, Solution, ValidationError
 
 
 class Tests(unittest.TestCase):
@@ -12,7 +9,7 @@ class Tests(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls) -> None:
-        cls.instance = Clusterediting(
+        cls.instance = UndirectedGraph(
             num_vertices=10,
             edges=[
                 (0, 2),
@@ -35,12 +32,12 @@ class Tests(unittest.TestCase):
             solution.validate_solution(self.instance)
 
     def test_delete_extra_edge(self):
-        instance = Clusterediting(num_vertices=4, edges=[(0, 1), (1, 2), (2, 0), (0, 3)])
+        instance = UndirectedGraph(num_vertices=4, edges=[(0, 1), (1, 2), (2, 0), (0, 3)])
         solution = Solution(add=set(), delete={(0, 3)})
         solution.validate_solution(instance)
 
     def test_delete_and_add_edge(self):
-        instance = Clusterediting(num_vertices=4, edges=[(1, 2), (2, 0), (0, 3)])
+        instance = UndirectedGraph(num_vertices=4, edges=[(1, 2), (2, 0), (0, 3)])
         solution = Solution(add={(0, 1)}, delete={(0, 3)})
         solution.validate_solution(instance)
 
@@ -50,7 +47,7 @@ class Tests(unittest.TestCase):
             solution.validate_solution(self.instance)
 
     def test_delete_edge_reverse(self):
-        instance = Clusterediting(num_vertices=3, edges=[(0, 1), (1, 2)])
+        instance = UndirectedGraph(num_vertices=3, edges=[(0, 1), (1, 2)])
         solution = Solution(add=set(), delete={(1, 0)})
         solution.validate_solution(instance)
 

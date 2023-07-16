@@ -1,38 +1,40 @@
 """The Clusterediting problem class."""
 from typing import ClassVar
 
-from algobattle.problem import UndirectedGraph, SolutionModel, ValidationError
+from algobattle.problem import Problem, UndirectedGraph, SolutionModel, ValidationError
 from algobattle.util import u64
 
 
-class Domset(UndirectedGraph):
-    """The DomSet problem class."""
+class Solution(SolutionModel[UndirectedGraph]):
+    """A solution to a Dominating Set problem."""
 
-    name: ClassVar[str] = "Dominating Set"
-    min_size: ClassVar[int] = 2
+    domset: set[u64]
 
-    class Solution(SolutionModel):
-        """A solution to a Dominating Set problem."""
+    direction: ClassVar = "minimize"
 
-        domset: set[u64]
+    def validate_solution(self, instance: UndirectedGraph) -> None:
+        if any(u >= instance.num_vertices for u in self.domset):
+            raise ValidationError("A number in the domset is too large to be a vertex")
 
-        direction: ClassVar = "minimize"
+        dominated = set(self.domset)
+        for u, v in instance.edges:
+            if u in self.domset:
+                dominated.add(v)
+            elif v in self.domset:
+                dominated.add(u)
+        if len(dominated) != instance.num_vertices:
+            raise ValidationError(
+                "Not every vertex is dominated.",
+                detail=f"{instance.num_vertices - len(dominated)} vertices are not dominated",
+            )
 
-        def validate_solution(self, instance: "Domset") -> None:
-            if any(u >= instance.num_vertices for u in self.domset):
-                raise ValidationError("A number in the domset is too large to be a vertex")
+    def score(self, instance: UndirectedGraph) -> float:
+        return len(self.domset)
 
-            dominated = set(self.domset)
-            for u, v in instance.edges:
-                if u in self.domset:
-                    dominated.add(v)
-                elif v in self.domset:
-                    dominated.add(u)
-            if len(dominated) != instance.num_vertices:
-                raise ValidationError(
-                    "Not every vertex is dominated.",
-                    detail=f"{instance.num_vertices - len(dominated)} vertices are not dominated",
-                )
 
-        def score(self, instance: "Domset") -> float:
-            return len(self.domset)
+Domset = Problem(
+    name="Dominating Set",
+    min_size=2,
+    instance_cls=UndirectedGraph,
+    solution_cls=Solution,
+)
