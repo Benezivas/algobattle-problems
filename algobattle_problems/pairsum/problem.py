@@ -1,5 +1,5 @@
 """Main module of the Pairsum problem."""
-from pydantic import Field
+from pydantic import field_validator
 
 from algobattle.problem import Problem, InstanceModel, SolutionModel, ValidationError
 from algobattle.util import u64, Role
@@ -7,7 +7,14 @@ from algobattle.util import u64, Role
 
 class Instance(InstanceModel):
 
-    numbers: list[int] = Field(min_items=4, ge=0, le=2**63 - 1)
+    numbers: list[u64]
+
+    @field_validator("numbers")
+    @classmethod
+    def min_length(cls, numbers: list[u64]) -> list[u64]:
+        if len(numbers) < 4:
+            raise ValueError("There must be at least four numbers in the instance.")
+        return numbers
 
     @property
     def size(self) -> int:

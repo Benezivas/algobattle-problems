@@ -13,7 +13,7 @@ from algobattle.util import u64, Role
 class Instance(UndirectedGraph):
     """The Longestpathboundedfvs problem class."""
 
-    fvs: set[u64] = Field(hidden="solver")
+    fvs: set[u64] = Field(exclude=True)
 
     def validate_instance(self) -> None:
         super().validate_instance()
