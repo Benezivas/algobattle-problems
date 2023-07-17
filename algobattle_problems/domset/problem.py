@@ -1,6 +1,7 @@
 """The Clusterediting problem class."""
 from algobattle.problem import Problem, UndirectedGraph, SolutionModel, ValidationError, minimize, Scored
-from algobattle.util import u64, Role
+from algobattle.util import Role
+from algobattle.types import u64
 
 
 class Solution(SolutionModel[UndirectedGraph], Scored[UndirectedGraph]):

@@ -1,6 +1,7 @@
 """The Hikers problem class."""
 from algobattle.problem import Problem, InstanceModel, SolutionModel, ValidationError, maximize, Scored
-from algobattle.util import u64, Role
+from algobattle.util import Role
+from algobattle.types import u64
 
 
 class HikersInstance(InstanceModel):

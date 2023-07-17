@@ -1,6 +1,7 @@
 """The OSCM3 problem class."""
 from algobattle.problem import Problem, InstanceModel, SolutionModel, ValidationError, Scored, minimize
-from algobattle.util import u64, Role
+from algobattle.util import Role
+from algobattle.types import u64
 
 
 class Instance(InstanceModel):

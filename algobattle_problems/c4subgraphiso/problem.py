@@ -1,7 +1,8 @@
 """The C4subgraphiso problem class."""
 
 from algobattle.problem import Problem, UndirectedGraph, SolutionModel, ValidationError, maximize, Scored
-from algobattle.util import u64, Role
+from algobattle.util import Role
+from algobattle.types import u64
 
 
 
