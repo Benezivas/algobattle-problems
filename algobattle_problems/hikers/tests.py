@@ -22,7 +22,7 @@ class Tests(unittest.TestCase):
         )
 
     def test_solution_empty(self):
-        Solution.create_and_validate({"assignments": {}}, instance=self.instance)
+        Solution.model_validate({"assignments": {}}, context={"instance": self.instance})
 
     def test_solution_correct(self):
         solution = Solution(
@@ -37,11 +37,12 @@ class Tests(unittest.TestCase):
 
     def test_solution_wrong_hiker(self):
         with self.assertRaises(PydanticValidationError):
-            Solution.create_and_validate({"assignments": {10: 1}}, instance=self.instance)
+            Solution.model_validate({"assignments": {10: 1}}, context={"instance": self.instance})
 
     def test_solution_hiker_unhappy(self):
         with self.assertRaises(ValidationError):
-            Solution.create_and_validate({"assignments": {1: 1}}, instance=self.instance)
+            sol = Solution.model_validate({"assignments": {1: 1}}, context={"instance": self.instance})
+            sol.validate_solution(self.instance, Role.generator)
 
 
 if __name__ == "__main__":

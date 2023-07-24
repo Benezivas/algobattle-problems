@@ -22,7 +22,7 @@ class Instance(InstanceModel):
 class Solution(SolutionModel[Instance]):
     """A solution to a Pairsum problem."""
 
-    indices: UniqueItems[tuple[Number, Number, Number, Number]]
+    indices: Annotated[tuple[Number, Number, Number, Number], UniqueItems]
 
     def validate_solution(self, instance: Instance, role: Role) -> None:
         super().validate_solution(instance, role)

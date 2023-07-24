@@ -26,7 +26,7 @@ class Instance(InstanceModel):
 class Solution(SolutionModel[Instance]):
     """A solution to a Job Shop Scheduling problem."""
 
-    assignments: SizeLen[list[Machine]]
+    assignments: Annotated[list[Machine], SizeLen]
 
     @minimize
     def score(self, instance: Instance, role: Role) -> float:

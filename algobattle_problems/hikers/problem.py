@@ -1,4 +1,5 @@
 """The Hikers problem class."""
+from collections import Counter
 from algobattle.problem import Problem, InstanceModel, SolutionModel, maximize
 from algobattle.util import Role, ValidationError
 from algobattle.types import u64, SizeIndex
@@ -30,9 +31,7 @@ class Solution(SolutionModel[HikersInstance]):
 
     def validate_solution(self, instance: HikersInstance, role: Role) -> None:
         super().validate_solution(instance, role)
-        group_sizes: dict[int, int] = {}
-        for group in self.assignments.values():
-            group_sizes[group] = group_sizes.get(group, 0) + 1
+        group_sizes = Counter(self.assignments.values())
 
         for hiker, group in self.assignments.items():
             min_size, max_size = instance.hikers[hiker]

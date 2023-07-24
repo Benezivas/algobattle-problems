@@ -26,7 +26,7 @@ class Instance(InstanceModel):
 class Solution(SolutionModel[Instance]):
     """A solution to a One-Sided Crossing Minimization-3 problem."""
 
-    vertex_order: UniqueItems[SizeLen[list[Vertex]]]
+    vertex_order: Annotated[list[Vertex], UniqueItems, SizeLen]
 
     @minimize
     def score(self, instance: Instance, role: Role) -> float:

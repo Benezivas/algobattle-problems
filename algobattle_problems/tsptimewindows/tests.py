@@ -1,8 +1,9 @@
 """Tests for the scheduling problem."""
 import unittest
 
+from pydantic import ValidationError as PydanticValidationError
+
 from algobattle_problems.tsptimewindows.problem import (
-    Tsptimewindows,
     Instance,
     Solution,
     ValidationError,
@@ -40,32 +41,28 @@ class Tests(unittest.TestCase):
         self.assertEqual(node_tour, nodes)
 
     def test_tour_too_short(self):
-        with self.assertRaises(ValidationError):
-            Solution(tour=[]).validate_solution(self.instance, Role.generator)
+        with self.assertRaises(PydanticValidationError):
+            Solution.model_validate({"tour": []}, context={"instance": self.instance})
 
     def test_duplicate_in_tour(self):
-        with self.assertRaises(ValidationError):
-            Solution(tour=[0, 0]).validate_solution(self.instance, Role.generator)
+        with self.assertRaises(PydanticValidationError):
+            Solution.model_validate({"tour": [0, 0]}, context={"instance": self.instance})
 
     def test_tour_wrong_index(self):
-        with self.assertRaises(ValidationError):
-            Solution(tour=[10, 10]).validate_solution(self.instance, Role.generator)
+        with self.assertRaises(PydanticValidationError):
+            Solution.model_validate({"tour": [10, 10]}, context={"instance": self.instance})
 
     def test_tour_too_slow(self):
         with self.assertRaises(ValidationError):
-            Solution(tour=[1, 0]).validate_solution(self.instance, Role.generator)
+            sol = Solution.model_validate({"tour": [1, 0]}, context={"instance": self.instance})
+            sol.validate_solution(self.instance, Role.generator)
 
     def test_gen_tour_wrong(self):
         solution = Solution(tour=[0, 1])
         solution.score(self.instance_short, Role.solver)
         with self.assertRaises(ValidationError):
-            solution.validate_solution(self.instance_short, Role.generator)
-
-    def test_score_gen_wrong(self):
-        solution = Solution(tour=[0, 1])
-        self.assertEqual(
-            Tsptimewindows.score(self.instance_short, generator_solution=solution, solver_solution=solution), 0
-        )
+            sol = Solution.model_validate({"tour": [0, 1]}, context={"instance": self.instance_short})
+            sol.validate_solution(self.instance_short, Role.generator)
 
 
 if __name__ == "__main__":

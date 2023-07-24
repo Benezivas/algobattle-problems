@@ -15,7 +15,7 @@ class Tests(unittest.TestCase):
 
     def test_solution_wrong_length(self):
         with self.assertRaises(PydanticValidationError):
-            Solution.create_and_validate({"assignments": []}, instance=self.instance)
+            Solution.model_validate({"assignments": []}, context={"instance": self.instance})
 
     def test_solution_wrong_machine(self):
         with self.assertRaises(PydanticValidationError):

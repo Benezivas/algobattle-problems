@@ -20,11 +20,11 @@ class Tests(unittest.TestCase):
 
     def test_solution_wrong_indices(self):
         with self.assertRaises(PydanticValidationError):
-            Solution.create_and_validate({"indices": (100, 101, 102, 103)}, instance=self.instance)
+            Solution.model_validate({"indices": (100, 101, 102, 103)}, context={"instance": self.instance})
 
     def test_solution_duplicate_index(self):
         with self.assertRaises(PydanticValidationError):
-            Solution.create_and_validate({"indices": (0, 0, 1, 2)}, instance=self.instance)
+            Solution.model_validate({"indices": (0, 0, 1, 2)}, context={"instance": self.instance})
 
     def test_solution_wrong_sum(self):
         with self.assertRaises(ValidationError):
