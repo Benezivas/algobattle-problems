@@ -48,6 +48,7 @@ class Solution(SolutionModel[Instance]):
         yield instance.locations[self.tour[0]]
 
     def validate_solution(self, instance: Instance, role: Role) -> None:
+        super().validate_solution(instance, role)
         if len(self.tour) != len(instance.locations):
             raise ValidationError("The solution doesn't visit every location exactly once.")
         if len(self.tour) != len(set(self.tour)):

@@ -42,6 +42,7 @@ class Solution(SolutionModel[Instance], Scored[Instance]):
     path: list[Vertex]
 
     def validate_solution(self, instance: Instance, role: Role) -> None:
+        super().validate_solution(instance, role)
         if not self._nodes_are_walk(instance):
             raise ValidationError("The given path is not a walk in the instance graph.")
         if not self._no_revisited_nodes():

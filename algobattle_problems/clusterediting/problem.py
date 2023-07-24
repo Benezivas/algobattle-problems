@@ -14,6 +14,7 @@ class Solution(SolutionModel[UndirectedGraph], Scored[UndirectedGraph]):
     delete: set[tuple[Vertex, Vertex]]
 
     def validate_solution(self, instance: UndirectedGraph, role: Role) -> None:
+        super().validate_solution(instance, role)
         edge_set = set(instance.edges)
 
         # Apply modifications to graph

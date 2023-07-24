@@ -18,6 +18,7 @@ class HikersInstance(InstanceModel):
         return len(self.hikers)
 
     def validate_instance(self) -> None:
+        super().validate_instance()
         if any(min_size > max_size for min_size, max_size in self.hikers):
             raise ValidationError("One hiker's minimum group size is larger than their maximum group size.")
 
@@ -28,6 +29,7 @@ class Solution(SolutionModel[HikersInstance], Scored[HikersInstance]):
     assignments: dict[Hiker, u64]
 
     def validate_solution(self, instance: HikersInstance, role: Role) -> None:
+        super().validate_solution(instance, role)
         group_sizes: dict[int, int] = {}
         for group in self.assignments.values():
             group_sizes[group] = group_sizes.get(group, 0) + 1

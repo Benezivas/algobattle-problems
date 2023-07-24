@@ -10,6 +10,7 @@ class Solution(SolutionModel[UndirectedGraph], Scored[UndirectedGraph]):
     domset: set[Vertex]
 
     def validate_solution(self, instance: UndirectedGraph, role: Role) -> None:
+        super().validate_solution(instance, role)
         dominated = set(self.domset)
         for u, v in instance.edges:
             if u in self.domset:

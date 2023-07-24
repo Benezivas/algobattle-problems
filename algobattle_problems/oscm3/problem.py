@@ -26,6 +26,7 @@ class Solution(SolutionModel[Instance], Scored[Instance]):
     vertex_order: list[u64]
 
     def validate_solution(self, instance: Instance, role: Role) -> None:
+        super().validate_solution(instance, role)
         if any(not 0 <= i < instance.size for i in self.vertex_order):
             raise ValidationError("An element of the solution is not in the permitted range.")
         if len(self.vertex_order) != len(set(self.vertex_order)):
