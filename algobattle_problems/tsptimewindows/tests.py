@@ -9,6 +9,7 @@ from algobattle_problems.tsptimewindows.problem import (
     ValidationError,
     Location,
     Role,
+    Tsptimewindows
 )
 
 
@@ -61,8 +62,12 @@ class Tests(unittest.TestCase):
         solution = Solution(tour=[0, 1])
         solution.score(self.instance_short, Role.solver)
         with self.assertRaises(ValidationError):
-            sol = Solution.model_validate({"tour": [0, 1]}, context={"instance": self.instance_short})
-            sol.validate_solution(self.instance_short, Role.generator)
+            solution.validate_solution(self.instance_short, Role.generator)
+
+    def test_score_gen_wrong(self):
+        solution = Solution(tour=[0, 1])
+        with self.assertRaises(ValidationError):
+            Tsptimewindows.score(self.instance_short, generator_solution=solution, solver_solution=solution)
 
 
 if __name__ == "__main__":
