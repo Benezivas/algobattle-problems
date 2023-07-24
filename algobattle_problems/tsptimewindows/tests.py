@@ -63,9 +63,8 @@ class Tests(unittest.TestCase):
 
     def test_score_gen_wrong(self):
         solution = Solution(tour=[0, 1])
-        self.assertEqual(
-            Tsptimewindows.score(self.instance_short, generator_solution=solution, solver_solution=solution), 0
-        )
+        with self.assertRaises(ValidationError):
+            Tsptimewindows.score(self.instance_short, generator_solution=solution, solver_solution=solution)
 
 
 if __name__ == "__main__":

@@ -31,10 +31,10 @@ class Tests(unittest.TestCase):
     def test_score(self):
         bad_solution = Solution(domset={0, 1, 2, 3, 4})
         good_solution = Solution(domset={1, 3, 4})
-        self.assertAlmostEqual(bad_solution.score(self.instance, Role.generator), 1 / 5)
-        self.assertAlmostEqual(good_solution.score(self.instance, Role.solver), 1 / 3)
+        self.assertAlmostEqual(bad_solution.score(self.instance, Role.solver), 1 / 5)
+        self.assertAlmostEqual(good_solution.score(self.instance, Role.generator), 1 / 3)
         self.assertAlmostEqual(
-            Domset.score(self.instance, generator_solution=bad_solution, solver_solution=good_solution), 0.6
+            Domset.score(self.instance, generator_solution=good_solution, solver_solution=bad_solution), 0.6
         )
 
 
