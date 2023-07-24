@@ -1,11 +1,10 @@
 """The C4subgraphiso problem class."""
 
-from algobattle.problem import Problem, UndirectedGraph, SolutionModel, ValidationError, maximize, Scored
+from algobattle.problem import Problem, UndirectedGraph, SolutionModel, ValidationError, maximize
 from algobattle.util import u64, Role
 
 
-
-class Solution(SolutionModel[UndirectedGraph], Scored[UndirectedGraph]):
+class Solution(SolutionModel[UndirectedGraph]):
     """A solution to a Square Subgraph Isomorphism problem."""
 
     squares: set[tuple[u64, u64, u64, u64]]
@@ -27,9 +26,7 @@ class Solution(SolutionModel[UndirectedGraph], Scored[UndirectedGraph]):
         for square in self.squares:
             for node in square:
                 if node in used_nodes:
-                    raise ValidationError(
-                        "A square in the solution is not node-disjoint to at least one other square."
-                    )
+                    raise ValidationError("A square in the solution is not node-disjoint to at least one other square.")
                 used_nodes.add(node)
 
     def _all_squares_induced(self, instance: UndirectedGraph) -> None:
@@ -57,7 +54,7 @@ class Solution(SolutionModel[UndirectedGraph], Scored[UndirectedGraph]):
                 raise ValidationError("A square is not part of the instance.")
 
     @maximize
-    def score(self, instance: UndirectedGraph) -> float:
+    def score(self, instance: UndirectedGraph, role: Role) -> float:
         return len(self.squares)
 
 

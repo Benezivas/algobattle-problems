@@ -23,7 +23,7 @@ class Tests(unittest.TestCase):
 
     def test_solution_makespan(self):
         solution = Solution(assignments=[4, 1, 5, 3, 2])
-        self.assertAlmostEqual(solution.score(self.instance), 1/120)
+        self.assertAlmostEqual(solution.score(self.instance, Role.solver), 1 / 120)
 
 
 if __name__ == "__main__":

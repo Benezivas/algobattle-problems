@@ -32,8 +32,8 @@ class Tests(unittest.TestCase):
             Solution(paths={(0, 1, 2), (2, 3, 4)}).validate_solution(self.instance, Role.generator)
 
     def test_score(self):
-        self.assertEqual(Solution(paths={(0, 1, 2)}).score(self.instance), 1)
-        self.assertEqual(Solution(paths={(0, 1, 2), (3, 4, 5)}).score(self.instance), 2)
+        self.assertEqual(Solution(paths={(0, 1, 2)}).score(self.instance, Role.solver), 1)
+        self.assertEqual(Solution(paths={(0, 1, 2), (3, 4, 5)}).score(self.instance, Role.solver), 2)
 
 
 if __name__ == "__main__":

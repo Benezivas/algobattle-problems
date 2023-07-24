@@ -1,8 +1,14 @@
 """Tests for the scheduling problem."""
 import unittest
 
-from algobattle_problems.tsptimewindows.problem import Tsptimewindows, Instance, Solution, ValidationError, Location, Role
-from algobattle.util import Role
+from algobattle_problems.tsptimewindows.problem import (
+    Tsptimewindows,
+    Instance,
+    Solution,
+    ValidationError,
+    Location,
+    Role,
+)
 
 
 class Tests(unittest.TestCase):
@@ -57,7 +63,9 @@ class Tests(unittest.TestCase):
 
     def test_score_gen_wrong(self):
         solution = Solution(tour=[0, 1])
-        self.assertEqual(Tsptimewindows.score(self.instance_short, solution, solution), 0)
+        self.assertEqual(
+            Tsptimewindows.score(self.instance_short, generator_solution=solution, solver_solution=solution), 0
+        )
 
 
 if __name__ == "__main__":

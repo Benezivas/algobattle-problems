@@ -6,8 +6,7 @@ from typing import Iterator, Self
 from pydantic import Field
 
 from algobattle.problem import Problem, InstanceModel, SolutionModel, ValidationError
-from algobattle.util import BaseModel, Role
-from algobattle.util import u64, Role
+from algobattle.util import BaseModel, Role, u64
 
 
 class Location(BaseModel):
@@ -57,8 +56,8 @@ class Solution(SolutionModel[Instance]):
 
         self.score(instance, role)
 
-    def score(self, instance: Instance, team: Role) -> float:
-        speed = 1.1 if team == Role.solver else 1  # the solving team is faster than the generating
+    def score(self, instance: Instance, role: Role) -> float:
+        speed = 1.1 if role == Role.solver else 1  # the solving team is faster than the generating
         time = instance.locations[self.tour[0]].min_time  # wait at the first location until it becomes available
         for curr, next in pairwise(self.location_tour(instance)):
             arrival_time = time + curr.distance(next) / speed
@@ -68,23 +67,9 @@ class Solution(SolutionModel[Instance]):
         return time
 
 
-def score(instance: Instance, solver_solution: Solution, generator_solution: Solution | None) -> float:
-    assert generator_solution is not None
-    try:
-        gen_score = generator_solution.score(instance, Role.generator)
-    except ValidationError:
-        return 0
-    sol_score = solver_solution.score(instance, Role.solver)
-    if sol_score == 0:
-        return 0
-    else:
-        return max(min(gen_score / sol_score, 1), 0)
-
-
 Tsptimewindows = Problem(
     name="Traveling Salesman with Time Windows",
     min_size=5,
     instance_cls=Instance,
     solution_cls=Solution,
-    score=score,
 )

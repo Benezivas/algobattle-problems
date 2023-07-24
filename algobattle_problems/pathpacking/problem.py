@@ -1,10 +1,10 @@
 """The PathPacking problem class."""
 
-from algobattle.problem import Problem, UndirectedGraph, SolutionModel, ValidationError, Scored, maximize
+from algobattle.problem import Problem, UndirectedGraph, SolutionModel, ValidationError, maximize
 from algobattle.util import u64, Role
 
 
-class Solution(SolutionModel[UndirectedGraph], Scored[UndirectedGraph]):
+class Solution(SolutionModel[UndirectedGraph]):
     """A solution to a Path Packing problem."""
 
     paths: set[tuple[u64, u64, u64]]
@@ -31,8 +31,9 @@ class Solution(SolutionModel[UndirectedGraph], Scored[UndirectedGraph]):
         return (u, v) in edge_set and (v, w) in edge_set
 
     @maximize
-    def score(self, instance: UndirectedGraph) -> float:
+    def score(self, instance: UndirectedGraph, role: Role) -> float:
         return len(self.paths)
+
 
 Pathpacking = Problem(
     name="P_3 Path Packing",

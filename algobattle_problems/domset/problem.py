@@ -1,9 +1,9 @@
 """The Clusterediting problem class."""
-from algobattle.problem import Problem, UndirectedGraph, SolutionModel, ValidationError, minimize, Scored
+from algobattle.problem import Problem, UndirectedGraph, SolutionModel, ValidationError, minimize
 from algobattle.util import u64, Role
 
 
-class Solution(SolutionModel[UndirectedGraph], Scored[UndirectedGraph]):
+class Solution(SolutionModel[UndirectedGraph]):
     """A solution to a Dominating Set problem."""
 
     domset: set[u64]
@@ -25,7 +25,7 @@ class Solution(SolutionModel[UndirectedGraph], Scored[UndirectedGraph]):
             )
 
     @minimize
-    def score(self, instance: UndirectedGraph) -> float:
+    def score(self, instance: UndirectedGraph, role: Role) -> float:
         return len(self.domset)
 
 

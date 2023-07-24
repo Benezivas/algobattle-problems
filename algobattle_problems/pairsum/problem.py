@@ -6,6 +6,7 @@ from algobattle.util import u64, Role
 
 
 class Instance(InstanceModel):
+    """An instance of a Pairsum problem."""
 
     numbers: list[int] = Field(min_items=4, ge=0, le=2**63 - 1)
 
