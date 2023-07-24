@@ -6,7 +6,7 @@ from networkx import Graph
 from networkx.algorithms.tree.recognition import is_forest
 from networkx.classes.function import is_empty
 
-from algobattle.problem import Problem, SolutionModel, Scored, maximize
+from algobattle.problem import Problem, SolutionModel, maximize
 from algobattle.util import Role, ValidationError
 from algobattle.types import Vertex, UndirectedGraph
 
@@ -36,7 +36,7 @@ class Instance(UndirectedGraph):
         return is_empty(g) or is_forest(g)
 
 
-class Solution(SolutionModel[Instance], Scored[Instance]):
+class Solution(SolutionModel[Instance]):
     """A solution to a Longest Path with Bounded Feedback Vertex Set problem."""
 
     path: list[Vertex]
@@ -62,7 +62,7 @@ class Solution(SolutionModel[Instance], Scored[Instance]):
         return len(self.path) == len(set(self.path))
 
     @maximize
-    def score(self, instance: Instance) -> float:
+    def score(self, instance: Instance, role: Role) -> float:
         return len(self.path)
 
 

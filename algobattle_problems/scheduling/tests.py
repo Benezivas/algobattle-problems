@@ -3,7 +3,7 @@ import unittest
 
 from pydantic import ValidationError as PydanticValidationError
 
-from algobattle_problems.scheduling.problem import Instance, Solution
+from algobattle_problems.scheduling.problem import Instance, Solution, Role
 
 
 class Tests(unittest.TestCase):
@@ -23,7 +23,7 @@ class Tests(unittest.TestCase):
 
     def test_solution_makespan(self):
         solution = Solution(assignments=[4, 1, 5, 3, 2])
-        self.assertAlmostEqual(solution.score(self.instance), 1 / 120)
+        self.assertAlmostEqual(solution.score(self.instance, Role.solver), 1 / 120)
 
 
 if __name__ == "__main__":

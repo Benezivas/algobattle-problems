@@ -1,10 +1,10 @@
 """The Biclique problem class."""
-from algobattle.problem import Problem, SolutionModel, Scored, maximize
+from algobattle.problem import Problem, SolutionModel, maximize
 from algobattle.util import Role, ValidationError
 from algobattle.types import UndirectedGraph, Vertex
 
 
-class Solution(SolutionModel[UndirectedGraph], Scored[UndirectedGraph]):
+class Solution(SolutionModel[UndirectedGraph]):
     """A solution to a bipartite clique problem."""
 
     s_1: set[Vertex]
@@ -23,7 +23,7 @@ class Solution(SolutionModel[UndirectedGraph], Scored[UndirectedGraph]):
             raise ValidationError("The solution is not a bipartite graph.")
 
     @maximize
-    def score(self, instance: UndirectedGraph) -> float:
+    def score(self, instance: UndirectedGraph, role: Role) -> float:
         return len(self.s_1) + len(self.s_2)
 
 

@@ -1,11 +1,10 @@
 """The C4subgraphiso problem class."""
 
-from algobattle.problem import Problem, SolutionModel, maximize, Scored
+from algobattle.problem import Problem, SolutionModel, maximize
 from algobattle.util import Role, ValidationError
 from algobattle.types import UndirectedGraph, Vertex
 
-
-class Solution(SolutionModel[UndirectedGraph], Scored[UndirectedGraph]):
+class Solution(SolutionModel[UndirectedGraph]):
     """A solution to a Square Subgraph Isomorphism problem."""
 
     squares: set[tuple[Vertex, Vertex, Vertex, Vertex]]
@@ -49,7 +48,7 @@ class Solution(SolutionModel[UndirectedGraph], Scored[UndirectedGraph]):
                 raise ValidationError("A square is not part of the instance.")
 
     @maximize
-    def score(self, instance: UndirectedGraph) -> float:
+    def score(self, instance: UndirectedGraph, role: Role) -> float:
         return len(self.squares)
 
 

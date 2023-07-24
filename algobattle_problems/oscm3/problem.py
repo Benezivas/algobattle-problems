@@ -1,6 +1,6 @@
 """The OSCM3 problem class."""
 from typing import Annotated
-from algobattle.problem import Problem, InstanceModel, SolutionModel, Scored, minimize
+from algobattle.problem import Problem, InstanceModel, SolutionModel, minimize
 from algobattle.util import Role, ValidationError
 from algobattle.types import u64, Vertex, MaxLen
 
@@ -20,7 +20,7 @@ class Instance(InstanceModel):
             self.neighbors.setdefault(u, set())
 
 
-class Solution(SolutionModel[Instance], Scored[Instance]):
+class Solution(SolutionModel[Instance]):
     """A solution to a One-Sided Crossing Minimization-3 problem."""
 
     vertex_order: list[u64]
@@ -35,7 +35,7 @@ class Solution(SolutionModel[Instance], Scored[Instance]):
             raise ValidationError("The solution does not order the whole instance.")
 
     @minimize
-    def score(self, instance: Instance) -> float:
+    def score(self, instance: Instance, role: Role) -> float:
         score = 0
         for position, vertex in enumerate(self.vertex_order):
             for i in instance.neighbors[vertex]:

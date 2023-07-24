@@ -62,7 +62,7 @@ class Tests(unittest.TestCase):
     def test_score(self):
         solution = Solution(squares={(0, 1, 8, 9), (4, 5, 6, 7)})
         solution.validate_solution(self.instance, Role.generator)
-        self.assertEqual(solution.score(self.instance), 2)
+        self.assertEqual(solution.score(self.instance, Role.solver), 2)
 
     def test_squares_disjoin(self):
         solution = Solution(squares={(0, 1, 2, 3), (0, 1, 8, 9)})

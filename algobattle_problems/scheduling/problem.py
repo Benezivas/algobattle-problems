@@ -1,8 +1,12 @@
 """The Scheduling problem class."""
 from typing import Annotated
 
-from algobattle.problem import Problem, InstanceModel, SolutionModel, Scored, minimize
+from algobattle.problem import Problem, InstanceModel, SolutionModel, minimize
 from algobattle.types import Interval, SizeLen
+
+
+from algobattle.problem import Problem, InstanceModel, SolutionModel, minimize
+from algobattle.util import Role
 
 
 Timespan = Annotated[int, Interval(ge=0, le=(2**64 - 1) / 5)]
@@ -19,13 +23,13 @@ class Instance(InstanceModel):
         return len(self.job_lengths)
 
 
-class Solution(SolutionModel[Instance], Scored[Instance]):
+class Solution(SolutionModel[Instance]):
     """A solution to a Job Shop Scheduling problem."""
 
     assignments: SizeLen[list[Machine]]
 
     @minimize
-    def score(self, instance: Instance) -> float:
+    def score(self, instance: Instance, role: Role) -> float:
         finish_time = [0] * 5
         for duration, machine in zip(instance.job_lengths, self.assignments):
             finish_time[machine - 1] += duration * machine
