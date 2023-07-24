@@ -1,20 +1,18 @@
 """The Biclique problem class."""
-from algobattle.problem import Problem, UndirectedGraph, SolutionModel, ValidationError, Scored, maximize
-from algobattle.util import Role
-from algobattle.types import u64
+from algobattle.problem import Problem, SolutionModel, Scored, maximize
+from algobattle.util import Role, ValidationError
+from algobattle.types import UndirectedGraph, Vertex
 
 
 class Solution(SolutionModel[UndirectedGraph], Scored[UndirectedGraph]):
     """A solution to a bipartite clique problem."""
 
-    s_1: set[u64]
-    s_2: set[u64]
+    s_1: set[Vertex]
+    s_2: set[Vertex]
 
     def validate_solution(self, instance: UndirectedGraph, role: Role) -> None:
-        edge_set = set(instance.edges) | set(edge[::-1] for edge in instance.edges)
         super().validate_solution(instance, role)
-        if any(i >= instance.num_vertices for i in self.s_1 | self.s_2):
-            raise ValidationError("Solution contains vertices that aren't in the instance.")
+        edge_set = set(instance.edges) | set(edge[::-1] for edge in instance.edges)
         if len(self.s_1.intersection(self.s_2)) != 0:
             raise ValidationError("Solution contains vertex sets that aren't disjoint.")
         if any((u, v) not in edge_set for u in self.s_1 for v in self.s_2):

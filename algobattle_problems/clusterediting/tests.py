@@ -54,7 +54,7 @@ class Tests(unittest.TestCase):
     def test_score(self):
         solution = Solution(add={(0, 1), (5, 8)}, delete={(4, 8), (7, 1), (0, 2), (2, 5)})
         solution.validate_solution(self.instance, Role.generator)
-        self.assertEqual(solution.score(self.instance), 1/6)
+        self.assertEqual(solution.score(self.instance), 1 / 6)
 
     def test_solution_doesnt_triangulate(self):
         solution = Solution(add={(0, 1), (5, 8)}, delete={(7, 1), (0, 2), (2, 5)})

@@ -3,7 +3,7 @@ import unittest
 
 from pydantic import ValidationError as PydanticValidationError
 
-from algobattle_problems.scheduling.problem import Instance, Solution, ValidationError, Role
+from algobattle_problems.scheduling.problem import Instance, Solution
 
 
 class Tests(unittest.TestCase):
@@ -14,8 +14,8 @@ class Tests(unittest.TestCase):
         cls.instance = Instance(job_lengths=[30, 120, 24, 40, 60])
 
     def test_solution_wrong_length(self):
-        with self.assertRaises(ValidationError):
-            Solution(assignments=[]).validate_solution(self.instance, Role.generator)
+        with self.assertRaises(PydanticValidationError):
+            Solution.create_and_validate({"assignments": []}, instance=self.instance)
 
     def test_solution_wrong_machine(self):
         with self.assertRaises(PydanticValidationError):
@@ -23,7 +23,7 @@ class Tests(unittest.TestCase):
 
     def test_solution_makespan(self):
         solution = Solution(assignments=[4, 1, 5, 3, 2])
-        self.assertAlmostEqual(solution.score(self.instance), 1/120)
+        self.assertAlmostEqual(solution.score(self.instance), 1 / 120)
 
 
 if __name__ == "__main__":

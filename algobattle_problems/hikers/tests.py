@@ -1,6 +1,8 @@
 """Tests for the hikers problem."""
 import unittest
 
+from pydantic import ValidationError as PydanticValidationError
+
 from algobattle_problems.hikers.problem import HikersInstance, Solution, ValidationError, Role
 
 
@@ -20,8 +22,7 @@ class Tests(unittest.TestCase):
         )
 
     def test_solution_empty(self):
-        solution = Solution(assignments={})
-        solution.validate_solution(self.instance, Role.generator)
+        Solution.create_and_validate({"assignments": {}}, instance=self.instance)
 
     def test_solution_correct(self):
         solution = Solution(
@@ -35,14 +36,12 @@ class Tests(unittest.TestCase):
         solution.validate_solution(self.instance, Role.generator)
 
     def test_solution_wrong_hiker(self):
-        solution = Solution(assignments={10: 1})
-        with self.assertRaises(ValidationError):
-            solution.validate_solution(self.instance, Role.generator)
+        with self.assertRaises(PydanticValidationError):
+            Solution.create_and_validate({"assignments": {10: 1}}, instance=self.instance)
 
     def test_solution_hiker_unhappy(self):
-        solution = Solution(assignments={1: 1})
         with self.assertRaises(ValidationError):
-            solution.validate_solution(self.instance, Role.generator)
+            Solution.create_and_validate({"assignments": {1: 1}}, instance=self.instance)
 
 
 if __name__ == "__main__":

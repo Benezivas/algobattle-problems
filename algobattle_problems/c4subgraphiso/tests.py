@@ -35,7 +35,7 @@ class Tests(unittest.TestCase):
 
     def test_no_duplicate_squares(self):
         with self.assertRaises(PydanticValidationError):
-            UndirectedGraph.parse_obj(
+            UndirectedGraph.model_validate(
                 {
                     "squares": {
                         (0, 1, 2, 3),

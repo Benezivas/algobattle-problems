@@ -1,13 +1,14 @@
 """The OSCM3 problem class."""
-from algobattle.problem import Problem, InstanceModel, SolutionModel, ValidationError, Scored, minimize
-from algobattle.util import Role
-from algobattle.types import u64
+from typing import Annotated
+from algobattle.problem import Problem, InstanceModel, SolutionModel, Scored, minimize
+from algobattle.util import Role, ValidationError
+from algobattle.types import u64, Vertex, MaxLen
 
 
 class Instance(InstanceModel):
     """The OSCM3 problem class."""
 
-    neighbors: dict[u64, set[u64]]
+    neighbors: dict[Vertex, Annotated[set[Vertex], MaxLen(3)]]
 
     @property
     def size(self) -> int:
@@ -15,14 +16,7 @@ class Instance(InstanceModel):
 
     def validate_instance(self) -> None:
         super().validate_instance()
-        size = self.size
-        if any(not 0 <= v < size for v in self.neighbors):
-            raise ValidationError("Instance contains element of V_1 out of the permitted range.")
-        if any(not 0 <= v < size for neighbors in self.neighbors.values() for v in neighbors):
-            raise ValidationError("Instance contains element of V_2 out of the permitted range.")
-        if any(len(neighbors) > 3 for neighbors in self.neighbors.values()):
-            raise ValidationError("A vertex of V_1 has more than 3 neighbors.")
-        for u in range(size):
+        for u in range(self.size):
             self.neighbors.setdefault(u, set())
 
 
@@ -49,7 +43,7 @@ class Solution(SolutionModel[Instance], Scored[Instance]):
 
 
 OSCM3 = Problem(
-    name = "One-Sided Crossing Minimization-3",
+    name="One-Sided Crossing Minimization-3",
     min_size=1,
     instance_cls=Instance,
     solution_cls=Solution,

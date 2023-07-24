@@ -5,9 +5,8 @@ from math import sqrt
 from typing import Iterator, Self
 from pydantic import Field
 
-from algobattle.problem import Problem, InstanceModel, SolutionModel, ValidationError
-from algobattle.util import BaseModel, Role
-from algobattle.util import Role
+from algobattle.problem import Problem, InstanceModel, SolutionModel
+from algobattle.util import BaseModel, Role, ValidationError
 from algobattle.types import u64
 
 
@@ -70,6 +69,7 @@ class Solution(SolutionModel[Instance]):
 
 
 def score(instance: Instance, solver_solution: Solution, generator_solution: Solution | None) -> float:
+    """Compares the score of both teams against each other."""
     assert generator_solution is not None
     try:
         gen_score = generator_solution.score(instance, Role.generator)

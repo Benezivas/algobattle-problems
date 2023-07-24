@@ -31,8 +31,8 @@ class Tests(unittest.TestCase):
     def test_score(self):
         bad_solution = Solution(domset={0, 1, 2, 3, 4})
         good_solution = Solution(domset={1, 3, 4})
-        self.assertAlmostEqual(bad_solution.score(self.instance), 1/5)
-        self.assertAlmostEqual(good_solution.score(self.instance), 1/3)
+        self.assertAlmostEqual(bad_solution.score(self.instance), 1 / 5)
+        self.assertAlmostEqual(good_solution.score(self.instance), 1 / 3)
         self.assertAlmostEqual(Domset.score(self.instance, bad_solution, good_solution), 0.6)
 
 

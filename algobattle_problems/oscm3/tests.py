@@ -1,6 +1,8 @@
 """Tests for the OSCM3 problem."""
 import unittest
 
+from pydantic import ValidationError as PydanticValidationError
+
 from algobattle_problems.oscm3.problem import Instance, Solution, ValidationError, Role
 
 
@@ -18,7 +20,7 @@ class Tests(unittest.TestCase):
         )
 
     def test_too_many_neighbors(self):
-        with self.assertRaises(ValidationError):
+        with self.assertRaises(PydanticValidationError):
             instance = Instance(neighbors={0: {0, 1, 2, 3}, 3: set()})
             instance.validate_instance()
 

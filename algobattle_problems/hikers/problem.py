@@ -1,11 +1,14 @@
 """The Hikers problem class."""
-from algobattle.problem import Problem, InstanceModel, SolutionModel, ValidationError, maximize, Scored
-from algobattle.util import Role
-from algobattle.types import u64
+from algobattle.problem import Problem, InstanceModel, SolutionModel, maximize, Scored
+from algobattle.util import Role, ValidationError
+from algobattle.types import u64, SizeIndex
+
+
+Hiker = SizeIndex
 
 
 class HikersInstance(InstanceModel):
-    """The Tsptimewindows problem class."""
+    """The Hikers instance class."""
 
     hikers: list[tuple[u64, u64]]
 
@@ -22,12 +25,9 @@ class HikersInstance(InstanceModel):
 class Solution(SolutionModel[HikersInstance], Scored[HikersInstance]):
     """A solution to a Hikers problem."""
 
-    assignments: dict[u64, u64]
+    assignments: dict[Hiker, u64]
 
     def validate_solution(self, instance: HikersInstance, role: Role) -> None:
-        if any(hiker >= len(instance.hikers) for hiker in self.assignments):
-            raise ValidationError("Solution contains hiker that is not in the instance.")
-
         group_sizes: dict[int, int] = {}
         for group in self.assignments.values():
             group_sizes[group] = group_sizes.get(group, 0) + 1
