@@ -7,7 +7,7 @@ from pydantic import Field
 
 from algobattle.problem import Problem, InstanceModel, SolutionModel, minimize
 from algobattle.util import BaseModel, Role, ValidationError
-from algobattle.types import u64
+from algobattle.types import SizeIndex, UniqueItems, SizeLen
 
 
 class Location(BaseModel):
@@ -40,7 +40,7 @@ class Instance(InstanceModel):
 class Solution(SolutionModel[Instance]):
     """A solution to a Traveling Salesman with Time Windows problem."""
 
-    tour: list[u64]
+    tour: UniqueItems[SizeLen[list[SizeIndex]]]
 
     def location_tour(self, instance: Instance) -> Iterator[Location]:
         """Iterates over all locations in the tour in order, looping back around to the first."""
@@ -49,13 +49,6 @@ class Solution(SolutionModel[Instance]):
 
     def validate_solution(self, instance: Instance, role: Role) -> None:
         super().validate_solution(instance, role)
-        if len(self.tour) != len(instance.locations):
-            raise ValidationError("The solution doesn't visit every location exactly once.")
-        if len(self.tour) != len(set(self.tour)):
-            raise ValidationError("The solution contains duplicate locations.")
-        if any(i >= len(instance.locations) for i in self.tour):
-            raise ValidationError("The solution contains invalid location indices.")
-
         self.score(instance, role)
 
     @minimize

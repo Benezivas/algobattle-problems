@@ -1,14 +1,17 @@
 """The OSCM3 problem class."""
 from typing import Annotated
 from algobattle.problem import Problem, InstanceModel, SolutionModel, minimize
-from algobattle.util import Role, ValidationError
-from algobattle.types import u64, Vertex, MaxLen
+from algobattle.util import Role
+from algobattle.types import Vertex, MaxLen, UniqueItems, SizeLen
+
+
+Neighbors =  Annotated[set[Vertex], MaxLen(3)]
 
 
 class Instance(InstanceModel):
     """The OSCM3 problem class."""
 
-    neighbors: dict[Vertex, Annotated[set[Vertex], MaxLen(3)]]
+    neighbors: dict[Vertex, Neighbors]
 
     @property
     def size(self) -> int:
@@ -23,16 +26,7 @@ class Instance(InstanceModel):
 class Solution(SolutionModel[Instance]):
     """A solution to a One-Sided Crossing Minimization-3 problem."""
 
-    vertex_order: list[u64]
-
-    def validate_solution(self, instance: Instance, role: Role) -> None:
-        super().validate_solution(instance, role)
-        if any(not 0 <= i < instance.size for i in self.vertex_order):
-            raise ValidationError("An element of the solution is not in the permitted range.")
-        if len(self.vertex_order) != len(set(self.vertex_order)):
-            raise ValidationError("The solution contains duplicate numbers.")
-        if len(self.vertex_order) != instance.size:
-            raise ValidationError("The solution does not order the whole instance.")
+    vertex_order: UniqueItems[SizeLen[list[Vertex]]]
 
     @minimize
     def score(self, instance: Instance, role: Role) -> float:
