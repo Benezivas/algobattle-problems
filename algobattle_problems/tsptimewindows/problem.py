@@ -5,7 +5,7 @@ from math import sqrt
 from typing import Iterator, Self
 from pydantic import Field
 
-from algobattle.problem import Problem, InstanceModel, SolutionModel
+from algobattle.problem import Problem, InstanceModel, SolutionModel, minimize
 from algobattle.util import BaseModel, Role, ValidationError
 from algobattle.types import u64
 
@@ -58,6 +58,7 @@ class Solution(SolutionModel[Instance]):
 
         self.score(instance, role)
 
+    @minimize
     def score(self, instance: Instance, role: Role) -> float:
         speed = 1.1 if role == Role.solver else 1  # the solving team is faster than the generating
         time = instance.locations[self.tour[0]].min_time  # wait at the first location until it becomes available
