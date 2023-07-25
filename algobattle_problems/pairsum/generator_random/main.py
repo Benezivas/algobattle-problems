@@ -2,7 +2,7 @@
 import json
 import random
 
-with open("/input/size", "r") as input:
+with open("/input/max_size.txt", "r") as input:
     n = int(input.readline())
 
 randlist = [random.randint(0, 2**62) for _ in range(n)]
