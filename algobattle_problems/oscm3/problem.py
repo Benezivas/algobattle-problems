@@ -5,7 +5,7 @@ from algobattle.util import Role
 from algobattle.types import Vertex, MaxLen, UniqueItems, SizeLen
 
 
-Neighbors =  Annotated[set[Vertex], MaxLen(3)]
+Neighbors = Annotated[set[Vertex], MaxLen(3)]
 
 
 class Instance(InstanceModel):

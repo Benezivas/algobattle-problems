@@ -4,6 +4,7 @@ from algobattle.problem import Problem, SolutionModel, maximize
 from algobattle.util import Role, ValidationError
 from algobattle.types import UndirectedGraph, Vertex
 
+
 class Solution(SolutionModel[UndirectedGraph]):
     """A solution to a Square Subgraph Isomorphism problem."""
 
