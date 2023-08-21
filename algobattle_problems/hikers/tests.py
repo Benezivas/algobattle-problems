@@ -1,7 +1,7 @@
 """Tests for the hikers problem."""
 import unittest
 
-from algobattle_problems.hikers.problem import Hikers, ValidationError
+from algobattle_problems.hikers.problem import HikersInstance, Solution, ValidationError, Role
 
 
 class Tests(unittest.TestCase):
@@ -9,7 +9,7 @@ class Tests(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls) -> None:
-        cls.instance = Hikers(
+        cls.instance = HikersInstance(
             hikers=[
                 (1, 3),
                 (10, 12),
@@ -20,11 +20,11 @@ class Tests(unittest.TestCase):
         )
 
     def test_solution_empty(self):
-        solution = Hikers.Solution(assignments={})
-        solution.validate_solution(self.instance)
+        solution = Solution(assignments={})
+        solution.validate_solution(self.instance, Role.generator)
 
     def test_solution_correct(self):
-        solution = Hikers.Solution(
+        solution = Solution(
             assignments={
                 2: 1,
                 0: 2,
@@ -32,17 +32,17 @@ class Tests(unittest.TestCase):
                 4: 2,
             }
         )
-        solution.validate_solution(self.instance)
+        solution.validate_solution(self.instance, Role.generator)
 
     def test_solution_wrong_hiker(self):
-        solution = Hikers.Solution(assignments={10: 1})
+        solution = Solution(assignments={10: 1})
         with self.assertRaises(ValidationError):
-            solution.validate_solution(self.instance)
+            solution.validate_solution(self.instance, Role.generator)
 
     def test_solution_hiker_unhappy(self):
-        solution = Hikers.Solution(assignments={1: 1})
+        solution = Solution(assignments={1: 1})
         with self.assertRaises(ValidationError):
-            solution.validate_solution(self.instance)
+            solution.validate_solution(self.instance, Role.generator)
 
 
 if __name__ == "__main__":

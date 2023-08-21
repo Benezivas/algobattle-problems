@@ -1,8 +1,14 @@
 """Tests for the scheduling problem."""
 import unittest
 
-from algobattle_problems.tsptimewindows.problem import Tsptimewindows, ValidationError, Location
-from algobattle.util import Role
+from algobattle_problems.tsptimewindows.problem import (
+    Tsptimewindows,
+    Instance,
+    Solution,
+    ValidationError,
+    Location,
+    Role,
+)
 
 
 class Tests(unittest.TestCase):
@@ -10,13 +16,13 @@ class Tests(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.instance = Tsptimewindows(
+        cls.instance = Instance(
             locations=[
                 Location(x=0, y=0, min_time=0, max_time=3),
                 Location(x=1, y=0, min_time=1, max_time=2),
             ]
         )
-        cls.instance_short = Tsptimewindows(
+        cls.instance_short = Instance(
             locations=[
                 Location(x=0, y=0, min_time=0, max_time=3),
                 Location(x=1.05, y=0, min_time=0, max_time=1),
@@ -30,35 +36,35 @@ class Tests(unittest.TestCase):
             self.instance.locations[1],
             self.instance.locations[0],
         ]
-        node_tour = list(Tsptimewindows.Solution(tour=tour).location_tour(self.instance))
+        node_tour = list(Solution(tour=tour).location_tour(self.instance))
         self.assertEqual(node_tour, nodes)
 
     def test_tour_too_short(self):
         with self.assertRaises(ValidationError):
-            Tsptimewindows.Solution(tour=[]).validate_solution(self.instance)
+            Solution(tour=[]).validate_solution(self.instance, Role.generator)
 
     def test_duplicate_in_tour(self):
         with self.assertRaises(ValidationError):
-            Tsptimewindows.Solution(tour=[0, 0]).validate_solution(self.instance)
+            Solution(tour=[0, 0]).validate_solution(self.instance, Role.generator)
 
     def test_tour_wrong_index(self):
         with self.assertRaises(ValidationError):
-            Tsptimewindows.Solution(tour=[10, 10]).validate_solution(self.instance)
+            Solution(tour=[10, 10]).validate_solution(self.instance, Role.generator)
 
     def test_tour_too_slow(self):
         with self.assertRaises(ValidationError):
-            Tsptimewindows.Solution(tour=[1, 0]).validate_solution(self.instance)
+            Solution(tour=[1, 0]).validate_solution(self.instance, Role.generator)
 
     def test_gen_tour_wrong(self):
-        solution = Tsptimewindows.Solution(tour=[0, 1])
-        solution.validate_solution(self.instance_short)
+        solution = Solution(tour=[0, 1])
         solution.score(self.instance_short, Role.solver)
         with self.assertRaises(ValidationError):
-            solution.score(self.instance_short, Role.generator)
+            solution.validate_solution(self.instance_short, Role.generator)
 
     def test_score_gen_wrong(self):
-        solution = Tsptimewindows.Solution(tour=[0, 1])
-        self.assertEqual(self.instance_short.score(solution, solution), 0)
+        solution = Solution(tour=[0, 1])
+        with self.assertRaises(ValidationError):
+            Tsptimewindows.score(self.instance_short, generator_solution=solution, solver_solution=solution)
 
 
 if __name__ == "__main__":

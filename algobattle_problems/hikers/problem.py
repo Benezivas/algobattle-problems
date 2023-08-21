@@ -1,15 +1,10 @@
 """The Hikers problem class."""
-from typing import ClassVar
-
-from algobattle.problem import ProblemModel, SolutionModel, ValidationError
-from algobattle.util import u64
+from algobattle.problem import Problem, InstanceModel, SolutionModel, ValidationError, maximize
+from algobattle.util import u64, Role
 
 
-class Hikers(ProblemModel):
+class HikersInstance(InstanceModel):
     """The Tsptimewindows problem class."""
-
-    name: ClassVar[str] = "Hikers"
-    min_size: ClassVar[int] = 5
 
     hikers: list[tuple[u64, u64]]
 
@@ -22,25 +17,33 @@ class Hikers(ProblemModel):
         if any(min_size > max_size for min_size, max_size in self.hikers):
             raise ValidationError("One hiker's minimum group size is larger than their maximum group size.")
 
-    class Solution(SolutionModel):
-        """A solution to a Hikers problem."""
 
-        direction: ClassVar = "maximize"
+class Solution(SolutionModel[HikersInstance]):
+    """A solution to a Hikers problem."""
 
-        assignments: dict[u64, u64]
+    assignments: dict[u64, u64]
 
-        def validate_solution(self, instance: "Hikers") -> None:
-            if any(hiker >= len(instance.hikers) for hiker in self.assignments):
-                raise ValidationError("Solution contains hiker that is not in the instance.")
+    def validate_solution(self, instance: HikersInstance, role: Role) -> None:
+        if any(hiker >= len(instance.hikers) for hiker in self.assignments):
+            raise ValidationError("Solution contains hiker that is not in the instance.")
 
-            group_sizes: dict[int, int] = {}
-            for group in self.assignments.values():
-                group_sizes[group] = group_sizes.get(group, 0) + 1
+        group_sizes: dict[int, int] = {}
+        for group in self.assignments.values():
+            group_sizes[group] = group_sizes.get(group, 0) + 1
 
-            for hiker, group in self.assignments.items():
-                min_size, max_size = instance.hikers[hiker]
-                if not (min_size <= group_sizes[group] <= max_size):
-                    raise ValidationError("A Hiker is not happy with their assignment!")
+        for hiker, group in self.assignments.items():
+            min_size, max_size = instance.hikers[hiker]
+            if not (min_size <= group_sizes[group] <= max_size):
+                raise ValidationError("A Hiker is not happy with their assignment!")
 
-        def score(self, instance: "Hikers") -> float:
-            return len(self.assignments)
+    @maximize
+    def score(self, instance: HikersInstance, role: Role) -> float:
+        return len(self.assignments)
+
+
+Hikers = Problem(
+    name="Hikers",
+    min_size=5,
+    instance_cls=HikersInstance,
+    solution_cls=Solution,
+)
