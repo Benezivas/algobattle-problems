@@ -2,17 +2,19 @@
 from collections import defaultdict
 from itertools import combinations
 
-from algobattle.problem import Problem, UndirectedGraph, SolutionModel, ValidationError, minimize
-from algobattle.util import u64, Role
+from algobattle.problem import Problem, SolutionModel, minimize
+from algobattle.util import Role, ValidationError
+from algobattle.types import Vertex, UndirectedGraph
 
 
 class Solution(SolutionModel[UndirectedGraph]):
     """A solution to a Cluster Editing problem."""
 
-    add: set[tuple[u64, u64]]
-    delete: set[tuple[u64, u64]]
+    add: set[tuple[Vertex, Vertex]]
+    delete: set[tuple[Vertex, Vertex]]
 
     def validate_solution(self, instance: UndirectedGraph, role: Role) -> None:
+        super().validate_solution(instance, role)
         edge_set = set(instance.edges)
 
         # Apply modifications to graph

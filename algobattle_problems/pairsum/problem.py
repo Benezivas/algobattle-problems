@@ -1,14 +1,18 @@
 """Main module of the Pairsum problem."""
-from pydantic import Field
+from typing import Annotated
 
-from algobattle.problem import Problem, InstanceModel, SolutionModel, ValidationError
-from algobattle.util import u64, Role
+from algobattle.problem import Problem, InstanceModel, SolutionModel
+from algobattle.util import Role, ValidationError
+from algobattle.types import u64, MinLen, SizeIndex, UniqueItems
+
+
+Number = SizeIndex
 
 
 class Instance(InstanceModel):
     """An instance of a Pairsum problem."""
 
-    numbers: list[int] = Field(min_items=4, ge=0, le=2**63 - 1)
+    numbers: Annotated[list[u64], MinLen(4)]
 
     @property
     def size(self) -> int:
@@ -18,14 +22,10 @@ class Instance(InstanceModel):
 class Solution(SolutionModel[Instance]):
     """A solution to a Pairsum problem."""
 
-    indices: tuple[u64, u64, u64, u64]
+    indices: Annotated[tuple[Number, Number, Number, Number], UniqueItems]
 
     def validate_solution(self, instance: Instance, role: Role) -> None:
         super().validate_solution(instance, role)
-        if any(i >= len(instance.numbers) for i in self.indices):
-            raise ValidationError("Solution index is out of range.")
-        if len(self.indices) != len(set(self.indices)):
-            raise ValidationError("Solution contains duplicate indices.")
         first = instance.numbers[self.indices[0]] + instance.numbers[self.indices[1]]
         second = instance.numbers[self.indices[2]] + instance.numbers[self.indices[3]]
         if first != second:

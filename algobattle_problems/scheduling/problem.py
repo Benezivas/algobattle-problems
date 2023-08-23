@@ -1,14 +1,19 @@
 """The Scheduling problem class."""
-from pydantic import Field
+from typing import Annotated
 
-from algobattle.problem import Problem, InstanceModel, SolutionModel, ValidationError, minimize
+from algobattle.problem import Problem, InstanceModel, SolutionModel, minimize
+from algobattle.types import Interval, SizeLen
 from algobattle.util import Role
+
+
+Timespan = Annotated[int, Interval(ge=0, le=(2**64 - 1) / 5)]
+Machine = Annotated[int, Interval(ge=1, le=5)]
 
 
 class Instance(InstanceModel):
     """The Scheduling problem class."""
 
-    job_lengths: list[int] = Field(ge=0, le=(2**64 - 1) / 5)
+    job_lengths: list[Timespan]
 
     @property
     def size(self) -> int:
@@ -18,11 +23,7 @@ class Instance(InstanceModel):
 class Solution(SolutionModel[Instance]):
     """A solution to a Job Shop Scheduling problem."""
 
-    assignments: list[int] = Field(ge=1, le=5)
-
-    def validate_solution(self, instance: Instance, role: Role) -> None:
-        if len(self.assignments) != len(instance.job_lengths):
-            raise ValidationError("The number of assigned jobs doesn't match the number of jobs.")
+    assignments: Annotated[list[Machine], SizeLen]
 
     @minimize
     def score(self, instance: Instance, role: Role) -> float:

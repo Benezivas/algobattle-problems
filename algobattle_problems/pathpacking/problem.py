@@ -1,20 +1,20 @@
 """The PathPacking problem class."""
 
-from algobattle.problem import Problem, UndirectedGraph, SolutionModel, ValidationError, maximize
-from algobattle.util import u64, Role
+from algobattle.problem import Problem, SolutionModel, maximize
+from algobattle.util import Role, ValidationError
+from algobattle.types import Vertex, UndirectedGraph
 
 
 class Solution(SolutionModel[UndirectedGraph]):
     """A solution to a Path Packing problem."""
 
-    paths: set[tuple[u64, u64, u64]]
+    paths: set[tuple[Vertex, Vertex, Vertex]]
 
     def validate_solution(self, instance: UndirectedGraph, role: Role) -> None:
+        super().validate_solution(instance, role)
         if not self.all_paths_disjoint(self.paths):
             raise ValidationError("Not all paths in the solution are node-disjoint.")
         for path in self.paths:
-            if any(entry >= instance.num_vertices for entry in path):
-                raise ValidationError("Solution contains index that is not a valid vertex.")
             if not self.path_in_instance(path, instance):
                 raise ValidationError("Solution contains path that is not part of the instance.")
 

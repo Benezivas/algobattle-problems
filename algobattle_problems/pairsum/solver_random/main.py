@@ -3,36 +3,29 @@
 Shuffles the instance, divides it into two sections and searches a matching pair between both sections.
 """
 
+from itertools import combinations
 import json
 import random
-import sys
 
 line = None
 with open("/input/instance/instance.json", "r") as input:
     instance = json.load(input)
 
-ints = instance["numbers"]
-n = len(ints)
+ints: list[int] = instance["numbers"]
+sol: tuple[int, int, int, int] | None = None
+indices = list(range(len(ints)))
 
-while True:
-    shuffeled = [x for x in range(n)]
-    random.shuffle(shuffeled)
-    A = shuffeled[: len(ints) // 2]
-    B = shuffeled[len(ints) // 2 :]
-    D = {}
-    for x in range(len(A)):
-        for y in range(x + 1, len(A)):
-            s = ints[A[x]] + ints[A[y]]
-            D[s] = (A[x], A[y])
+while sol is None:
+    random.shuffle(indices)
+    first_half = indices[: len(ints) // 2]
+    second_half = indices[len(ints) // 2 :]
+    found_sums = {ints[x] + ints[y]: (x, y) for x, y in combinations(first_half, 2)}
 
-    for x in range(len(B)):
-        for y in range(x + 1, len(B)):
-            s = ints[B[x]] + ints[B[y]]
-            if s in D:
-                q = D[s][0]
-                w = D[s][1]
-                e = B[x]
-                r = B[y]
-                with open("/output/solution.json", "w+") as f:
-                    json.dump({"indices": [q, w, e, r]}, f)
-                    sys.exit()
+    for x, y in combinations(second_half, 2):
+        sum = ints[x] + ints[y]
+        if sum in found_sums:
+            sol = (*found_sums[sum], x, y)
+
+with open("/output/solution.json", "w+") as f:
+    json.dump({"indices": sol}, f)
+    raise SystemExit

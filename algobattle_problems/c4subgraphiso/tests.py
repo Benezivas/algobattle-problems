@@ -35,7 +35,7 @@ class Tests(unittest.TestCase):
 
     def test_no_duplicate_squares(self):
         with self.assertRaises(PydanticValidationError):
-            UndirectedGraph.parse_obj(
+            UndirectedGraph.model_validate(
                 {
                     "squares": {
                         (0, 1, 2, 3),
@@ -65,8 +65,8 @@ class Tests(unittest.TestCase):
         self.assertEqual(solution.score(self.instance, Role.solver), 2)
 
     def test_squares_disjoin(self):
-        solution = Solution(squares={(0, 1, 2, 3), (0, 1, 8, 9)})
-        with self.assertRaises(ValidationError):
+        with self.assertRaises(PydanticValidationError):
+            solution = Solution(squares={(0, 1, 2, 3), (0, 1, 8, 9)})
             solution.validate_solution(self.instance, Role.generator)
 
 

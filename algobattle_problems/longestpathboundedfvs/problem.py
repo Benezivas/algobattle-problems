@@ -6,14 +6,15 @@ from networkx import Graph
 from networkx.algorithms.tree.recognition import is_forest
 from networkx.classes.function import is_empty
 
-from algobattle.problem import Problem, UndirectedGraph, SolutionModel, ValidationError, maximize
-from algobattle.util import u64, Role
+from algobattle.problem import Problem, SolutionModel, maximize
+from algobattle.util import Role, ValidationError
+from algobattle.types import Vertex, UndirectedGraph
 
 
 class Instance(UndirectedGraph):
     """The Longestpathboundedfvs problem class."""
 
-    fvs: set[u64] = Field(hidden="solver")
+    fvs: set[Vertex] = Field(exclude=True)
 
     def validate_instance(self) -> None:
         super().validate_instance()
@@ -38,9 +39,10 @@ class Instance(UndirectedGraph):
 class Solution(SolutionModel[Instance]):
     """A solution to a Longest Path with Bounded Feedback Vertex Set problem."""
 
-    path: list[u64]
+    path: list[Vertex]
 
     def validate_solution(self, instance: Instance, role: Role) -> None:
+        super().validate_solution(instance, role)
         if not self._nodes_are_walk(instance):
             raise ValidationError("The given path is not a walk in the instance graph.")
         if not self._no_revisited_nodes():

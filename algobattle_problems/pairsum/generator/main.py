@@ -1,7 +1,7 @@
 """Simple dummy generator for the Pairsum problem, outputting a trivial instance."""
 import json
 
-with open("/input/size", "r") as input:
+with open("/input/max_size.txt", "r") as input:
     n = int(input.readline())
 
 with open("/output/instance.json", "w+") as output:
