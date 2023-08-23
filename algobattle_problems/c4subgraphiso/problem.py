@@ -9,13 +9,18 @@ from algobattle.util import Role, ValidationError
 from algobattle.types import UndirectedGraph, Vertex, UniqueItems
 
 Square = Annotated[tuple[Vertex, Vertex, Vertex, Vertex], UniqueItems()]
+
+
 def edges(square: Square) -> Iterator[tuple[Vertex, Vertex]]:
     """Returns all edges of a square."""
     return zip(square, islice(cycle(square), 1, None))
+
+
 def diagonals(square: Square) -> Iterator[tuple[Vertex, Vertex]]:
     """Returns the diagonals of a square."""
     yield square[0], square[2]
     yield square[1], square[3]
+
 
 class Solution(SolutionModel[UndirectedGraph]):
     """A solution to a Square Subgraph Isomorphism problem."""

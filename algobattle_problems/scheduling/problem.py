@@ -3,9 +3,6 @@ from typing import Annotated
 
 from algobattle.problem import Problem, InstanceModel, SolutionModel, minimize
 from algobattle.types import Interval, SizeLen
-
-
-from algobattle.problem import Problem, InstanceModel, SolutionModel, minimize
 from algobattle.util import Role
 
 

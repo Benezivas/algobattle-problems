@@ -9,7 +9,7 @@ from algobattle_problems.tsptimewindows.problem import (
     ValidationError,
     Location,
     Role,
-    Tsptimewindows
+    Tsptimewindows,
 )
 
 
