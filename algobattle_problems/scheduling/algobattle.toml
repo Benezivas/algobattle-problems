@@ -1,0 +1,5 @@
+[match]
+problem = "Job Shop Scheduling"
+
+[problems."Job Shop Scheduling"]
+location = "problem.py"

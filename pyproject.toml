@@ -5,25 +5,22 @@ requires-python = ">=3.11"
 license = {text = "MIT"}
 authors = [{name = "Imogen Hergeth"}, {name = "Jan Dreier"}, {name = "Henri Lotze"}]
 dependencies = [
-    "algobattle",
+    "algobattle-base~=4.0.0rc3",
     "networkx",
 ]
 
 [project.entry-points."algobattle.problem"]
-Biclique = "algobattle_problems.biclique.problem:Biclique"
-C4subgraphiso = "algobattle_problems.c4subgraphiso.problem:C4subgraphiso"
-Clusterediting = "algobattle_problems.clusterediting.problem:Clusterediting"
-Domset = "algobattle_problems.domset.problem:Domset"
+"Bipartite Clique" = "algobattle_problems.biclique.problem:Biclique"
+"Square Subgraph Isomorphism" = "algobattle_problems.c4subgraphiso.problem:C4subgraphiso"
+"Cluster Editing" = "algobattle_problems.clusterediting.problem:Clusterediting"
+"Dominating Set" = "algobattle_problems.domset.problem:Domset"
 Hikers = "algobattle_problems.hikers.problem:Hikers"
-LPBFVS = "algobattle_problems.longestpathboundedfvs.problem:Longestpathboundedfvs"
-OSCM3 = "algobattle_problems.oscm3.problem:OSCM3"
+"Longest Path with Bounded Feedback Vertex Set" = "algobattle_problems.longestpathboundedfvs.problem:Longestpathboundedfvs"
+"One-Sided Crossing Minimization-3" = "algobattle_problems.oscm3.problem:OSCM3"
 Pairsum = "algobattle_problems.pairsum.problem:Pairsum"
-Pathpacking = "algobattle_problems.pathpacking.problem:Pathpacking"
-Scheduling = "algobattle_problems.scheduling.problem:Scheduling"
-Tsptimewindows = "algobattle_problems.tsptimewindows.problem:Tsptimewindows"
-
-[tool.setuptools.package-data]
-algobattle_problems = ["*/generator/**/*", "*/solver/**/*"]
+"P_3 Path Packing" = "algobattle_problems.pathpacking.problem:Pathpacking"
+"Job Shop Scheduling" = "algobattle_problems.scheduling.problem:Scheduling"
+"Traveling Salesman with Time Windows" = "algobattle_problems.tsptimewindows.problem:Tsptimewindows"
 
 [tool.pyright]
 diagnosticMode = "workspace"

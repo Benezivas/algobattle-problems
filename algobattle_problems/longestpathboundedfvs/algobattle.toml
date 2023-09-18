@@ -1,0 +1,8 @@
+[match]
+problem = "Longest Path with Bounded Feedback Vertex Set"
+
+[problems."Longest Path with Bounded Feedback Vertex Set"]
+location = "problem.py"
+dependencies = [
+    "networkx",
+]

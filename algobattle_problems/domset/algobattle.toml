@@ -1,0 +1,5 @@
+[match]
+problem = "Dominating Set"
+
+[problems."Dominating Set"]
+location = "problem.py"
