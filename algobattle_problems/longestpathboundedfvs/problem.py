@@ -48,7 +48,7 @@ class Solution(SolutionModel[Instance]):
         if not self._no_revisited_nodes():
             raise ValidationError("The given path contains repeated nodes.")
 
-    def _nodes_are_walk(self, instance) -> bool:
+    def _nodes_are_walk(self, instance: Instance) -> bool:
         edge_set = set(instance.edges)
         g = Graph()
         for edge in edge_set:

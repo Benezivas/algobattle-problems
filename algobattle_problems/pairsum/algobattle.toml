@@ -1,0 +1,5 @@
+[match]
+problem = "Pairsum"
+
+[problems.Pairsum]
+location = "problem.py"
