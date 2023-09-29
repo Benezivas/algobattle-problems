@@ -1,0 +1,9 @@
+[match]
+problem = "Circle Cover"
+
+[problems."Circle Cover"]
+location = "problem.py"
+
+[teams.Otters]
+generator = "generator"
+solver = "solver"

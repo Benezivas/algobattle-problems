@@ -21,6 +21,7 @@ Pairsum = "algobattle_problems.pairsum.problem:Pairsum"
 "P_3 Path Packing" = "algobattle_problems.pathpacking.problem:Pathpacking"
 "Job Shop Scheduling" = "algobattle_problems.scheduling.problem:Scheduling"
 "Traveling Salesman with Time Windows" = "algobattle_problems.tsptimewindows.problem:Tsptimewindows"
+"Circle Cover" = "algobattle_problems.circlecover.problem:CircleCover"
 
 [tool.pyright]
 diagnosticMode = "workspace"
