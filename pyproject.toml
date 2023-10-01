@@ -5,9 +5,14 @@ requires-python = ">=3.11"
 license = {text = "MIT"}
 authors = [{name = "Imogen Hergeth"}, {name = "Jan Dreier"}, {name = "Henri Lotze"}]
 dependencies = [
-    "algobattle-base~=4.0.0rc3",
+    "algobattle-base~=4.0.0",
     "networkx",
 ]
+
+[project.urls]
+Homepage = "https://algobattle.org"
+Documentation = "https://algobattle.org/docs"
+Repository = "https://github.com/Benezivas/algobattle-problems"
 
 [project.entry-points."algobattle.problem"]
 "Bipartite Clique" = "algobattle_problems.biclique.problem:Biclique"
