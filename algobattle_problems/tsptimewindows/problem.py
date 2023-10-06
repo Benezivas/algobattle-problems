@@ -2,7 +2,7 @@
 from itertools import pairwise
 from math import sqrt
 
-from typing import Annotated, Iterable, Iterator, Self
+from typing import Annotated, Iterable, Self
 from pydantic import Field
 
 from algobattle.problem import Problem, InstanceModel, SolutionModel, minimize
@@ -42,7 +42,7 @@ class Solution(SolutionModel[Instance]):
 
     tour: Annotated[list[SizeIndex], SizeLen, UniqueItems]
 
-    def location_tour(self, instance: Instance) -> Iterator[Location]:
+    def location_tour(self, instance: Instance) -> Iterable[Location]:
         """Iterates over all locations in the tour in order, looping back around to the first."""
         return (instance.locations[i] for i in self.tour)
 
