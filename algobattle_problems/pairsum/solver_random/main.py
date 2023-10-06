@@ -8,7 +8,7 @@ import json
 import random
 
 line = None
-with open("/input/instance/instance.json", "r") as input:
+with open("/input/instance.json", "r") as input:
     instance = json.load(input)
 
 ints: list[int] = instance["numbers"]
