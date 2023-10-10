@@ -1,5 +1,2 @@
 [match]
 problem = "Square Subgraph Isomorphism"
-
-[problems."Square Subgraph Isomorphism"]
-location = "problem.py"
