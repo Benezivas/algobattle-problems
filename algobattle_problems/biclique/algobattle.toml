@@ -1,5 +1,2 @@
 [match]
 problem = "Bipartite Clique"
-
-[problems."Bipartite Clique"]
-location = "problem.py"

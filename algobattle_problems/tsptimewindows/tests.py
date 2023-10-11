@@ -20,7 +20,7 @@ class Tests(unittest.TestCase):
     def setUpClass(cls):
         cls.instance = Instance(
             locations=[
-                Location(x=0, y=0, min_time=0, max_time=3),
+                Location(x=0, y=0, min_time=0, max_time=0.5),
                 Location(x=1, y=0, min_time=1, max_time=2),
             ]
         )
@@ -36,7 +36,6 @@ class Tests(unittest.TestCase):
         nodes = [
             self.instance.locations[0],
             self.instance.locations[1],
-            self.instance.locations[0],
         ]
         node_tour = list(Solution(tour=tour).location_tour(self.instance))
         self.assertEqual(node_tour, nodes)

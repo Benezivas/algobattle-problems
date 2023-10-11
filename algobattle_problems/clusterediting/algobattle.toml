@@ -1,5 +1,2 @@
 [match]
 problem = "Cluster Editing"
-
-[problems."Cluster Editing"]
-location = "problem.py"

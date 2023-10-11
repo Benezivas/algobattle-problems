@@ -1,5 +1,2 @@
 [match]
 problem = "P_3 Path Packing"
-
-[problems."P_3 Path Packing"]
-location = "problem.py"

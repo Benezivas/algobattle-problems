@@ -1,5 +1,2 @@
 [match]
 problem = "Hikers"
-
-[problems.Hikers]
-location = "problem.py"

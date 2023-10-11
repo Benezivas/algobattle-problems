@@ -1,5 +1,2 @@
 [match]
 problem = "One-Sided Crossing Minimization-3"
-
-[problems."One-Sided Crossing Minimization-3"]
-location = "problem.py"

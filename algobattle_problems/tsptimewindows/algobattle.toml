@@ -1,5 +1,2 @@
 [match]
 problem = "Traveling Salesman with Time Windows"
-
-[problems."Traveling Salesman with Time Windows"]
-location = "problem.py"
