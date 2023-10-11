@@ -1,0 +1,7 @@
+[match]
+problem = "Longest Path with Bounded Feedback Vertex Set"
+
+[problem]
+dependencies = [
+    "networkx",
+]

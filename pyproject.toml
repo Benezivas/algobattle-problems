@@ -1,0 +1,35 @@
+[project]
+name = "algobattle-problems"
+version = "1.0.0"
+requires-python = ">=3.11"
+license = {text = "MIT"}
+authors = [{name = "Imogen Hergeth"}, {name = "Jan Dreier"}, {name = "Henri Lotze"}]
+dependencies = [
+    "algobattle-base~=4.0.0",
+    "networkx",
+]
+
+[project.urls]
+Homepage = "https://algobattle.org"
+Documentation = "https://algobattle.org/docs"
+Repository = "https://github.com/Benezivas/algobattle-problems"
+
+[project.entry-points."algobattle.problem"]
+"Bipartite Clique" = "algobattle_problems.biclique.problem:Biclique"
+"Square Subgraph Isomorphism" = "algobattle_problems.c4subgraphiso.problem:C4subgraphiso"
+"Cluster Editing" = "algobattle_problems.clusterediting.problem:Clusterediting"
+"Dominating Set" = "algobattle_problems.domset.problem:Domset"
+Hikers = "algobattle_problems.hikers.problem:Hikers"
+"Longest Path with Bounded Feedback Vertex Set" = "algobattle_problems.longestpathboundedfvs.problem:Longestpathboundedfvs"
+"One-Sided Crossing Minimization-3" = "algobattle_problems.oscm3.problem:OSCM3"
+Pairsum = "algobattle_problems.pairsum.problem:Pairsum"
+"P_3 Path Packing" = "algobattle_problems.pathpacking.problem:Pathpacking"
+"Job Shop Scheduling" = "algobattle_problems.scheduling.problem:Scheduling"
+"Traveling Salesman with Time Windows" = "algobattle_problems.tsptimewindows.problem:Tsptimewindows"
+"Circle Cover" = "algobattle_problems.circlecover.problem:CircleCover"
+
+[tool.pyright]
+diagnosticMode = "workspace"
+
+[tool.black]
+line-length = 120
